@@ -28,7 +28,7 @@ const createElement = (tag, className, content) => {
 };
 
 const loadGraph = async () => {
-  const response = await fetch("/ecosystem.json");
+  const response = await fetch(import.meta.env.BASE_URL + "ecosystem.json");
   if (!response.ok) {
     throw new Error(`Failed to load graph data: ${response.status}`);
   }
