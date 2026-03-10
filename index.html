@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GenLayer Ecosystem</title>
+    <meta
+      name="description"
+      content="Interactive ecosystem map for GenLayer and connected projects."
+    />
+    <link rel="icon" href="/assets/genlayer-mark-B8hW7_XZ.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="/assets/index-Cg9ckKs9.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DMGcob_O.css">
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <main class="shell">
+      <header class="masthead">
+        <div>
+          <p class="eyebrow">Ecosystem Atlas</p>
+          <h1>GenLayer and the projects orbiting its judicial layer.</h1>
+        </div>
+        <div class="masthead-meta">
+          <p>
+            Clean JSON in, living map out. Click any node to open its detail panel,
+            links, and relationship context.
+          </p>
+        </div>
+      </header>
+
+      <section class="canvas-card">
+        <div class="canvas-toolbar">
+          <div class="toolbar-pill">
+            <span class="pill-dot"></span>
+            JSON-driven graph
+          </div>
+          <button id="focus-genlayer" class="ghost-button" type="button">
+            Re-center on GenLayer
+          </button>
+        </div>
+
+        <div id="ecosystem-stage" class="ecosystem-stage" aria-label="GenLayer ecosystem map">
+          <svg id="connections" class="connections" aria-hidden="true"></svg>
+          <div id="nodes" class="nodes"></div>
+          <div class="center-glow" aria-hidden="true"></div>
+        </div>
+      </section>
+    </main>
+
+    <aside id="detail-panel" class="detail-panel" aria-hidden="true">
+      <div class="detail-backdrop" data-close-panel></div>
+      <div class="detail-drawer" role="dialog" aria-modal="true" aria-labelledby="panel-title">
+        <button class="panel-close" type="button" data-close-panel aria-label="Close panel">
+          <span></span><span></span>
+        </button>
+
+        <div class="panel-header">
+          <div class="panel-logo-wrap">
+            <img id="panel-logo" class="panel-logo" alt="" />
+          </div>
+          <div>
+            <p id="panel-type" class="panel-type"></p>
+            <h2 id="panel-title"></h2>
+            <p id="panel-tagline" class="panel-tagline"></p>
+          </div>
+        </div>
+
+        <div class="panel-sections">
+          <section>
+            <h3>What it is</h3>
+            <p id="panel-description" class="panel-copy"></p>
+          </section>
+
+          <section>
+            <h3>Signals</h3>
+            <div id="panel-tags" class="tag-grid"></div>
+          </section>
+
+          <section>
+            <h3>Relevant links</h3>
+            <div id="panel-links" class="link-list"></div>
+          </section>
+
+          <section>
+            <h3>Relationships</h3>
+            <div id="panel-relationships" class="relationship-list"></div>
+          </section>
+        </div>
+      </div>
+    </aside>
+
+  </body>
+</html>
