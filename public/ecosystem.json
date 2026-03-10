@@ -1,0 +1,136 @@
+{
+  "meta": {
+    "title": "GenLayer Ecosystem",
+    "subtitle": "Interactive map of GenLayer and connected projects.",
+    "sources": [
+      {
+        "type": "memory",
+        "note": "Descriptions for Rally, Argue.fun, InternetCourt, and MergeProof were cross-checked against internal ETHDenver notes."
+      },
+      {
+        "type": "public-web",
+        "note": "Project websites and visible brand assets were verified on 2026-03-10."
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "genlayer",
+      "name": "GenLayer",
+      "kind": "core layer",
+      "tagline": "Synthetic jurisdiction for AI-era contracts and digital disputes.",
+      "description": "GenLayer resolves ambiguous digital outcomes with Intelligent Contracts and AI-driven judicial consensus. It gives applications a way to move beyond binary logic when the real world requires judgment, interpretation, and evidence-based decisions.",
+      "logo": "/assets/logos/genlayer-mark.svg",
+      "accent": "#111827",
+      "position": { "x": 50, "y": 50 },
+      "size": 188,
+      "tags": ["Judicial consensus", "Intelligent Contracts", "AI commerce"],
+      "links": [
+        { "label": "Website", "url": "https://genlayer.com" },
+        { "label": "Studio", "url": "https://studio.genlayer.com" },
+        { "label": "GitHub", "url": "https://github.com/genlayerlabs" },
+        { "label": "X", "url": "https://x.com/GenLayer" },
+        { "label": "Discord", "url": "https://discord.gg/qjCU4AWnKE" }
+      ]
+    },
+    {
+      "id": "rally",
+      "name": "Rally",
+      "kind": "application",
+      "tagline": "AI-powered marketing protocol for performance-based influence.",
+      "description": "Rally lets campaigns define rules in natural language and rewards creators based on judged performance. Projects deposit funds, contributors publish content, and GenLayer-backed evaluation decides whether work qualifies and how rewards should be distributed.",
+      "logo": "/assets/logos/rally-logo.svg",
+      "accent": "#0f172a",
+      "position": { "x": 24, "y": 30 },
+      "size": 132,
+      "tags": ["Marketing protocol", "Creator rewards", "Natural-language rules"],
+      "links": [
+        { "label": "Website", "url": "https://rally.fun" }
+      ]
+    },
+    {
+      "id": "argue",
+      "name": "Argue.fun",
+      "kind": "application",
+      "tagline": "Argumentation market where stronger reasoning wins.",
+      "description": "Argue.fun is a debate market where participants stake on a position and AI consensus judges which side made the stronger case. It turns subjective reasoning into a market mechanic while leaning on GenLayer-style evaluation.",
+      "logo": "/assets/logos/argue-logo.svg",
+      "accent": "#111827",
+      "position": { "x": 76, "y": 26 },
+      "size": 132,
+      "tags": ["Debate market", "AI jury", "Subjective evaluation"],
+      "links": [
+        { "label": "Website", "url": "https://argue.fun" }
+      ]
+    },
+    {
+      "id": "internetcourt",
+      "name": "InternetCourt",
+      "kind": "protocol surface",
+      "tagline": "Dispute resolution for the agent economy.",
+      "description": "InternetCourt is a case interface for AI-agent disputes. Parties submit evidence, an AI jury evaluates the record, and the resulting verdict can route back into escrow or application logic. It is the visible courtroom surface for GenLayer-powered adjudication.",
+      "logo": "/assets/logos/internetcourt-logo.svg",
+      "accent": "#991b1b",
+      "position": { "x": 78, "y": 72 },
+      "size": 140,
+      "tags": ["Dispute resolution", "Evidence review", "Agent economy"],
+      "links": [
+        { "label": "Website", "url": "https://internetcourt.org" },
+        { "label": "GitHub", "url": "https://github.com/genlayer-foundation/internetcourt" }
+      ]
+    },
+    {
+      "id": "mergeproof",
+      "name": "MergeProof",
+      "kind": "application",
+      "tagline": "Stake-backed adjudication for pull-request review.",
+      "description": "MergeProof applies economically backed review to software collaboration. Reviewers stake behind PR evaluations, bug hunters are rewarded for catching issues, and judgment becomes legible, incentive-aligned, and contestable.",
+      "logo": "/assets/logos/mergeproof-logo.svg",
+      "accent": "#111827",
+      "position": { "x": 26, "y": 72 },
+      "size": 126,
+      "tags": ["Code review", "Staked evaluation", "Developer tooling"],
+      "links": [
+        { "label": "Website", "url": "https://mergeproof.com" }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "genlayer",
+      "target": "rally",
+      "label": "powers",
+      "note": "Rally uses GenLayer-style judgment to evaluate campaign outcomes."
+    },
+    {
+      "source": "genlayer",
+      "target": "argue",
+      "label": "powers",
+      "note": "Argue.fun relies on AI consensus over subjective arguments."
+    },
+    {
+      "source": "genlayer",
+      "target": "internetcourt",
+      "label": "adjudicates",
+      "note": "InternetCourt is a courtroom surface for GenLayer-based dispute resolution."
+    },
+    {
+      "source": "genlayer",
+      "target": "mergeproof",
+      "label": "judges",
+      "note": "MergeProof uses the same judgment primitive for PR review decisions."
+    },
+    {
+      "source": "argue",
+      "target": "rally",
+      "label": "uses Rally",
+      "note": "Argue.fun is shown as using Rally in the initial ecosystem map spec."
+    },
+    {
+      "source": "internetcourt",
+      "target": "mergeproof",
+      "label": "shared primitive",
+      "note": "Both products expose domain-specific surfaces over the same adjudication idea."
+    }
+  ]
+}
