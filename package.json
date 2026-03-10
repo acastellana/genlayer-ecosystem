@@ -1,0 +1,15 @@
+{
+  "name": "genlayer-ecosystem",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "JSON-driven ecosystem map for GenLayer projects",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.3.0"
+  }
+}
