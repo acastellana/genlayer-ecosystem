@@ -57,7 +57,7 @@ const openPanel = (nodeId) => {
   const node = getNodeById(nodeId);
   if (!node) return;
 
-  panelRefs.logo.src = node.logo;
+  panelRefs.logo.src = import.meta.env.BASE_URL + node.logo;
   panelRefs.logo.alt = `${node.name} logo`;
   panelRefs.type.textContent = node.kind;
   panelRefs.title.textContent = node.name;
@@ -136,7 +136,7 @@ const buildNode = (node, index) => {
   button.addEventListener("click", () => openPanel(node.id));
 
   const img = createElement("img", "node-logo");
-  img.src = node.logo;
+  img.src = import.meta.env.BASE_URL + node.logo;
   img.alt = `${node.name} logo`;
 
   const chip = createElement("div", "node-chip");
