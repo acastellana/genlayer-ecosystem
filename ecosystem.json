@@ -227,10 +227,10 @@
       "note": "MergeProof provides staked, AI-backed code review and development quality for Argue.fun."
     },
     {
-      "source": "condpay",
-      "target": "internetcourt",
+      "source": "internetcourt",
+      "target": "condpay",
       "label": "resolves disputes",
-      "note": "Conditional Payment routes shipment disputes through InternetCourt for AI-powered arbitration."
+      "note": "InternetCourt resolves shipment disputes for Conditional Payment via AI-powered arbitration."
     }
   ]
 }
