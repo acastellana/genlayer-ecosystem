@@ -164,8 +164,14 @@
     {
       "source": "genlayer",
       "target": "rally",
-      "label": "powers",
-      "note": "Rally uses GenLayer Intelligent Contracts to evaluate campaign submissions and distribute rewards."
+      "label": "awareness",
+      "note": "GenLayer uses Rally to drive awareness and growth through AI-evaluated marketing campaigns."
+    },
+    {
+      "source": "rally",
+      "target": "mergeproof",
+      "label": "development",
+      "note": "Rally uses MergeProof for staked, AI-backed code review and development quality."
     },
     {
       "source": "genlayer",
@@ -176,38 +182,8 @@
     {
       "source": "genlayer",
       "target": "internetcourt",
-      "label": "powers",
+      "label": "adjudicates",
       "note": "InternetCourt uses GenLayer as its adjudication engine for AI-driven dispute resolution."
-    },
-    {
-      "source": "genlayer",
-      "target": "mergeproof",
-      "label": "powers",
-      "note": "MergeProof uses GenLayer to provide economically-backed, AI-evaluated code review."
-    },
-    {
-      "source": "rally",
-      "target": "mergeproof",
-      "label": "drives awareness",
-      "note": "Rally's marketing campaigns generate visibility and contributors for MergeProof."
-    },
-    {
-      "source": "rally",
-      "target": "argue",
-      "label": "drives awareness",
-      "note": "Rally campaigns amplify Argue.fun's reach and bring in new participants."
-    },
-    {
-      "source": "mergeproof",
-      "target": "rally",
-      "label": "develops",
-      "note": "MergeProof provides code review and development quality assurance for Rally."
-    },
-    {
-      "source": "mergeproof",
-      "target": "argue",
-      "label": "develops",
-      "note": "MergeProof supports Argue.fun's development with staked code review."
     },
     {
       "source": "rally",
