@@ -107,6 +107,28 @@ img {
   line-height: 1.6;
 }
 
+.json-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-family: 'Manrope', monospace;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.json-link:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+  background: rgba(255,255,255,0.85);
+}
+
 .canvas-card {
   position: relative;
   min-height: calc(100vh - 170px);
