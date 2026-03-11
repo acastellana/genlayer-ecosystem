@@ -227,10 +227,10 @@
       "note": "Rally routes campaign disputes through InternetCourt for AI-powered resolution."
     },
     {
-      "source": "genlayer",
-      "target": "condpay",
-      "label": "powers",
-      "note": "GenLayer Intelligent Contracts verify shipment evidence and settle escrow automatically."
+      "source": "condpay",
+      "target": "internetcourt",
+      "label": "resolves disputes",
+      "note": "Conditional Payment routes shipment disputes through InternetCourt for AI-powered arbitration and settlement."
     }
   ]
 }
