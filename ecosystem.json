@@ -197,40 +197,40 @@
   ],
   "edges": [
     {
-      "source": "genlayer",
-      "target": "rally",
+      "source": "rally",
+      "target": "genlayer",
       "label": "awareness",
-      "note": "GenLayer uses Rally to drive awareness and growth through AI-evaluated marketing campaigns."
+      "note": "Rally drives awareness and growth for GenLayer through AI-evaluated marketing campaigns."
     },
     {
       "source": "rally",
       "target": "mergeproof",
-      "label": "development",
-      "note": "Rally uses MergeProof for staked, AI-backed code review and development quality."
+      "label": "awareness",
+      "note": "Rally amplifies MergeProof's reach and brings in new contributors."
     },
     {
-      "source": "genlayer",
+      "source": "rally",
       "target": "argue",
-      "label": "powers",
-      "note": "Argue.fun relies on GenLayer AI consensus to judge which side made the stronger argument."
-    },
-    {
-      "source": "genlayer",
-      "target": "internetcourt",
-      "label": "adjudicates",
-      "note": "InternetCourt uses GenLayer as its adjudication engine for AI-driven dispute resolution."
+      "label": "awareness",
+      "note": "Rally campaigns bring new participants and visibility to Argue.fun."
     },
     {
       "source": "rally",
       "target": "internetcourt",
-      "label": "settles via",
-      "note": "Rally routes campaign disputes through InternetCourt for AI-powered resolution."
+      "label": "awareness",
+      "note": "Rally drives awareness for InternetCourt's dispute resolution services."
+    },
+    {
+      "source": "mergeproof",
+      "target": "argue",
+      "label": "development",
+      "note": "MergeProof provides staked, AI-backed code review and development quality for Argue.fun."
     },
     {
       "source": "condpay",
       "target": "internetcourt",
       "label": "resolves disputes",
-      "note": "Conditional Payment routes shipment disputes through InternetCourt for AI-powered arbitration and settlement."
+      "note": "Conditional Payment routes shipment disputes through InternetCourt for AI-powered arbitration."
     }
   ]
 }
