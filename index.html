@@ -15,43 +15,34 @@
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <script type="module" crossorigin src="/genlayer-ecosystem/assets/index-B_TjimoB.js"></script>
-    <link rel="stylesheet" crossorigin href="/genlayer-ecosystem/assets/index-DMGcob_O.css">
+    <script type="module" crossorigin src="/genlayer-ecosystem/assets/index-lXk_HcWn.js"></script>
+    <link rel="stylesheet" crossorigin href="/genlayer-ecosystem/assets/index-CarS1mf8.css">
   </head>
   <body>
     <div class="noise" aria-hidden="true"></div>
-    <main class="shell">
+
+    <div id="ecosystem-stage" class="ecosystem-stage" aria-label="GenLayer ecosystem map">
+      <div id="viewport" class="viewport">
+        <svg id="connections" class="connections" aria-hidden="true"></svg>
+        <div id="nodes" class="nodes"></div>
+        <div class="center-glow" aria-hidden="true"></div>
+      </div>
+
       <header class="masthead">
-        <div>
-          <p class="eyebrow">Ecosystem Atlas</p>
-          <h1>GenLayer and the projects orbiting its judicial layer.</h1>
-        </div>
-        <div class="masthead-meta">
-          <p>
-            Clean JSON in, living map out. Click any node to open its detail panel,
-            links, and relationship context.
-          </p>
-        </div>
+        <p class="eyebrow">Ecosystem Map</p>
+        <h1>GenLayer Ecosystem</h1>
       </header>
 
-      <section class="canvas-card">
-        <div class="canvas-toolbar">
-          <div class="toolbar-pill">
-            <span class="pill-dot"></span>
-            JSON-driven graph
-          </div>
-          <button id="focus-genlayer" class="ghost-button" type="button">
-            Re-center on GenLayer
-          </button>
-        </div>
-
-        <div id="ecosystem-stage" class="ecosystem-stage" aria-label="GenLayer ecosystem map">
-          <svg id="connections" class="connections" aria-hidden="true"></svg>
-          <div id="nodes" class="nodes"></div>
-          <div class="center-glow" aria-hidden="true"></div>
-        </div>
-      </section>
-    </main>
+      <div class="bottom-actions">
+        <button id="focus-genlayer" class="ghost-button" type="button">Re-center</button>
+        <a
+          href="https://github.com/acastellana/genlayer-ecosystem/edit/master/public/ecosystem.json"
+          class="add-project-button"
+          target="_blank"
+          rel="noopener noreferrer"
+        >+ Add your project</a>
+      </div>
+    </div>
 
     <aside id="detail-panel" class="detail-panel" aria-hidden="true">
       <div class="detail-backdrop" data-close-panel></div>

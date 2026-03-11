@@ -61,7 +61,7 @@
       "kind": "application",
       "tagline": "AI-powered marketing protocol for performance-based influence.",
       "description": "Rally lets campaigns define rules in natural language and rewards creators based on judged performance. Projects deposit funds, contributors publish content, and GenLayer-backed evaluation decides whether work qualifies and how rewards should be distributed.",
-      "logo": "assets/logos/rally-logo.svg",
+      "logo": "assets/logos/rally-logo.png",
       "accent": "#0f172a",
       "position": {
         "x": 24,
@@ -165,37 +165,55 @@
       "source": "genlayer",
       "target": "rally",
       "label": "powers",
-      "note": "Rally uses GenLayer-style judgment to evaluate campaign outcomes."
+      "note": "Rally uses GenLayer Intelligent Contracts to evaluate campaign submissions and distribute rewards."
     },
     {
       "source": "genlayer",
       "target": "argue",
       "label": "powers",
-      "note": "Argue.fun relies on AI consensus over subjective arguments."
+      "note": "Argue.fun relies on GenLayer AI consensus to judge which side made the stronger argument."
     },
     {
       "source": "genlayer",
       "target": "internetcourt",
-      "label": "adjudicates",
-      "note": "InternetCourt is a courtroom surface for GenLayer-based dispute resolution."
+      "label": "powers",
+      "note": "InternetCourt uses GenLayer as its adjudication engine for AI-driven dispute resolution."
     },
     {
       "source": "genlayer",
       "target": "mergeproof",
-      "label": "judges",
-      "note": "MergeProof uses the same judgment primitive for PR review decisions."
+      "label": "powers",
+      "note": "MergeProof uses GenLayer to provide economically-backed, AI-evaluated code review."
     },
     {
-      "source": "argue",
-      "target": "rally",
-      "label": "uses Rally",
-      "note": "Argue.fun is shown as using Rally in the initial ecosystem map spec."
-    },
-    {
-      "source": "internetcourt",
+      "source": "rally",
       "target": "mergeproof",
-      "label": "shared primitive",
-      "note": "Both products expose domain-specific surfaces over the same adjudication idea."
+      "label": "drives awareness",
+      "note": "Rally's marketing campaigns generate visibility and contributors for MergeProof."
+    },
+    {
+      "source": "rally",
+      "target": "argue",
+      "label": "drives awareness",
+      "note": "Rally campaigns amplify Argue.fun's reach and bring in new participants."
+    },
+    {
+      "source": "mergeproof",
+      "target": "rally",
+      "label": "develops",
+      "note": "MergeProof provides code review and development quality assurance for Rally."
+    },
+    {
+      "source": "mergeproof",
+      "target": "argue",
+      "label": "develops",
+      "note": "MergeProof supports Argue.fun's development with staked code review."
+    },
+    {
+      "source": "rally",
+      "target": "internetcourt",
+      "label": "settles via",
+      "note": "Rally routes campaign disputes through InternetCourt for AI-powered resolution."
     }
   ]
 }
