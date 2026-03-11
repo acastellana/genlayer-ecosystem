@@ -139,11 +139,10 @@ const buildNode = (node, index) => {
   img.src = import.meta.env.BASE_URL + node.logo;
   img.alt = `${node.name} logo`;
 
-  const chip = createElement("div", "node-chip");
-  chip.innerHTML = `<strong>${node.name}</strong><span>${node.kind}</span>`;
+  const label = createElement("span", "node-label", node.name);
 
-  button.appendChild(img);
-  wrapper.append(button, chip);
+  button.append(img, label);
+  wrapper.append(button);
 
   return wrapper;
 };
