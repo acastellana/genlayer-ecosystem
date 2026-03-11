@@ -214,7 +214,6 @@ const drawConnections = () => {
 const render = () => {
   nodesLayer.replaceChildren(...state.graph.nodes.map(buildNode));
   drawConnections();
-  openPanel("genlayer");
 };
 
 const bindEvents = () => {
