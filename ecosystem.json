@@ -53,7 +53,8 @@
           "label": "Discord",
           "url": "https://discord.gg/qjCU4AWnKE"
         }
-      ]
+      ],
+      "status": "Live"
     },
     {
       "id": "rally",
@@ -78,7 +79,8 @@
           "label": "Website",
           "url": "https://rally.fun"
         }
-      ]
+      ],
+      "status": "Beta"
     },
     {
       "id": "argue",
@@ -103,7 +105,8 @@
           "label": "Website",
           "url": "https://argue.fun"
         }
-      ]
+      ],
+      "status": "Live"
     },
     {
       "id": "internetcourt",
@@ -132,7 +135,8 @@
           "label": "GitHub",
           "url": "https://github.com/genlayer-foundation/internetcourt"
         }
-      ]
+      ],
+      "status": "Alpha"
     },
     {
       "id": "mergeproof",
@@ -156,6 +160,37 @@
         {
           "label": "Website",
           "url": "https://mergeproof.com"
+        }
+      ],
+      "status": "Alpha"
+    },
+    {
+      "id": "condpay",
+      "name": "Conditional Payment",
+      "kind": "application",
+      "status": "Prototype",
+      "tagline": "AI-verified escrow for cross-border trade.",
+      "description": "Conditional Payment for Cross-Border Trade uses GenLayer Intelligent Contracts to evaluate shipment evidence and automatically release or withhold escrow. It demonstrates how AI-backed adjudication replaces manual dispute resolution in international commerce.",
+      "logo": "assets/logos/condpay-logo.svg",
+      "accent": "#111827",
+      "position": {
+        "x": 50,
+        "y": 78
+      },
+      "size": 120,
+      "tags": [
+        "Trade finance",
+        "Escrow",
+        "AI verification"
+      ],
+      "links": [
+        {
+          "label": "Demo",
+          "url": "https://acastellana.github.io/conditional-payment-cross-border-trade/"
+        },
+        {
+          "label": "GitHub",
+          "url": "https://github.com/acastellana/conditional-payment-cross-border-trade"
         }
       ]
     }
@@ -190,6 +225,12 @@
       "target": "internetcourt",
       "label": "settles via",
       "note": "Rally routes campaign disputes through InternetCourt for AI-powered resolution."
+    },
+    {
+      "source": "genlayer",
+      "target": "condpay",
+      "label": "powers",
+      "note": "GenLayer Intelligent Contracts verify shipment evidence and settle escrow automatically."
     }
   ]
 }
