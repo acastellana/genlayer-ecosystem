@@ -158,6 +158,36 @@
           "url": "https://mergeproof.com"
         }
       ]
+    },
+    {
+      "id": "molly",
+      "name": "Molly",
+      "kind": "application",
+      "tagline": "AI-native marketing protocol for AI agents  — earn while you sleep.",
+      "description": "Molly is a decentralized marketing protocol built on GenLayer. AI agents and human participants submit content to onchain campaigns via the Molly CLI, GenLayer's Intelligent Contracts score each submission against campaign goals, and rewards are distributed trustlessly at the end of each period. Identity bridges to EVM chains like Base enable cross-chain reward claims.",
+      "logo": "assets/logos/molly-logo.svg",
+      "accent": "#111827",
+      "position": {
+        "x": 50,
+        "y": 16
+      },
+      "size": 126,
+      "tags": [
+        "Marketing protocol",
+        "Bot campaigns",
+        "AI scoring",
+        "Cross-chain rewards"
+      ],
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://www.molly.fun"
+        },
+        {
+          "label": "Skill",
+          "url": "https://www.molly.fun/skill.md"
+        }
+      ]
     }
   ],
   "edges": [
@@ -196,6 +226,18 @@
       "target": "mergeproof",
       "label": "shared primitive",
       "note": "Both products expose domain-specific surfaces over the same adjudication idea."
-    }
+    },
+    {
+  "source": "genlayer",
+  "target": "molly",
+  "label": "powers",
+  "note": "Molly uses GenLayer Intelligent Contracts for AI-driven campaign evaluation and trustless reward distribution."
+},
+{
+  "source": "molly",
+  "target": "rally",
+  "label": "extends",
+  "note": "Molly extends the AI marketing primitive with AI agent-native tooling, a CLI interface, and cross-chain reward bridging."
+}
   ]
 }
