@@ -24,7 +24,7 @@
       "accent": "#111827",
       "position": {
         "x": 50,
-        "y": 43
+        "y": 50
       },
       "size": 188,
       "tags": [
@@ -53,8 +53,7 @@
           "label": "Discord",
           "url": "https://discord.gg/qjCU4AWnKE"
         }
-      ],
-      "status": "Live"
+      ]
     },
     {
       "id": "rally",
@@ -62,11 +61,11 @@
       "kind": "application",
       "tagline": "AI-powered marketing protocol for performance-based influence.",
       "description": "Rally lets campaigns define rules in natural language and rewards creators based on judged performance. Projects deposit funds, contributors publish content, and GenLayer-backed evaluation decides whether work qualifies and how rewards should be distributed.",
-      "logo": "assets/logos/rally-logo.png",
+      "logo": "assets/logos/rally-logo.svg",
       "accent": "#0f172a",
       "position": {
         "x": 24,
-        "y": 23
+        "y": 30
       },
       "size": 132,
       "tags": [
@@ -79,8 +78,7 @@
           "label": "Website",
           "url": "https://rally.fun"
         }
-      ],
-      "status": "Beta"
+      ]
     },
     {
       "id": "argue",
@@ -92,7 +90,7 @@
       "accent": "#111827",
       "position": {
         "x": 76,
-        "y": 19
+        "y": 26
       },
       "size": 132,
       "tags": [
@@ -105,8 +103,7 @@
           "label": "Website",
           "url": "https://argue.fun"
         }
-      ],
-      "status": "Live"
+      ]
     },
     {
       "id": "internetcourt",
@@ -118,7 +115,7 @@
       "accent": "#991b1b",
       "position": {
         "x": 78,
-        "y": 65
+        "y": 72
       },
       "size": 140,
       "tags": [
@@ -135,8 +132,7 @@
           "label": "GitHub",
           "url": "https://github.com/genlayer-foundation/internetcourt"
         }
-      ],
-      "status": "Alpha"
+      ]
     },
     {
       "id": "mergeproof",
@@ -148,7 +144,7 @@
       "accent": "#111827",
       "position": {
         "x": 26,
-        "y": 65
+        "y": 72
       },
       "size": 126,
       "tags": [
@@ -161,76 +157,76 @@
           "label": "Website",
           "url": "https://mergeproof.com"
         }
-      ],
-      "status": "Alpha"
+      ]
     },
     {
-      "id": "condpay",
-      "name": "Conditional Payment",
+      "id": "intelligentoracle",
+      "name": "Intelligent Oracle",
       "kind": "application",
-      "status": "Prototype",
-      "tagline": "AI-verified escrow for cross-border trade.",
-      "description": "Conditional Payment for Cross-Border Trade uses GenLayer Intelligent Contracts to evaluate shipment evidence and automatically release or withhold escrow. It demonstrates how AI-backed adjudication replaces manual dispute resolution in international commerce.",
-      "logo": "assets/logos/condpay-logo.svg",
-      "accent": "#111827",
+      "tagline": "External data integration layer for GenLayer.",
+      "description": "Intelligent Oracle (intelligentoracle.com) is your GenLayer integration hub. It pulls real-world signals\u2014weather, crypto prices, sports scores, stock data\u2014and packages them into verifiable on-chain inputs that contracts and juries can actually use. No more hard-coding or manual feeds.",
+      "logo": "assets/logos/intelligentoracle-logo.svg",
+      "accent": "#0f172a",
       "position": {
-        "x": 50,
-        "y": 71
+        "x": 45,
+        "y": 60
       },
-      "size": 120,
+      "size": 130,
       "tags": [
-        "Trade finance",
-        "Escrow",
-        "AI verification"
+        "External data feeds",
+        "Market signals",
+        "GenLayer integration"
       ],
       "links": [
         {
-          "label": "Demo",
-          "url": "https://acastellana.github.io/conditional-payment-cross-border-trade/"
-        },
-        {
-          "label": "GitHub",
-          "url": "https://github.com/acastellana/conditional-payment-cross-border-trade"
+          "label": "Website",
+          "url": "https://intelligentoracle.com"
         }
       ]
     }
   ],
   "edges": [
     {
-      "source": "rally",
-      "target": "genlayer",
-      "label": "awareness",
-      "note": "Rally drives awareness and growth for GenLayer through AI-evaluated marketing campaigns."
+      "source": "genlayer",
+      "target": "rally",
+      "label": "powers",
+      "note": "Rally uses GenLayer-style judgment to evaluate campaign outcomes."
     },
     {
-      "source": "rally",
-      "target": "mergeproof",
-      "label": "awareness",
-      "note": "Rally amplifies MergeProof's reach and brings in new contributors."
-    },
-    {
-      "source": "rally",
+      "source": "genlayer",
       "target": "argue",
-      "label": "awareness",
-      "note": "Rally campaigns bring new participants and visibility to Argue.fun."
+      "label": "powers",
+      "note": "Argue.fun relies on AI consensus over subjective arguments."
     },
     {
-      "source": "rally",
+      "source": "genlayer",
       "target": "internetcourt",
-      "label": "awareness",
-      "note": "Rally drives awareness for InternetCourt's dispute resolution services."
+      "label": "adjudicates",
+      "note": "InternetCourt is a courtroom surface for GenLayer-based dispute resolution."
     },
     {
-      "source": "mergeproof",
-      "target": "argue",
-      "label": "development",
-      "note": "MergeProof provides staked, AI-backed code review and development quality for Argue.fun."
+      "source": "genlayer",
+      "target": "mergeproof",
+      "label": "judges",
+      "note": "MergeProof uses the same judgment primitive for PR review decisions."
+    },
+    {
+      "source": "argue",
+      "target": "rally",
+      "label": "uses Rally",
+      "note": "Argue.fun is shown as using Rally in the initial ecosystem map spec."
     },
     {
       "source": "internetcourt",
-      "target": "condpay",
-      "label": "resolves disputes",
-      "note": "InternetCourt resolves shipment disputes for Conditional Payment via AI-powered arbitration."
+      "target": "mergeproof",
+      "label": "shared primitive",
+      "note": "Both products expose domain-specific surfaces over the same adjudication idea."
+    },
+    {
+      "source": "genlayer",
+      "target": "intelligentoracle",
+      "label": "integrates with",
+      "note": "Intelligent Oracle provides external data feeds that GenLayer contracts can consume."
     }
   ]
 }
