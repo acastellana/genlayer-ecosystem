@@ -64,7 +64,7 @@
       "logo": "assets/logos/rally-logo.svg",
       "accent": "#0f172a",
       "position": {
-        "x": 24,
+        "x": 22,
         "y": 30
       },
       "size": 132,
@@ -89,8 +89,8 @@
       "logo": "assets/logos/argue-logo.svg",
       "accent": "#111827",
       "position": {
-        "x": 76,
-        "y": 26
+        "x": 78,
+        "y": 30
       },
       "size": 132,
       "tags": [
@@ -143,7 +143,7 @@
       "logo": "assets/logos/mergeproof-logo.svg",
       "accent": "#111827",
       "position": {
-        "x": 26,
+        "x": 22,
         "y": 72
       },
       "size": 126,
@@ -168,8 +168,8 @@
       "logo": "assets/logos/intelligentoracle-logo.svg",
       "accent": "#0f172a",
       "position": {
-        "x": 45,
-        "y": 60
+        "x": 50,
+        "y": 13
       },
       "size": 130,
       "tags": [
