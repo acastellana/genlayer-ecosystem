@@ -1,0 +1,13 @@
+var R=require("../../chunks/ssr/[turbopack]_runtime.js")("server/app/_not-found/page.js")
+R.c("server/chunks/ssr/projects_GenLayerEcosystem_decd5428._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__89bd47dc._.js")
+R.c("server/chunks/ssr/e688c_next_dist_esm_build_templates_app-page_65e4d2d6.js")
+R.c("server/chunks/ssr/[root-of-the-server]__e93454e6._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__bb3c100a._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__866b00b2._.js")
+R.c("server/chunks/ssr/projects_GenLayerEcosystem_app_34f4c799._.js")
+R.c("server/chunks/ssr/e688c_next_dist_client_components_abfe1ca8._.js")
+R.c("server/chunks/ssr/e688c_next_dist_client_components_builtin_forbidden_fe7fbe4a.js")
+R.c("server/chunks/ssr/9e3a1_GenLayerEcosystem__next-internal_server_app__not-found_page_actions_c927171b.js")
+R.m(43555)
+module.exports=R.m(43555).exports
