@@ -15,8 +15,8 @@
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <script type="module" crossorigin src="/genlayer-ecosystem/assets/index-BdJ7FAgn.js"></script>
-    <link rel="stylesheet" crossorigin href="/genlayer-ecosystem/assets/index-CSNJsxyp.css">
+    <script type="module" crossorigin src="/genlayer-ecosystem/assets/index-BbMuJmBS.js"></script>
+    <link rel="stylesheet" crossorigin href="/genlayer-ecosystem/assets/index-Dl3MKgkE.css">
   </head>
   <body>
     <div class="noise" aria-hidden="true"></div>
@@ -35,12 +35,27 @@
 
       <div class="bottom-actions">
         <button id="focus-genlayer" class="ghost-button" type="button">Re-center</button>
-        <a
-          href="https://github.com/acastellana/genlayer-ecosystem/edit/master/public/ecosystem.json"
-          class="add-project-button"
-          target="_blank"
-          rel="noopener noreferrer"
-        >+ Add your project</a>
+        <button id="add-project-btn" class="add-project-button" type="button">+ Add your project</button>
+      </div>
+    </div>
+
+    <!-- Submit project modal -->
+    <div id="submit-modal" class="submit-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="submit-modal-title">
+      <div class="submit-backdrop" id="submit-backdrop"></div>
+      <div class="submit-drawer">
+        <button class="panel-close" type="button" id="submit-close" aria-label="Close">
+          <span></span><span></span>
+        </button>
+        <h2 id="submit-modal-title">Add your project</h2>
+        <p class="submit-description">Submit your project URL. The GenLayer AI jury fetches the page and auto-generates the name, description, label, and connections. Costs <strong>1 GEN</strong>.</p>
+
+        <div id="submit-form">
+          <label for="submit-url" class="submit-label">Project URL</label>
+          <input id="submit-url" class="submit-input" type="url" placeholder="https://yourproject.xyz" autocomplete="off" />
+          <button id="submit-btn" class="submit-confirm-btn" type="button">Connect wallet &amp; submit</button>
+        </div>
+
+        <div id="submit-status" class="submit-status" aria-live="polite"></div>
       </div>
     </div>
 
