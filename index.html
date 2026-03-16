@@ -19,42 +19,44 @@
   </head>
   <body>
     <div class="noise" aria-hidden="true"></div>
-    <main class="shell">
+
+    <div id="ecosystem-stage" class="ecosystem-stage" aria-label="GenLayer ecosystem map">
+      <div id="viewport" class="viewport">
+        <svg id="connections" class="connections" aria-hidden="true"></svg>
+        <div id="nodes" class="nodes"></div>
+        <div class="center-glow" aria-hidden="true"></div>
+      </div>
+
       <header class="masthead">
-        <div>
-          <p class="eyebrow">Ecosystem Map</p>
-          <h1>GenLayer Ecosystem</h1>
-        </div>
-        <div class="masthead-meta">
-          <p>Click any node to explore projects and relationships.</p>
-          <a
-            href="ecosystem.json"
-            class="json-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Raw ecosystem data"
-          >{ } ecosystem.json</a>
-        </div>
+        <p class="eyebrow">Ecosystem Map</p>
+        <h1>GenLayer Ecosystem</h1>
       </header>
 
-      <section class="canvas-card">
-        <div class="canvas-toolbar">
-          <div class="toolbar-pill">
-            <span class="pill-dot"></span>
-            JSON-driven graph
-          </div>
-          <button id="focus-genlayer" class="ghost-button" type="button">
-            Re-center on GenLayer
-          </button>
+      <div class="bottom-actions">
+        <button id="focus-genlayer" class="ghost-button" type="button">Re-center</button>
+        <button id="add-project-btn" class="add-project-button" type="button">+ Add your project</button>
+      </div>
+    </div>
+
+    <!-- Submit project modal -->
+    <div id="submit-modal" class="submit-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="submit-modal-title">
+      <div class="submit-backdrop" id="submit-backdrop"></div>
+      <div class="submit-drawer">
+        <button class="panel-close" type="button" id="submit-close" aria-label="Close">
+          <span></span><span></span>
+        </button>
+        <h2 id="submit-modal-title">Add your project</h2>
+        <p class="submit-description">Submit your project URL. The GenLayer AI jury fetches the page and auto-generates the name, description, label, and connections. Costs <strong>1 GEN</strong>.</p>
+
+        <div id="submit-form">
+          <label for="submit-url" class="submit-label">Project URL</label>
+          <input id="submit-url" class="submit-input" type="url" placeholder="https://yourproject.xyz" autocomplete="off" />
+          <button id="submit-btn" class="submit-confirm-btn" type="button">Connect wallet &amp; submit</button>
         </div>
 
-        <div id="ecosystem-stage" class="ecosystem-stage" aria-label="GenLayer ecosystem map">
-          <svg id="connections" class="connections" aria-hidden="true"></svg>
-          <div id="nodes" class="nodes"></div>
-          <div class="center-glow" aria-hidden="true"></div>
-        </div>
-      </section>
-    </main>
+        <div id="submit-status" class="submit-status" aria-live="polite"></div>
+      </div>
+    </div>
 
     <aside id="detail-panel" class="detail-panel" aria-hidden="true">
       <div class="detail-backdrop" data-close-panel></div>
