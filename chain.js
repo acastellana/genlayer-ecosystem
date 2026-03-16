@@ -135,17 +135,21 @@ export async function submitPlayer(url) {
   if (!provider) throw new Error("No wallet found. Install MetaMask.");
 
   await ensureBradburyNetwork();
+
+  // Request accounts (shows MetaMask popup if not connected)
   const accounts = await provider.request({ method: "eth_requestAccounts" });
   const from = accounts[0];
+  if (!from) throw new Error("No account selected.");
 
-  // Encode submit_player(string url) in GenLayer msgpack format
-  // GenLayer uses msgpack-encoded calldata via genlayer-js SDK internals
-  // We load the SDK dynamically to use its encoder
-  const { createClient, createAccount } = await import("genlayer-js");
+  const { createClient } = await import("genlayer-js");
   const { testnetBradbury } = await import("genlayer-js/chains");
 
-  // Use address-only account (MetaMask signs)
-  const client = createClient({ chain: testnetBradbury, account: from });
+  // Pass address as account string — genlayer-js uses window.ethereum as the
+  // signing provider automatically when account is an address (not a private key)
+  const client = createClient({
+    chain: testnetBradbury,
+    account: from,
+  });
 
   const txHash = await client.writeContract({
     address: CONTRACT_ADDRESS,
