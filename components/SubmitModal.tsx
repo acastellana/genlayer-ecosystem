@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useWallet } from "@/lib/genlayer/wallet";
-import { getEcosystemRegistry, EXPLORER_TX } from "@/lib/contracts/EcosystemRegistry";
+import { getEcosystemRegistry, getGenLayerTxHash, EXPLORER_TX } from "@/lib/contracts/EcosystemRegistry";
 
 interface Props {
   isOpen: boolean;
@@ -33,7 +33,9 @@ export function SubmitModal({ isOpen, onClose }: Props) {
       }
       setPhase("submitting");
       const registry = getEcosystemRegistry(address);
-      const hash = await registry.submitPlayer(url);
+      const rollupHash = await registry.submitPlayer(url);
+      // Resolve the GenLayer-layer hash from the rollup receipt logs
+      const hash = await getGenLayerTxHash(rollupHash);
       setTxHash(hash);
       setPhase("success");
       setUrl("");
