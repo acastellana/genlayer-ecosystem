@@ -10,6 +10,10 @@
       {
         "type": "public-web",
         "note": "Project websites and visible brand assets were verified on 2026-03-10."
+      },
+      {
+        "type": "bradbury-chain",
+        "note": "Live Bradbury submission tx 0x9df8f43597c891d0fda7d8956aeeaa32df77c3639481f14830640fdad508b70b was verified on-chain and added as pending ecosystem evidence."
       }
     ]
   },
@@ -60,6 +64,50 @@
         "status": "accepted",
         "note": "Seeded by the ecosystem map maintainers; not a paid Bradbury submission."
       }
+    },
+    {
+      "id": "genlayer-ecosystem-map",
+      "name": "GenLayer Ecosystem Map",
+      "kind": "Bradbury submission",
+      "tagline": "This ecosystem app's own repository was submitted on Bradbury for a paid GenLayer evaluation.",
+      "description": "A live Bradbury submission proving the paid-evaluation flow end to end. The repository was submitted with 1 GEN to the existing EcosystemRegistry contract; the app should display it as pending until a contract read path confirms the final GenLayer evaluation state.",
+      "logo": "assets/logos/genlayer-mark.svg",
+      "accent": "#16a34a",
+      "position": {
+        "x": 14,
+        "y": 50
+      },
+      "size": 112,
+      "tags": [
+        "Live Bradbury tx",
+        "Paid evaluation",
+        "Ecosystem graph"
+      ],
+      "status": "submitted",
+      "evaluation": {
+        "source": "pending",
+        "label": "Submitted on Bradbury",
+        "network": "Bradbury",
+        "fee": "1 GEN paid",
+        "status": "pending",
+        "submittedBy": "0xbe54f979f8b9c97540a0693222b1660bed5c4d28",
+        "txUrl": "https://explorer-bradbury.genlayer.com/tx/0x9df8f43597c891d0fda7d8956aeeaa32df77c3639481f14830640fdad508b70b",
+        "note": "Live transaction submitted to EcosystemRegistry.submit_player(url). Display remains pending until the app reads the on-chain evaluation result; payment requested evaluation, not guaranteed placement."
+      },
+      "links": [
+        {
+          "label": "Submitted repository",
+          "url": "https://github.com/acastellana/genlayer-ecosystem"
+        },
+        {
+          "label": "GenLayer transaction",
+          "url": "https://explorer-bradbury.genlayer.com/tx/0x9df8f43597c891d0fda7d8956aeeaa32df77c3639481f14830640fdad508b70b"
+        },
+        {
+          "label": "ZKsync rollup transaction",
+          "url": "https://zksync-os-testnet-genlayer.explorer.zksync.dev/tx/0xfd0f2b4a1fa9aa99bb253c5ea5c138ac131f1b533e2ef3082226115ccfaf3809"
+        }
+      ]
     },
     {
       "id": "rally",
@@ -347,6 +395,12 @@
       "target": "demo-thin-submission",
       "label": "reviews",
       "note": "A paid Bradbury evaluation can mark thin submissions as needs review instead of accepted."
+    },
+    {
+      "source": "genlayer",
+      "target": "genlayer-ecosystem-map",
+      "label": "evaluates",
+      "note": "Live 1 GEN Bradbury submission for this ecosystem app, currently shown as pending until chain-read evaluation metadata is wired in."
     }
   ]
 }
