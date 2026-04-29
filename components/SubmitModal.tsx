@@ -73,10 +73,15 @@ export function SubmitModal({ isOpen, onClose }: Props) {
           <span />
         </button>
 
-        <h2>Add your project</h2>
+        <h2>Evaluate your project with GenLayer</h2>
         <p className="submit-description">
-          Submit your URL. The GenLayer AI jury fetches the page and auto-generates the
-          name, description, label, and connections. Costs <strong>1 GEN</strong>.
+          Pay <strong>1 GEN on Bradbury</strong> to have the GenLayer AI jury fetch and
+          evaluate your project URL. Accepted evaluations can appear on this ecosystem
+          graph with a public Bradbury transaction link.
+        </p>
+        <p className="submit-disclaimer">
+          Payment requests evaluation, not guaranteed listing. Spam, unrelated, unsafe,
+          or thin submissions may be hidden or marked needs review.
         </p>
 
         <div>
@@ -100,7 +105,8 @@ export function SubmitModal({ isOpen, onClose }: Props) {
 
         {phase === "success" && (
           <p className="submit-status submit-status--success">
-            Submitted! The AI jury is evaluating your project.{" "}
+            Submitted! The GenLayer AI jury is evaluating your project on Bradbury. If the
+            result passes the display threshold, it can be added to the graph.{" "}
             <a href={EXPLORER_TX(txHash)} target="_blank" rel="noopener noreferrer">
               View on explorer ↗
             </a>
@@ -125,8 +131,8 @@ export function SubmitModal({ isOpen, onClose }: Props) {
             : phase === "submitting"
             ? "Waiting for confirmation…"
             : isConnected
-            ? "Submit (1 GEN)"
-            : "Connect wallet & submit"}
+            ? "Submit for evaluation (1 GEN)"
+            : "Connect wallet & evaluate"}
         </button>
       </div>
     </div>

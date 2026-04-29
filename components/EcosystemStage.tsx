@@ -246,7 +246,10 @@ export function EcosystemStage({ graph, onNodeClick, onAddProject }: Props) {
 
     graph.nodes.forEach((node, index) => {
       const wrapper = document.createElement("article");
-      wrapper.className = `node${node.id === "genlayer" ? " is-center" : ""}`;
+      const sourceClass = node.evaluation?.source
+        ? ` source-${node.evaluation.source.replace(/_/g, "-")}`
+        : " source-curated";
+      wrapper.className = `node${node.id === "genlayer" ? " is-center" : ""}${sourceClass}`;
       wrapper.dataset.nodeId = node.id;
       wrapper.style.setProperty("--x", `${node.position.x}%`);
       wrapper.style.setProperty("--y", `${node.position.y}%`);
@@ -270,13 +273,17 @@ export function EcosystemStage({ graph, onNodeClick, onAddProject }: Props) {
       label.className = "node-label";
       label.textContent = node.name;
 
+      const sourceBadge = document.createElement("span");
+      sourceBadge.className = `node-source-badge source-${(node.evaluation?.source ?? "curated").replace(/_/g, "-")}`;
+      sourceBadge.textContent = node.evaluation?.label ?? "Curated";
+
       if (node.status) {
         const badge = document.createElement("span");
         badge.className = `node-status status-${node.status.toLowerCase().replace(/\s+/g, "-")}`;
         badge.textContent = node.status;
-        button.append(img, label, badge);
+        button.append(img, label, sourceBadge, badge);
       } else {
-        button.append(img, label);
+        button.append(img, label, sourceBadge);
       }
 
       wrapper.append(button);
@@ -440,8 +447,14 @@ export function EcosystemStage({ graph, onNodeClick, onAddProject }: Props) {
       <header className="masthead">
         <p className="eyebrow">Interactive Map</p>
         <h1>
-          {graph.meta?.title ?? "GenLayer"}<br />
-          Ecosystem
+          {graph.meta?.title?.toLowerCase().includes("ecosystem")
+            ? graph.meta.title
+            : (
+              <>
+                {graph.meta?.title ?? "GenLayer"}<br />
+                Ecosystem
+              </>
+            )}
         </h1>
       </header>
 
@@ -473,7 +486,7 @@ export function EcosystemStage({ graph, onNodeClick, onAddProject }: Props) {
           type="button"
           onClick={onAddProject}
         >
-          + Add your project
+          Pay 1 GEN on Bradbury
         </button>
       </div>
     </div>

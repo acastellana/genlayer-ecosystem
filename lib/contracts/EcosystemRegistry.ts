@@ -7,7 +7,7 @@ export const RPC_URL = "https://zksync-os-testnet-genlayer.zksync.dev";
 
 // GenLayer explorer uses the GenLayer-layer hash, not the ZKSync rollup hash.
 export const EXPLORER_TX = (hash: string) =>
-  `https://explorer-bradbury.genlayer.com/transactions/${hash}`;
+  `https://explorer-bradbury.genlayer.com/tx/${hash}`;
 
 /**
  * After submitPlayer returns a ZKSync rollup hash, extract the GenLayer-layer

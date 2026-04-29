@@ -31,6 +31,13 @@ export function DetailPanel({ node, graph, onClose }: Props) {
   const statusClass = node.status
     ? `panel-status-badge status-${node.status.toLowerCase().replace(/\s+/g, "-")}`
     : "";
+  const evaluation = node.evaluation ?? {
+    source: "curated" as const,
+    label: "Curated ecosystem entry",
+    status: "accepted",
+    note: "Seeded by the GenLayer ecosystem map maintainers.",
+  };
+  const evaluationClass = `evaluation-badge source-${evaluation.source.replace(/_/g, "-")}`;
 
   return (
     <div className="detail-panel is-open" role="dialog" aria-modal="true">
@@ -57,6 +64,11 @@ export function DetailPanel({ node, graph, onClose }: Props) {
           <div>
             <p className="panel-type eyebrow">{node.kind}</p>
             <h2 id="panel-title">{node.name}</h2>
+            <div className="panel-badge-row">
+              <span className={evaluationClass}>{evaluation.label}</span>
+              {evaluation.network && <span className="evaluation-badge">{evaluation.network}</span>}
+              {evaluation.fee && <span className="evaluation-badge">{evaluation.fee}</span>}
+            </div>
             {node.status && (
               <span className={statusClass}>{node.status}</span>
             )}
@@ -71,6 +83,34 @@ export function DetailPanel({ node, graph, onClose }: Props) {
               <p className="panel-copy">{node.description}</p>
             </section>
           )}
+
+          <section>
+            <h3>Evaluation</h3>
+            <div className="evaluation-card">
+              <div>
+                <span className="evaluation-card-label">Source</span>
+                <strong>{evaluation.label}</strong>
+              </div>
+              {evaluation.status && (
+                <div>
+                  <span className="evaluation-card-label">Status</span>
+                  <strong>{evaluation.status}</strong>
+                </div>
+              )}
+              {(evaluation.score !== undefined || evaluation.confidence !== undefined) && (
+                <div className="evaluation-score-row">
+                  {evaluation.score !== undefined && <span>Score {evaluation.score}/100</span>}
+                  {evaluation.confidence !== undefined && <span>Confidence {evaluation.confidence}%</span>}
+                </div>
+              )}
+              {evaluation.note && <p>{evaluation.note}</p>}
+              {evaluation.txUrl && (
+                <a href={evaluation.txUrl} target="_blank" rel="noreferrer noopener">
+                  View Bradbury transaction ↗
+                </a>
+              )}
+            </div>
+          </section>
 
           {node.tags && node.tags.length > 0 && (
             <section>
