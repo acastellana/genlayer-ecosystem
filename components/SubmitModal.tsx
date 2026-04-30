@@ -75,7 +75,7 @@ export function SubmitModal({ isOpen, onClose }: Props) {
 
         <h2>Evaluate your project with GenLayer</h2>
         <p className="submit-description">
-          Pay <strong>1 GEN on Bradbury</strong> to have the GenLayer AI jury fetch and
+          Pay <strong>0.042 GEN on Bradbury</strong> to have the GenLayer AI jury fetch and
           evaluate your project URL. Accepted evaluations can appear on this ecosystem
           graph with a public Bradbury transaction link.
         </p>
@@ -131,7 +131,7 @@ export function SubmitModal({ isOpen, onClose }: Props) {
             : phase === "submitting"
             ? "Waiting for confirmation…"
             : isConnected
-            ? "Submit for evaluation (1 GEN)"
+            ? "Submit for evaluation (0.042 GEN)"
             : "Connect wallet & evaluate"}
         </button>
       </div>

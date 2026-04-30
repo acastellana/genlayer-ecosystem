@@ -2,7 +2,7 @@ import { createClient } from "genlayer-js";
 import { testnetBradbury } from "genlayer-js/chains";
 
 export const CONTRACT_ADDRESS = "0xd77F1Df3103AfB8715b715992b2DBaf8d5529134" as `0x${string}`;
-export const SUBMISSION_FEE = BigInt("1000000000000000000"); // 1 GEN in wei
+export const SUBMISSION_FEE = BigInt("42000000000000000"); // 0.042 GEN in wei
 export const RPC_URL = "https://zksync-os-testnet-genlayer.zksync.dev";
 
 // GenLayer explorer uses the GenLayer-layer hash, not the ZKSync rollup hash.
