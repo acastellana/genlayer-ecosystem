@@ -30,7 +30,7 @@
         "x": 50,
         "y": 50
       },
-      "size": 188,
+      "size": 176,
       "tags": [
         "Judicial consensus",
         "Intelligent Contracts",
@@ -74,10 +74,10 @@
       "logo": "assets/logos/genlayer-mark.svg",
       "accent": "#16a34a",
       "position": {
-        "x": 14,
+        "x": 12,
         "y": 50
       },
-      "size": 112,
+      "size": 124,
       "tags": [
         "Live Bradbury tx",
         "Paid evaluation",
@@ -119,9 +119,9 @@
       "accent": "#0f172a",
       "position": {
         "x": 22,
-        "y": 30
+        "y": 28
       },
-      "size": 132,
+      "size": 124,
       "tags": [
         "Marketing protocol",
         "Creator rewards",
@@ -150,9 +150,9 @@
       "accent": "#111827",
       "position": {
         "x": 78,
-        "y": 30
+        "y": 28
       },
-      "size": 132,
+      "size": 124,
       "tags": [
         "Debate market",
         "AI jury",
@@ -181,9 +181,9 @@
       "accent": "#991b1b",
       "position": {
         "x": 78,
-        "y": 72
+        "y": 74
       },
-      "size": 140,
+      "size": 126,
       "tags": [
         "Dispute resolution",
         "Evidence review",
@@ -216,9 +216,9 @@
       "accent": "#111827",
       "position": {
         "x": 22,
-        "y": 72
+        "y": 74
       },
-      "size": 126,
+      "size": 124,
       "tags": [
         "Code review",
         "Staked evaluation",
@@ -247,9 +247,9 @@
       "accent": "#0f172a",
       "position": {
         "x": 50,
-        "y": 13
+        "y": 12
       },
-      "size": 130,
+      "size": 122,
       "tags": [
         "External data feeds",
         "Market signals",
@@ -278,9 +278,9 @@
       "accent": "#2563eb",
       "position": {
         "x": 50,
-        "y": 86
+        "y": 88
       },
-      "size": 118,
+      "size": 126,
       "tags": [
         "GenLayer evaluated",
         "Bradbury",
@@ -313,10 +313,10 @@
       "logo": "assets/logos/genlayer-mark.svg",
       "accent": "#92400e",
       "position": {
-        "x": 86,
-        "y": 52
+        "x": 88,
+        "y": 50
       },
-      "size": 106,
+      "size": 120,
       "tags": [
         "Needs review",
         "Bradbury",
@@ -400,7 +400,7 @@
       "source": "genlayer",
       "target": "genlayer-ecosystem-map",
       "label": "evaluates",
-      "note": "Live 1 GEN Bradbury submission for this ecosystem app, currently shown as pending until chain-read evaluation metadata is wired in."
+      "note": "Live Bradbury submission for this ecosystem app; the legacy 1 GEN tx finalized with execution error, while patched submissions use 0.042 GEN."
     }
   ]
 }

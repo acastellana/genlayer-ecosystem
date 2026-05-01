@@ -10,6 +10,10 @@
       {
         "type": "public-web",
         "note": "Project websites and visible brand assets were verified on 2026-03-10."
+      },
+      {
+        "type": "bradbury-chain",
+        "note": "Live Bradbury submission tx 0x9df8f43597c891d0fda7d8956aeeaa32df77c3639481f14830640fdad508b70b was verified on-chain and finalized with a GenLayer execution error; future patched submissions use 0.042 GEN."
       }
     ]
   },
@@ -26,7 +30,7 @@
         "x": 50,
         "y": 50
       },
-      "size": 188,
+      "size": 176,
       "tags": [
         "Judicial consensus",
         "Intelligent Contracts",
@@ -53,6 +57,56 @@
           "label": "Discord",
           "url": "https://discord.gg/qjCU4AWnKE"
         }
+      ],
+      "evaluation": {
+        "source": "curated",
+        "label": "Curated ecosystem entry",
+        "status": "accepted",
+        "note": "Seeded by the ecosystem map maintainers; not a paid Bradbury submission."
+      }
+    },
+    {
+      "id": "genlayer-ecosystem-map",
+      "name": "GenLayer Ecosystem Map",
+      "kind": "Bradbury submission",
+      "tagline": "This ecosystem app's own repository was submitted on Bradbury for a paid GenLayer evaluation.",
+      "description": "A live Bradbury submission proving the paid-evaluation flow end to end. The repository was submitted with 1 GEN to the previous EcosystemRegistry contract and finalized with a GenLayer execution error; future submissions use 0.042 GEN after redeploying a patched registry.",
+      "logo": "assets/logos/genlayer-mark.svg",
+      "accent": "#16a34a",
+      "position": {
+        "x": 12,
+        "y": 50
+      },
+      "size": 124,
+      "tags": [
+        "Live Bradbury tx",
+        "Paid evaluation",
+        "Ecosystem graph"
+      ],
+      "status": "needs review",
+      "evaluation": {
+        "source": "needs_review",
+        "label": "Finalized with execution error",
+        "network": "Bradbury",
+        "fee": "1 GEN paid (legacy; new fee 0.042 GEN)",
+        "status": "execution_error",
+        "submittedBy": "0xbe54f979f8b9c97540a0693222b1660bed5c4d28",
+        "txUrl": "https://explorer-bradbury.genlayer.com/tx/0x9df8f43597c891d0fda7d8956aeeaa32df77c3639481f14830640fdad508b70b",
+        "note": "Live transaction submitted to the previous EcosystemRegistry.submit_player(url) and finalized with an execution error. Payment requested evaluation, not guaranteed placement; patched redeploys should use 0.042 GEN."
+      },
+      "links": [
+        {
+          "label": "Submitted repository",
+          "url": "https://github.com/acastellana/genlayer-ecosystem"
+        },
+        {
+          "label": "GenLayer transaction",
+          "url": "https://explorer-bradbury.genlayer.com/tx/0x9df8f43597c891d0fda7d8956aeeaa32df77c3639481f14830640fdad508b70b"
+        },
+        {
+          "label": "ZKsync rollup transaction",
+          "url": "https://zksync-os-testnet-genlayer.explorer.zksync.dev/tx/0xfd0f2b4a1fa9aa99bb253c5ea5c138ac131f1b533e2ef3082226115ccfaf3809"
+        }
       ]
     },
     {
@@ -65,9 +119,9 @@
       "accent": "#0f172a",
       "position": {
         "x": 22,
-        "y": 30
+        "y": 28
       },
-      "size": 132,
+      "size": 124,
       "tags": [
         "Marketing protocol",
         "Creator rewards",
@@ -78,7 +132,13 @@
           "label": "Website",
           "url": "https://rally.fun"
         }
-      ]
+      ],
+      "evaluation": {
+        "source": "curated",
+        "label": "Curated ecosystem entry",
+        "status": "accepted",
+        "note": "Seeded by the ecosystem map maintainers; not a paid Bradbury submission."
+      }
     },
     {
       "id": "argue",
@@ -90,9 +150,9 @@
       "accent": "#111827",
       "position": {
         "x": 78,
-        "y": 30
+        "y": 28
       },
-      "size": 132,
+      "size": 124,
       "tags": [
         "Debate market",
         "AI jury",
@@ -103,7 +163,13 @@
           "label": "Website",
           "url": "https://argue.fun"
         }
-      ]
+      ],
+      "evaluation": {
+        "source": "curated",
+        "label": "Curated ecosystem entry",
+        "status": "accepted",
+        "note": "Seeded by the ecosystem map maintainers; not a paid Bradbury submission."
+      }
     },
     {
       "id": "internetcourt",
@@ -115,9 +181,9 @@
       "accent": "#991b1b",
       "position": {
         "x": 78,
-        "y": 72
+        "y": 74
       },
-      "size": 140,
+      "size": 126,
       "tags": [
         "Dispute resolution",
         "Evidence review",
@@ -132,7 +198,13 @@
           "label": "GitHub",
           "url": "https://github.com/genlayer-foundation/internetcourt"
         }
-      ]
+      ],
+      "evaluation": {
+        "source": "curated",
+        "label": "Curated ecosystem entry",
+        "status": "accepted",
+        "note": "Seeded by the ecosystem map maintainers; not a paid Bradbury submission."
+      }
     },
     {
       "id": "mergeproof",
@@ -144,9 +216,9 @@
       "accent": "#111827",
       "position": {
         "x": 22,
-        "y": 72
+        "y": 74
       },
-      "size": 126,
+      "size": 124,
       "tags": [
         "Code review",
         "Staked evaluation",
@@ -157,7 +229,13 @@
           "label": "Website",
           "url": "https://mergeproof.com"
         }
-      ]
+      ],
+      "evaluation": {
+        "source": "curated",
+        "label": "Curated ecosystem entry",
+        "status": "accepted",
+        "note": "Seeded by the ecosystem map maintainers; not a paid Bradbury submission."
+      }
     },
     {
       "id": "intelligentoracle",
@@ -169,9 +247,9 @@
       "accent": "#0f172a",
       "position": {
         "x": 50,
-        "y": 13
+        "y": 12
       },
-      "size": 130,
+      "size": 122,
       "tags": [
         "External data feeds",
         "Market signals",
@@ -181,6 +259,84 @@
         {
           "label": "Website",
           "url": "https://intelligentoracle.com"
+        }
+      ],
+      "evaluation": {
+        "source": "curated",
+        "label": "Curated ecosystem entry",
+        "status": "accepted",
+        "note": "Seeded by the ecosystem map maintainers; not a paid Bradbury submission."
+      }
+    },
+    {
+      "id": "demo-agent-market",
+      "name": "Agent Market Demo",
+      "kind": "evaluated demo",
+      "tagline": "Example project accepted after a paid Bradbury evaluation.",
+      "description": "A mock evaluated ecosystem entry showing how a project can pay 1 GEN for GenLayer to classify, summarize, and connect it to the graph. This is demo data, not a live endorsement.",
+      "logo": "assets/logos/genlayer-mark.svg",
+      "accent": "#2563eb",
+      "position": {
+        "x": 50,
+        "y": 88
+      },
+      "size": 126,
+      "tags": [
+        "GenLayer evaluated",
+        "Bradbury",
+        "AI agents"
+      ],
+      "status": "evaluated",
+      "evaluation": {
+        "source": "genlayer_evaluated",
+        "label": "Evaluated by GenLayer",
+        "network": "Bradbury",
+        "fee": "1 GEN paid (legacy; new fee 0.042 GEN)",
+        "status": "accepted",
+        "score": 84,
+        "confidence": 88,
+        "note": "Demo evaluation: relevance and information quality passed the display threshold. Paying requests evaluation; it does not guarantee placement."
+      },
+      "links": [
+        {
+          "label": "Demo URL",
+          "url": "https://example.com/agent-market"
+        }
+      ]
+    },
+    {
+      "id": "demo-thin-submission",
+      "name": "Thin Submission",
+      "kind": "pending evaluation",
+      "tagline": "Example of a paid submission still awaiting enough signal.",
+      "description": "A mock needs-review entry illustrating that Bradbury payment starts an evaluation, but thin or ambiguous projects are not automatically listed as accepted ecosystem nodes.",
+      "logo": "assets/logos/genlayer-mark.svg",
+      "accent": "#92400e",
+      "position": {
+        "x": 88,
+        "y": 50
+      },
+      "size": 120,
+      "tags": [
+        "Needs review",
+        "Bradbury",
+        "Paid evaluation"
+      ],
+      "status": "needs review",
+      "evaluation": {
+        "source": "needs_review",
+        "label": "Needs review",
+        "network": "Bradbury",
+        "fee": "1 GEN paid (legacy; new fee 0.042 GEN)",
+        "status": "needs_review",
+        "score": 51,
+        "confidence": 61,
+        "note": "Demo evaluation: related enough to preserve, but not enough public evidence for default graph prominence."
+      },
+      "links": [
+        {
+          "label": "Demo URL",
+          "url": "https://example.com/thin-submission"
         }
       ]
     }
@@ -227,6 +383,24 @@
       "target": "intelligentoracle",
       "label": "integrates with",
       "note": "Intelligent Oracle provides external data feeds that GenLayer contracts can consume."
+    },
+    {
+      "source": "genlayer",
+      "target": "demo-agent-market",
+      "label": "evaluates",
+      "note": "A paid Bradbury evaluation classified this demo project as graph-eligible."
+    },
+    {
+      "source": "genlayer",
+      "target": "demo-thin-submission",
+      "label": "reviews",
+      "note": "A paid Bradbury evaluation can mark thin submissions as needs review instead of accepted."
+    },
+    {
+      "source": "genlayer",
+      "target": "genlayer-ecosystem-map",
+      "label": "evaluates",
+      "note": "Live Bradbury submission for this ecosystem app; the legacy 1 GEN tx finalized with execution error, while patched submissions use 0.042 GEN."
     }
   ]
 }

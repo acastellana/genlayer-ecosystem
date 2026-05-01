@@ -47,6 +47,17 @@ export function EcosystemStage({ graph, onNodeClick, onAddProject }: Props) {
   const ZOOM_MIN = 0.3;
   const ZOOM_MAX = 3;
 
+  const edgeKey = (edge: { source: string; target: string; label: string }) =>
+    `${edge.source}->${edge.target}:${edge.label}`;
+
+  const labelTweaks: Record<string, { x?: number; y?: number }> = {
+    "genlayer->demo-agent-market:evaluates": { x: -42, y: 24 },
+    "internetcourt->mergeproof:shared primitive": { x: 0, y: -28 },
+    "genlayer->genlayer-ecosystem-map:evaluates": { x: -20, y: -20 },
+    "genlayer->intelligentoracle:integrates with": { x: 28, y: -14 },
+    "argue->rally:uses Rally": { x: 0, y: -18 },
+  };
+
   const getScale = useCallback(() => {
     const stage = stageRef.current;
     if (!stage) return 1;
@@ -229,8 +240,9 @@ export function EcosystemStage({ graph, onNodeClick, onAddProject }: Props) {
       const my = (y1 + y2) / 2 + py * CURVE * arcSide;
 
       path.setAttribute("d", `M ${x1} ${y1} Q ${mx} ${my}, ${x2} ${y2}`);
-      label.setAttribute("x", `${0.25 * x1 + 0.5 * mx + 0.25 * x2}`);
-      label.setAttribute("y", `${0.25 * y1 + 0.5 * my + 0.25 * y2 - 7}`);
+      const tweak = labelTweaks[edgeKey(edge)] ?? {};
+      label.setAttribute("x", `${0.25 * x1 + 0.5 * mx + 0.25 * x2 + (tweak.x ?? 0) * scale}`);
+      label.setAttribute("y", `${0.25 * y1 + 0.5 * my + 0.25 * y2 - 7 + (tweak.y ?? 0) * scale}`);
     });
   }, [graph, getScale]);
 
@@ -273,11 +285,25 @@ export function EcosystemStage({ graph, onNodeClick, onAddProject }: Props) {
       label.className = "node-label";
       label.textContent = node.name;
 
+      const source = node.evaluation?.source ?? "curated";
+      const compactEvaluationLabel: Record<string, string> = {
+        curated: "Curated",
+        genlayer_evaluated: "Evaluated",
+        pending: "Submitted",
+        needs_review: "Finalized error",
+      };
       const sourceBadge = document.createElement("span");
-      sourceBadge.className = `node-source-badge source-${(node.evaluation?.source ?? "curated").replace(/_/g, "-")}`;
-      sourceBadge.textContent = node.evaluation?.label ?? "Curated";
+      sourceBadge.className = `node-source-badge source-${source.replace(/_/g, "-")}`;
+      sourceBadge.textContent = compactEvaluationLabel[source] ?? node.evaluation?.label ?? "Curated";
+      sourceBadge.title = node.evaluation?.label ?? sourceBadge.textContent;
 
-      if (node.status) {
+      const normalizedStatus = node.status?.toLowerCase().replace(/\s+/g, "_");
+      const statusDuplicatesSource =
+        (source === "needs_review" && normalizedStatus === "needs_review") ||
+        (source === "genlayer_evaluated" && normalizedStatus === "evaluated") ||
+        (source === "pending" && normalizedStatus === "submitted");
+
+      if (node.status && !statusDuplicatesSource) {
         const badge = document.createElement("span");
         badge.className = `node-status status-${node.status.toLowerCase().replace(/\s+/g, "-")}`;
         badge.textContent = node.status;
@@ -486,7 +512,7 @@ export function EcosystemStage({ graph, onNodeClick, onAddProject }: Props) {
           type="button"
           onClick={onAddProject}
         >
-          Pay 1 GEN on Bradbury
+          Pay 0.042 GEN on Bradbury
         </button>
       </div>
     </div>

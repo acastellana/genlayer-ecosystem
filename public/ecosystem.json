@@ -13,7 +13,7 @@
       },
       {
         "type": "bradbury-chain",
-        "note": "Live Bradbury submission tx 0x9df8f43597c891d0fda7d8956aeeaa32df77c3639481f14830640fdad508b70b was verified on-chain and added as pending ecosystem evidence."
+        "note": "Live Bradbury submission tx 0x9df8f43597c891d0fda7d8956aeeaa32df77c3639481f14830640fdad508b70b was verified on-chain and finalized with a GenLayer execution error; future patched submissions use 0.042 GEN."
       }
     ]
   },
@@ -30,7 +30,7 @@
         "x": 50,
         "y": 50
       },
-      "size": 188,
+      "size": 176,
       "tags": [
         "Judicial consensus",
         "Intelligent Contracts",
@@ -70,29 +70,29 @@
       "name": "GenLayer Ecosystem Map",
       "kind": "Bradbury submission",
       "tagline": "This ecosystem app's own repository was submitted on Bradbury for a paid GenLayer evaluation.",
-      "description": "A live Bradbury submission proving the paid-evaluation flow end to end. The repository was submitted with 1 GEN to the existing EcosystemRegistry contract; the app should display it as pending until a contract read path confirms the final GenLayer evaluation state.",
+      "description": "A live Bradbury submission proving the paid-evaluation flow end to end. The repository was submitted with 1 GEN to the previous EcosystemRegistry contract and finalized with a GenLayer execution error; future submissions use 0.042 GEN after redeploying a patched registry.",
       "logo": "assets/logos/genlayer-mark.svg",
       "accent": "#16a34a",
       "position": {
-        "x": 14,
+        "x": 12,
         "y": 50
       },
-      "size": 112,
+      "size": 124,
       "tags": [
         "Live Bradbury tx",
         "Paid evaluation",
         "Ecosystem graph"
       ],
-      "status": "submitted",
+      "status": "needs review",
       "evaluation": {
-        "source": "pending",
-        "label": "Submitted on Bradbury",
+        "source": "needs_review",
+        "label": "Finalized with execution error",
         "network": "Bradbury",
-        "fee": "1 GEN paid",
-        "status": "pending",
+        "fee": "1 GEN paid (legacy; new fee 0.042 GEN)",
+        "status": "execution_error",
         "submittedBy": "0xbe54f979f8b9c97540a0693222b1660bed5c4d28",
         "txUrl": "https://explorer-bradbury.genlayer.com/tx/0x9df8f43597c891d0fda7d8956aeeaa32df77c3639481f14830640fdad508b70b",
-        "note": "Live transaction submitted to EcosystemRegistry.submit_player(url). Display remains pending until the app reads the on-chain evaluation result; payment requested evaluation, not guaranteed placement."
+        "note": "Live transaction submitted to the previous EcosystemRegistry.submit_player(url) and finalized with an execution error. Payment requested evaluation, not guaranteed placement; patched redeploys should use 0.042 GEN."
       },
       "links": [
         {
@@ -119,9 +119,9 @@
       "accent": "#0f172a",
       "position": {
         "x": 22,
-        "y": 30
+        "y": 28
       },
-      "size": 132,
+      "size": 124,
       "tags": [
         "Marketing protocol",
         "Creator rewards",
@@ -150,9 +150,9 @@
       "accent": "#111827",
       "position": {
         "x": 78,
-        "y": 30
+        "y": 28
       },
-      "size": 132,
+      "size": 124,
       "tags": [
         "Debate market",
         "AI jury",
@@ -181,9 +181,9 @@
       "accent": "#991b1b",
       "position": {
         "x": 78,
-        "y": 72
+        "y": 74
       },
-      "size": 140,
+      "size": 126,
       "tags": [
         "Dispute resolution",
         "Evidence review",
@@ -216,9 +216,9 @@
       "accent": "#111827",
       "position": {
         "x": 22,
-        "y": 72
+        "y": 74
       },
-      "size": 126,
+      "size": 124,
       "tags": [
         "Code review",
         "Staked evaluation",
@@ -247,9 +247,9 @@
       "accent": "#0f172a",
       "position": {
         "x": 50,
-        "y": 13
+        "y": 12
       },
-      "size": 130,
+      "size": 122,
       "tags": [
         "External data feeds",
         "Market signals",
@@ -278,9 +278,9 @@
       "accent": "#2563eb",
       "position": {
         "x": 50,
-        "y": 86
+        "y": 88
       },
-      "size": 118,
+      "size": 126,
       "tags": [
         "GenLayer evaluated",
         "Bradbury",
@@ -291,7 +291,7 @@
         "source": "genlayer_evaluated",
         "label": "Evaluated by GenLayer",
         "network": "Bradbury",
-        "fee": "1 GEN paid",
+        "fee": "1 GEN paid (legacy; new fee 0.042 GEN)",
         "status": "accepted",
         "score": 84,
         "confidence": 88,
@@ -313,10 +313,10 @@
       "logo": "assets/logos/genlayer-mark.svg",
       "accent": "#92400e",
       "position": {
-        "x": 86,
-        "y": 52
+        "x": 88,
+        "y": 50
       },
-      "size": 106,
+      "size": 120,
       "tags": [
         "Needs review",
         "Bradbury",
@@ -327,7 +327,7 @@
         "source": "needs_review",
         "label": "Needs review",
         "network": "Bradbury",
-        "fee": "1 GEN paid",
+        "fee": "1 GEN paid (legacy; new fee 0.042 GEN)",
         "status": "needs_review",
         "score": 51,
         "confidence": 61,
@@ -400,7 +400,7 @@
       "source": "genlayer",
       "target": "genlayer-ecosystem-map",
       "label": "evaluates",
-      "note": "Live 1 GEN Bradbury submission for this ecosystem app, currently shown as pending until chain-read evaluation metadata is wired in."
+      "note": "Live Bradbury submission for this ecosystem app; the legacy 1 GEN tx finalized with execution error, while patched submissions use 0.042 GEN."
     }
   ]
 }
