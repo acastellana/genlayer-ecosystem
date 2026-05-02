@@ -50,7 +50,7 @@ The local v2 frontend currently points at the live Bradbury registry deployment:
 - Submission fee: `0.042 GEN`
 - Community action fee: `0.0042 GEN`
 
-The v2 paid flow has been exercised on Bradbury. Deploy, project vote, update proposal, and update vote returned successfully. The submit transaction reached the contract but currently reports `NONDET_DISAGREE`, so the consensus prompt/evaluation path still needs tightening before this should be treated as production-ready.
+The v2 paid flow has been exercised on Bradbury. Deploy, project vote, update proposal, and update vote returned successfully. The submit transaction reached the contract but currently reports `NONDET_DISAGREE`, so this deployment is **not production-ready** and should be treated as a live prototype/checkpoint until a redeployed submit path returns clean `FINISHED_WITH_RETURN`.
 
 The project uses `patch-package` to apply a small `genlayer-js` Bradbury gas workaround after install. This replaces the previous ad-hoc local `node_modules` edit with a tracked patch in `patches/genlayer-js+0.21.1.patch`. The patch only raises the SDK fallback gas and multiplies estimated gas for Bradbury consensus-main transactions; do not commit direct `node_modules` edits.
 
@@ -60,10 +60,10 @@ Bradbury helper scripts:
 # dry-run deploy preflight, no transaction
 node scripts/deploy-bradbury.mjs --contract=contracts/EcosystemRegistry.py
 
-# live deploy, requires an unlocked GenLayer CLI keychain account or DEPLOYER_PRIVATE_KEY
+# live deploy, requires DEPLOYER_PRIVATE_KEY or an unlocked GenLayer CLI keychain account via repo-local keytar
 GENLAYER_ACCOUNT_NAME=party-b node scripts/deploy-bradbury.mjs --send --contract=contracts/EcosystemRegistry.py
 
-# paid write helpers, require ECOSYSTEM_REGISTRY_ADDRESS and unlocked keychain account
+# paid write helpers, require ECOSYSTEM_REGISTRY_ADDRESS and DEPLOYER_PRIVATE_KEY or unlocked keychain account
 ECOSYSTEM_REGISTRY_ADDRESS=0xCc8da31a8a4B283363C67086186a8Fe4Da8A973c node scripts/bradbury-v2-write.mjs vote-project
 ```
 

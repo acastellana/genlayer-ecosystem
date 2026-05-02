@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-import keytar from '/home/albert/.npm-global/lib/node_modules/genlayer/node_modules/keytar/lib/keytar.js';
 import { createAccount, createClient } from 'genlayer-js';
 import { testnetBradbury } from 'genlayer-js/chains';
 
@@ -9,8 +8,19 @@ const SUBMISSION_FEE = 42_000_000_000_000_000n;
 const ACTION_FEE = 4_200_000_000_000_000n;
 const action = process.argv[2];
 if (!CONTRACT_ADDRESS) throw new Error('ECOSYSTEM_REGISTRY_ADDRESS is required');
-const key = await keytar.getPassword('genlayer-cli', `account:${accountName}`);
-if (!key || !/^0x[0-9a-fA-F]{64}$/.test(key)) throw new Error(`No unlocked key for ${accountName}`);
+async function getSignerKey() {
+  if (/^0x[0-9a-fA-F]{64}$/.test(process.env.DEPLOYER_PRIVATE_KEY || '')) return process.env.DEPLOYER_PRIVATE_KEY;
+  let keytar;
+  try {
+    ({ default: keytar } = await import('keytar'));
+  } catch (err) {
+    throw new Error(`Set DEPLOYER_PRIVATE_KEY or install/unlock keytar-backed GenLayer account ${accountName}: ${err.message}`);
+  }
+  const key = await keytar.getPassword('genlayer-cli', `account:${accountName}`);
+  if (!key || !/^0x[0-9a-fA-F]{64}$/.test(key)) throw new Error(`No unlocked key for ${accountName}`);
+  return key;
+}
+const key = await getSignerKey();
 const account = createAccount(key);
 const client = createClient({ chain: testnetBradbury, endpoint: process.env.GENLAYER_RPC_URL || testnetBradbury.rpcUrls.default.http[0], account });
 console.log(JSON.stringify({ accountName, account: account.address, contract: CONTRACT_ADDRESS, action }));

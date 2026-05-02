@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import fs from "node:fs";
 import path from "node:path";
-import keytar from "/home/albert/.npm-global/lib/node_modules/genlayer/node_modules/keytar/lib/keytar.js";
 import { createAccount, createClient } from "genlayer-js";
 import { testnetBradbury } from "genlayer-js/chains";
 
@@ -22,6 +21,12 @@ async function getDeployerKey() {
     return { key: process.env.DEPLOYER_PRIVATE_KEY, source: "DEPLOYER_PRIVATE_KEY" };
   }
   const accountName = process.env.GENLAYER_ACCOUNT_NAME || "party-b";
+  let keytar;
+  try {
+    ({ default: keytar } = await import("keytar"));
+  } catch (err) {
+    throw new Error(`Set DEPLOYER_PRIVATE_KEY or install/unlock keytar-backed GenLayer account ${accountName}: ${err.message}`);
+  }
   const key = await keytar.getPassword("genlayer-cli", `account:${accountName}`);
   if (/^0x[0-9a-fA-F]{64}$/.test(key || "")) {
     return { key, source: `keychain:${accountName}` };
