@@ -14,6 +14,10 @@
       {
         "type": "bradbury-chain",
         "note": "Live Bradbury submission tx 0x9df8f43597c891d0fda7d8956aeeaa32df77c3639481f14830640fdad508b70b was verified on-chain and finalized with a GenLayer execution error; future patched submissions use 0.042 GEN."
+      },
+      {
+        "type": "bradbury-v2-static-sync",
+        "note": "Bradbury v2 static graph sync from 0x761D3C809A570EDC37d0f470A07aE2F74AE4a278; clean submissions are promoted only from public explorer tx evidence and retain tx links."
       }
     ]
   },
@@ -242,7 +246,7 @@
       "name": "Intelligent Oracle",
       "kind": "application",
       "tagline": "External data integration layer for GenLayer.",
-      "description": "Intelligent Oracle (intelligentoracle.com) is your GenLayer integration hub. It pulls real-world signals\u2014weather, crypto prices, sports scores, stock data\u2014and packages them into verifiable on-chain inputs that contracts and juries can actually use. No more hard-coding or manual feeds.",
+      "description": "Intelligent Oracle (intelligentoracle.com) is your GenLayer integration hub. It pulls real-world signals—weather, crypto prices, sports scores, stock data—and packages them into verifiable on-chain inputs that contracts and juries can actually use. No more hard-coding or manual feeds.",
       "logo": "assets/logos/intelligentoracle-logo.svg",
       "accent": "#0f172a",
       "position": {
@@ -339,6 +343,46 @@
           "url": "https://example.com/thin-submission"
         }
       ]
+    },
+    {
+      "id": "genlayer-docs-live-test-20260502c",
+      "name": "GenLayer Docs",
+      "kind": "developer resource",
+      "tagline": "Official documentation promoted from a clean validator-fixed Bradbury v2 submit.",
+      "description": "Official GenLayer documentation for protocol concepts, Intelligent Contracts, tooling, and developer workflow. This entry was promoted from a validator-fixed 0.042 GEN Bradbury v2 submit_project transaction.",
+      "logo": "assets/logos/genlayer-mark.svg",
+      "accent": "#2563eb",
+      "position": {
+        "x": 68,
+        "y": 88
+      },
+      "size": 112,
+      "tags": [
+        "Docs",
+        "Developer tooling",
+        "Bradbury v2"
+      ],
+      "status": "evaluated",
+      "evaluation": {
+        "source": "genlayer_evaluated",
+        "label": "Bradbury v2 evaluated",
+        "network": "Bradbury",
+        "fee": "0.042 GEN",
+        "status": "accepted",
+        "submittedBy": "0xbe54F979f8B9c97540a0693222b1660BED5c4d28",
+        "txUrl": "https://explorer-bradbury.genlayer.com/tx/0x9c5a913733dadf6b40a0242f022a26d887d0a1aa43b5a8de585af3816230e065",
+        "note": "Validator-fixed paid submit retest; finalized with a majority FINISHED_WITH_RETURN consensus round. Explorer execution_result is currently null, so the ledger classifies by consensus evidence."
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://docs.genlayer.com"
+        },
+        {
+          "label": "GenLayer transaction",
+          "url": "https://explorer-bradbury.genlayer.com/tx/0x9c5a913733dadf6b40a0242f022a26d887d0a1aa43b5a8de585af3816230e065"
+        }
+      ]
     }
   ],
   "edges": [
@@ -401,6 +445,12 @@
       "target": "genlayer-ecosystem-map",
       "label": "evaluates",
       "note": "Live Bradbury submission for this ecosystem app; the legacy 1 GEN tx finalized with execution error, while patched submissions use 0.042 GEN."
+    },
+    {
+      "source": "genlayer-docs-live-test-20260502c",
+      "target": "genlayer",
+      "label": "documents",
+      "note": "The documentation explains GenLayer concepts, contracts, and developer workflow."
     }
   ]
 }

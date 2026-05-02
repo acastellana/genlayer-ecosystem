@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-02T14:03:33.461Z",
+  "generatedAt": "2026-05-02T14:31:52.194Z",
   "network": "Bradbury",
   "contractAddress": "0x761D3C809A570EDC37d0f470A07aE2F74AE4a278",
   "explorerBaseUrl": "https://explorer-bradbury.genlayer.com/tx",
@@ -79,6 +79,27 @@
       "kind": "submit_project",
       "projectId": "genlayer-docs-live-test-20260502c",
       "projectUrl": "https://docs.genlayer.com",
+      "projectName": "GenLayer Docs",
+      "projectKind": "developer resource",
+      "description": "Official GenLayer documentation for protocol concepts, Intelligent Contracts, tooling, and developer workflow. This entry was promoted from a validator-fixed 0.042 GEN Bradbury v2 submit_project transaction.",
+      "tagline": "Official documentation promoted from a clean validator-fixed Bradbury v2 submit.",
+      "category": "DEVELOPER TOOLING",
+      "tags": [
+        "Docs",
+        "Developer tooling",
+        "Bradbury v2"
+      ],
+      "relationships": [
+        {
+          "target_id": "genlayer",
+          "label": "documents",
+          "note": "The documentation explains GenLayer concepts, contracts, and developer workflow."
+        }
+      ],
+      "position": {
+        "x": 68,
+        "y": 88
+      },
       "note": "Validator-fixed paid submit retest; finalized with a majority FINISHED_WITH_RETURN consensus round. Explorer execution_result is currently null, so the ledger classifies by consensus evidence.",
       "status": "finalized",
       "executionResult": "unknown",

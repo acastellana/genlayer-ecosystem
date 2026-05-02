@@ -486,7 +486,7 @@ export function EcosystemStage({ graph, liveIndex, onNodeClick, onAddProject }: 
         {liveIndex && (
           <div className="live-index-banner">
             <strong>Live Bradbury prototype</strong>
-            <span>Tx-ledger evidence only — contract state is not yet synced into the static graph.</span>
+            <span>Tx-ledger evidence plus local graph sync — full contract state readback is still pending.</span>
           </div>
         )}
       </header>

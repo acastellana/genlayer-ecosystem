@@ -30,13 +30,14 @@ def test_bradbury_index_documents_tx_ledger_limitations():
     assert all("REDACTED" not in json.dumps(tx) for tx in data["transactions"])
 
 
-def test_ui_surfaces_live_index_without_claiming_state_sync():
+def test_ui_surfaces_live_index_without_claiming_full_contract_state_readback():
     page = PAGE.read_text()
     stage = STAGE.read_text()
     detail = DETAIL.read_text()
     assert "bradbury-v2-index.json" in page
     assert "Live Bradbury prototype" in stage
-    assert "Tx-ledger evidence only" in stage
+    assert "Tx-ledger evidence plus local graph sync" in stage
+    assert "full contract state readback is still pending" in stage
     assert "Live Bradbury evidence" in detail
     assert "not decoded contract-state sync" in detail
     assert "Static graph entries still come from ecosystem.json" in detail

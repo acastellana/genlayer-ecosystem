@@ -42,10 +42,18 @@ export interface BradburyV2Transaction {
   kind: "deploy" | "submit_project" | "vote_project" | "propose_project_update" | "vote_update" | string;
   projectId?: string;
   projectUrl?: string;
+  projectName?: string;
+  projectKind?: string;
+  description?: string;
+  tagline?: string;
+  category?: string;
+  tags?: string[];
+  relationships?: { target_id?: string; target?: string; label?: string; note?: string }[];
   note?: string;
   status: string;
   executionResult: string;
   outcome: "ok" | "warning" | "error" | "unknown" | "unverified" | string;
+  consensusLooksClean?: boolean;
   valueWei?: string;
   fromAddress?: string;
   toAddress?: string;

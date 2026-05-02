@@ -21,6 +21,7 @@ A JSON-driven landing page that maps GenLayer and the projects around it as an i
 - InternetCourt
 - MergeProof
 - Intelligent Oracle
+- GenLayer Docs (live validator-fixed Bradbury v2 submission)
 - Agent Market Demo (mock GenLayer-evaluated entry)
 - Thin Submission (mock needs-review entry)
 
@@ -43,14 +44,15 @@ The first live proof transaction submitted this repository to the previous Bradb
 
 ## Bradbury v2 live registry notes
 
-The local v2 frontend currently points at the live Bradbury registry deployment:
+The local v2 frontend currently points at the validator-fixed live Bradbury registry deployment:
 
-- Contract: `0xCc8da31a8a4B283363C67086186a8Fe4Da8A973c`
-- Deploy tx: https://explorer-bradbury.genlayer.com/tx/0x5542cacbe0e98c988fb812a771746cad30b8e8915dec3f7d1244b92878f07c5a
+- Contract: `0x761D3C809A570EDC37d0f470A07aE2F74AE4a278`
+- Deploy tx: https://explorer-bradbury.genlayer.com/tx/0x4f283f4b105c07e88be068a066efa9207d486a76eeb79788fd2608375d2a8efb
+- Clean submit retest: https://explorer-bradbury.genlayer.com/tx/0x9c5a913733dadf6b40a0242f022a26d887d0a1aa43b5a8de585af3816230e065
 - Submission fee: `0.042 GEN`
 - Community action fee: `0.0042 GEN`
 
-The v2 paid flow has been exercised on Bradbury. Deploy, project vote, update proposal, and update vote returned successfully. The submit transaction reached the contract but currently reports `NONDET_DISAGREE`, so this deployment is **not production-ready** and should be treated as a live prototype/checkpoint until a redeployed submit path returns clean `FINISHED_WITH_RETURN`.
+The v2 paid flow has been exercised on Bradbury. The first submit on the older v2 deployment reported `NONDET_DISAGREE`. The validator-fixed deployment and fresh 0.042 GEN submit retest finalized with majority `FINISHED_WITH_RETURN` consensus evidence. The app is still a prototype because full decoded contract-state readback is not implemented; static graph promotion is currently produced by a conservative local sync script from known public explorer tx evidence.
 
 The project uses `patch-package` to apply a small `genlayer-js` Bradbury gas workaround after install. This replaces the previous ad-hoc local `node_modules` edit with a tracked patch in `patches/genlayer-js+0.21.1.patch`. The patch only raises the SDK fallback gas and multiplies estimated gas for Bradbury consensus-main transactions; do not commit direct `node_modules` edits.
 
@@ -63,14 +65,17 @@ node scripts/deploy-bradbury.mjs --contract=contracts/EcosystemRegistry.py
 # refresh the public explorer transaction ledger used by the local static UI
 node scripts/index-bradbury-v2.mjs
 
+# refresh ledger and conservatively promote clean Bradbury submissions into ecosystem.json/public/ecosystem.json
+npm run bradbury:sync-graph
+
 # live deploy, requires DEPLOYER_PRIVATE_KEY or an unlocked GenLayer CLI keychain account via repo-local keytar
 GENLAYER_ACCOUNT_NAME=party-b node scripts/deploy-bradbury.mjs --send --contract=contracts/EcosystemRegistry.py
 
 # paid write helpers, require ECOSYSTEM_REGISTRY_ADDRESS and DEPLOYER_PRIVATE_KEY or unlocked keychain account
-ECOSYSTEM_REGISTRY_ADDRESS=0xCc8da31a8a4B283363C67086186a8Fe4Da8A973c node scripts/bradbury-v2-write.mjs vote-project
+ECOSYSTEM_REGISTRY_ADDRESS=0x761D3C809A570EDC37d0f470A07aE2F74AE4a278 node scripts/bradbury-v2-write.mjs vote-project
 ```
 
-`public/bradbury-v2-index.json` is a transaction-ledger fallback generated from the public Bradbury explorer API. It lets the UI show public deploy/submit/vote/update evidence and keep `NONDET_DISAGREE` visible, but it is **not decoded full contract-state readback** and does not automatically promote submitted projects into `public/ecosystem.json`. Full live state sync still needs either a supported GenLayer read path or an explorer/API-backed indexer that decodes contract state/events.
+`public/bradbury-v2-index.json` is a transaction-ledger fallback generated from the public Bradbury explorer API. It lets the UI show public deploy/submit/vote/update evidence and keep the older `NONDET_DISAGREE` visible. `scripts/sync-bradbury-v2-graph.mjs` then promotes only clean, metadata-bearing submit proofs into `ecosystem.json` and `public/ecosystem.json` while retaining public tx provenance. This is **not decoded full contract-state readback**; full live state sync still needs either a supported GenLayer read path or an explorer/API-backed indexer that decodes contract state/events.
 
 Do not print or commit private keys, credential-bearing RPC URLs, or `.env` files. Public transaction hashes and public contract addresses are okay.
 

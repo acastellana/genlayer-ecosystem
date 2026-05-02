@@ -10,6 +10,8 @@
     "start": "next start",
     "lint": "next lint",
     "deploy": "npm run build && touch out/.nojekyll && gh-pages -d out",
+    "bradbury:index": "node scripts/index-bradbury-v2.mjs",
+    "bradbury:sync-graph": "node scripts/index-bradbury-v2.mjs && node scripts/sync-bradbury-v2-graph.mjs",
     "postinstall": "patch-package"
   },
   "keywords": [],
