@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { EcosystemGraph, EcosystemNode, BradburyV2Index } from "@/lib/types/graph";
 import { useWallet } from "@/lib/genlayer/wallet";
 import { EXPLORER_TX, REGISTRY_V2_DEPLOYED, getEcosystemRegistry } from "@/lib/contracts/EcosystemRegistry";
+import { fetchBradburyTxStatus, type BradburyExplorerTxStatus } from "@/lib/contracts/bradburyExplorer";
 
 const BASE_PATH = "/genlayer-ecosystem";
 
@@ -19,8 +20,38 @@ export function DetailPanel({ node, graph, liveIndex, onClose }: Props) {
   const [voteStatus, setVoteStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [updateStatus, setUpdateStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [actionHash, setActionHash] = useState("");
+  const [actionTxStatus, setActionTxStatus] = useState<BradburyExplorerTxStatus | null>(null);
+  const [actionStatusNote, setActionStatusNote] = useState("");
   const [updateNote, setUpdateNote] = useState("");
   const [actionError, setActionError] = useState("");
+
+  useEffect(() => {
+    if (!actionHash) return;
+
+    let cancelled = false;
+    let attempts = 0;
+    const poll = async () => {
+      attempts += 1;
+      try {
+        const status = await fetchBradburyTxStatus(actionHash);
+        if (cancelled) return;
+        setActionTxStatus(status);
+        setActionStatusNote(status.summary);
+        if (!status.finalized && attempts < 24) {
+          window.setTimeout(poll, 5000);
+        }
+      } catch (error: any) {
+        if (cancelled) return;
+        setActionStatusNote(`Explorer status not available yet: ${(error?.message ?? String(error)).slice(0, 120)}`);
+        if (attempts < 12) window.setTimeout(poll, 5000);
+      }
+    };
+    void poll();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [actionHash]);
 
   if (!node) return null;
 
@@ -69,6 +100,8 @@ export function DetailPanel({ node, graph, liveIndex, onClose }: Props) {
     try {
       setActionError("");
       setActionHash("");
+      setActionTxStatus(null);
+      setActionStatusNote("");
       setVoteStatus("submitting");
       const signerAddress = await ensureConnected();
       const registry = getEcosystemRegistry(signerAddress);
@@ -98,6 +131,8 @@ export function DetailPanel({ node, graph, liveIndex, onClose }: Props) {
     try {
       setActionError("");
       setActionHash("");
+      setActionTxStatus(null);
+      setActionStatusNote("");
       setUpdateStatus("submitting");
       const signerAddress = await ensureConnected();
       const registry = getEcosystemRegistry(signerAddress);
@@ -194,8 +229,9 @@ export function DetailPanel({ node, graph, liveIndex, onClose }: Props) {
                   <strong>{liveTransactions.length ? `${liveTransactions.length} indexed tx${liveTransactions.length === 1 ? "" : "s"}` : "No matching live tx in local ledger"}</strong>
                 </div>
                 <p>
-                  This is a public explorer transaction ledger, not decoded contract-state sync.
-                  Static graph entries still come from ecosystem.json.
+                  This is a public explorer transaction ledger plus local graph sync, not full decoded
+                  contract-state readback. Newly submitted actions become visible here after the ledger
+                  and graph sync are refreshed.
                 </p>
                 {liveTransactions.length > 0 && (
                   <div className="live-tx-list">
@@ -218,9 +254,10 @@ export function DetailPanel({ node, graph, liveIndex, onClose }: Props) {
             <h3>Community signals</h3>
             <div className="evaluation-card community-card">
               <p>
-                Small paid actions can upvote, downvote, or propose corrections. These are
-                separate accountability transactions; they do not ask consensus to invent graph links.
-                Live writes stay disabled here until the v2 Bradbury registry is deployed.
+                Small paid actions can upvote, downvote, or propose corrections on Bradbury.
+                These are separate accountability transactions; they do not ask consensus to invent
+                graph links. The UI polls explorer finality after each wallet write, while aggregate
+                vote/update state appears after the ledger sync is refreshed.
               </p>
               <div className="community-action-row">
                 <button
@@ -259,7 +296,11 @@ export function DetailPanel({ node, graph, liveIndex, onClose }: Props) {
               {actionError && <p className="submit-status submit-status--error">{actionError}</p>}
               {(voteStatus === "success" || updateStatus === "success") && actionHash && (
                 <p className="submit-status submit-status--success">
-                  Recorded on Bradbury. <a href={EXPLORER_TX(actionHash)} target="_blank" rel="noopener noreferrer">View transaction ↗</a>
+                  Recorded on Bradbury. {actionStatusNote || "Waiting for explorer finality…"}{" "}
+                  <a href={EXPLORER_TX(actionHash)} target="_blank" rel="noopener noreferrer">View transaction ↗</a>
+                  {actionTxStatus?.finalized && actionTxStatus.outcome === "ok" && (
+                    <span className="submit-next-step"> Refresh the Bradbury ledger to surface aggregate community state.</span>
+                  )}
                 </p>
               )}
             </div>

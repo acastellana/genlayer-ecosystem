@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useWallet } from "@/lib/genlayer/wallet";
 import type { EcosystemNode } from "@/lib/types/graph";
 import {
@@ -10,6 +10,7 @@ import {
   type ProjectSubmissionMetadata,
   type RelationshipClaim,
 } from "@/lib/contracts/EcosystemRegistry";
+import { fetchBradburyTxStatus, type BradburyExplorerTxStatus } from "@/lib/contracts/bradburyExplorer";
 
 interface Props {
   isOpen: boolean;
@@ -62,12 +63,43 @@ export function SubmitModal({ isOpen, onClose, existingNodes }: Props) {
   const [relationshipNote, setRelationshipNote] = useState("");
   const [phase, setPhase] = useState<"idle" | "connecting" | "submitting" | "success" | "error">("idle");
   const [txHash, setTxHash] = useState("");
+  const [txStatus, setTxStatus] = useState<BradburyExplorerTxStatus | null>(null);
+  const [statusNote, setStatusNote] = useState("");
   const [errMsg, setErrMsg] = useState("");
 
   const sortedNodes = useMemo(
     () => [...existingNodes].sort((a, b) => a.name.localeCompare(b.name)),
     [existingNodes]
   );
+
+
+  useEffect(() => {
+    if (phase !== "success" || !txHash) return;
+
+    let cancelled = false;
+    let attempts = 0;
+    const poll = async () => {
+      attempts += 1;
+      try {
+        const status = await fetchBradburyTxStatus(txHash);
+        if (cancelled) return;
+        setTxStatus(status);
+        setStatusNote(status.summary);
+        if (!status.finalized && attempts < 24) {
+          window.setTimeout(poll, 5000);
+        }
+      } catch (error: any) {
+        if (cancelled) return;
+        setStatusNote(`Explorer status not available yet: ${(error?.message ?? String(error)).slice(0, 120)}`);
+        if (attempts < 12) window.setTimeout(poll, 5000);
+      }
+    };
+    void poll();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [phase, txHash]);
 
   const handleSubmit = async () => {
     if (!url.trim()) return;
@@ -114,6 +146,8 @@ export function SubmitModal({ isOpen, onClose, existingNodes }: Props) {
         signerAddress = await connectWallet();
       }
       setPhase("submitting");
+      setTxStatus(null);
+      setStatusNote("");
       const registry = getEcosystemRegistry(signerAddress);
       const hash = await registry.submitProject(url.trim(), metadata);
       setTxHash(hash);
@@ -139,6 +173,8 @@ export function SubmitModal({ isOpen, onClose, existingNodes }: Props) {
   const handleClose = () => {
     setPhase("idle");
     setErrMsg("");
+    setTxStatus(null);
+    setStatusNote("");
     onClose();
   };
 
@@ -166,9 +202,10 @@ export function SubmitModal({ isOpen, onClose, existingNodes }: Props) {
           graph metadata; consensus records the evidence-backed evaluation.
         </p>
         <p className="submit-disclaimer">
-          Payment requests verification, not guaranteed listing. Relationship claims can be
-          improved, challenged, upvoted, or downvoted by later paid transactions.
-          Live wallet writes are disabled in this local build until the v2 registry is deployed.
+          Payment requests verification, not guaranteed listing. Relationship claims can be improved,
+          challenged, upvoted, or downvoted by later paid transactions. This local static build can
+          submit live Bradbury transactions; accepted entries appear after the transaction ledger and
+          graph sync are refreshed.
         </p>
 
         <div className="submit-field-grid">
@@ -257,10 +294,13 @@ export function SubmitModal({ isOpen, onClose, existingNodes }: Props) {
 
         {phase === "success" && (
           <p className="submit-status submit-status--success">
-            Submitted! GenLayer is verifying the website on Bradbury and recording the creator metadata.{" "}
+            Submitted to Bradbury. {statusNote || "Waiting for explorer finality…"}{" "}
             <a href={EXPLORER_TX(txHash)} target="_blank" rel="noopener noreferrer">
               View on explorer ↗
             </a>
+            {txStatus?.finalized && txStatus.outcome === "ok" && (
+              <span className="submit-next-step"> Refresh the Bradbury ledger and graph sync to make accepted entries visible to everyone.</span>
+            )}
           </p>
         )}
 

@@ -1,12 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-02T14:31:52.194Z",
+  "generatedAt": "2026-05-02T14:59:42.599Z",
   "network": "Bradbury",
   "contractAddress": "0x761D3C809A570EDC37d0f470A07aE2F74AE4a278",
   "explorerBaseUrl": "https://explorer-bradbury.genlayer.com/tx",
   "source": "bradbury_explorer_tx_ledger",
   "limitations": [
     "state_readback_not_implemented: this file indexes public transaction evidence from the Bradbury explorer API; it is not a decoded full contract-state sync.",
+    "Known transaction metadata is loaded from data/bradbury-v2-known-txs.json or --tx-file; future arbitrary submissions still need event discovery or a supported read path.",
     "Static graph data still comes from public/ecosystem.json unless a future sync step promotes verified entries into that file.",
     "The older indexed submit_project proof predates the validator disagreement fix and reports NONDET_DISAGREE; the validator-fixed submit is tracked separately."
   ],

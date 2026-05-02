@@ -881,6 +881,11 @@ img {
 .submit-status--loading { color: #6b7280; }
 .submit-status--success { color: #059669; }
 .submit-status--success a { color: #059669; font-weight: 600; }
+.submit-next-step {
+  display: block;
+  margin-top: 4px;
+  color: #047857;
+}
 
 /* ── Responsive ─────────────────────────────────────────────────────────── */
 @media (max-width: 880px) {

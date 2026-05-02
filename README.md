@@ -65,6 +65,12 @@ node scripts/deploy-bradbury.mjs --contract=contracts/EcosystemRegistry.py
 # refresh the public explorer transaction ledger used by the local static UI
 node scripts/index-bradbury-v2.mjs
 
+# index a one-off tx without editing the default known-tx metadata file
+node scripts/index-bradbury-v2.mjs 0x<genlayer_tx_hash> --dry-run
+
+# refresh ledger from an alternate metadata file of tx hashes/project metadata
+node scripts/index-bradbury-v2.mjs --tx-file data/bradbury-v2-known-txs.json
+
 # refresh ledger and conservatively promote clean Bradbury submissions into ecosystem.json/public/ecosystem.json
 npm run bradbury:sync-graph
 
@@ -75,7 +81,7 @@ GENLAYER_ACCOUNT_NAME=party-b node scripts/deploy-bradbury.mjs --send --contract
 ECOSYSTEM_REGISTRY_ADDRESS=0x761D3C809A570EDC37d0f470A07aE2F74AE4a278 node scripts/bradbury-v2-write.mjs vote-project
 ```
 
-`public/bradbury-v2-index.json` is a transaction-ledger fallback generated from the public Bradbury explorer API. It lets the UI show public deploy/submit/vote/update evidence and keep the older `NONDET_DISAGREE` visible. `scripts/sync-bradbury-v2-graph.mjs` then promotes only clean, metadata-bearing submit proofs into `ecosystem.json` and `public/ecosystem.json` while retaining public tx provenance. This is **not decoded full contract-state readback**; full live state sync still needs either a supported GenLayer read path or an explorer/API-backed indexer that decodes contract state/events.
+`public/bradbury-v2-index.json` is a transaction-ledger fallback generated from the public Bradbury explorer API. The default tx/project metadata list now lives in `data/bradbury-v2-known-txs.json`, so new known proofs can be added without editing the indexer logic. It lets the UI show public deploy/submit/vote/update evidence and keep the older `NONDET_DISAGREE` visible. `scripts/sync-bradbury-v2-graph.mjs` then promotes only clean, metadata-bearing submit proofs into `ecosystem.json` and `public/ecosystem.json` while retaining public tx provenance. This is **not decoded full contract-state readback**; full live state sync still needs either a supported GenLayer read path or an explorer/API-backed indexer that decodes contract state/events. The browser UI now polls the Bradbury explorer after wallet writes so users get finality/error feedback, but aggregate graph/vote/update state still requires a refreshed ledger/sync.
 
 Do not print or commit private keys, credential-bearing RPC URLs, or `.env` files. Public transaction hashes and public contract addresses are okay.
 
