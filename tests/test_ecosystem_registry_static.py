@@ -57,8 +57,10 @@ def test_contract_records_needs_review_instead_of_throwing_for_fetch_and_llm_par
 def test_submit_modal_collects_creator_metadata():
     assert "Project name" in SUBMIT_MODAL
     assert "Creator description" in SUBMIT_MODAL
-    assert "Relationship target" in SUBMIT_MODAL
+    assert "Relationships" in SUBMIT_MODAL
     assert "Relationship note" in SUBMIT_MODAL
+    assert "+ Add relationship" in SUBMIT_MODAL
+    assert "relationshipDrafts" in SUBMIT_MODAL
     assert "submitProject" in SUBMIT_MODAL
     assert "You provide the" in SUBMIT_MODAL
     assert "graph metadata" in SUBMIT_MODAL

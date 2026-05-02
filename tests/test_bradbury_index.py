@@ -48,3 +48,6 @@ def test_ui_surfaces_live_index_without_claiming_full_contract_state_readback():
     submit = (ROOT / "components" / "SubmitModal.tsx").read_text()
     assert "submit live Bradbury transactions" in submit
     assert "Waiting for explorer finality" in submit
+    assert "relationshipDrafts" in submit
+    assert "+ Add relationship" in submit
+    assert "Each relationship is stored in the submitted metadata" in submit

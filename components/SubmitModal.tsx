@@ -43,6 +43,15 @@ const RELATIONSHIP_OPTIONS = [
   "related to",
 ];
 
+type RelationshipDraft = RelationshipClaim & { clientId: string };
+
+const createRelationshipDraft = (overrides: Partial<RelationshipClaim> = {}): RelationshipDraft => ({
+  clientId: `relationship-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+  target_id: overrides.target_id || "genlayer",
+  label: overrides.label || "related to",
+  note: overrides.note,
+});
+
 function slugify(input: string) {
   return input
     .toLowerCase()
@@ -58,9 +67,7 @@ export function SubmitModal({ isOpen, onClose, existingNodes }: Props) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("OTHER");
-  const [relationshipTarget, setRelationshipTarget] = useState("genlayer");
-  const [relationshipLabel, setRelationshipLabel] = useState("related to");
-  const [relationshipNote, setRelationshipNote] = useState("");
+  const [relationshipDrafts, setRelationshipDrafts] = useState<RelationshipDraft[]>(() => [createRelationshipDraft()]);
   const [phase, setPhase] = useState<"idle" | "connecting" | "submitting" | "success" | "error">("idle");
   const [txHash, setTxHash] = useState("");
   const [txStatus, setTxStatus] = useState<BradburyExplorerTxStatus | null>(null);
@@ -123,13 +130,13 @@ export function SubmitModal({ isOpen, onClose, existingNodes }: Props) {
     }
     setErrMsg("");
 
-    const relationships: RelationshipClaim[] = relationshipTarget
-      ? [{
-          target_id: relationshipTarget,
-          label: relationshipLabel,
-          note: relationshipNote.trim() || undefined,
-        }]
-      : [];
+    const relationships: RelationshipClaim[] = relationshipDrafts
+      .filter((relationship) => relationship.target_id)
+      .map((relationship) => ({
+        target_id: relationship.target_id,
+        label: relationship.label || "related to",
+        note: relationship.note?.trim() || undefined,
+      }));
 
     const metadata: ProjectSubmissionMetadata = {
       id: slugify(name.trim() || url.trim()),
@@ -156,9 +163,7 @@ export function SubmitModal({ isOpen, onClose, existingNodes }: Props) {
       setName("");
       setDescription("");
       setCategory("OTHER");
-      setRelationshipTarget("genlayer");
-      setRelationshipLabel("related to");
-      setRelationshipNote("");
+      setRelationshipDrafts([createRelationshipDraft()]);
     } catch (err: any) {
       const msg = err?.message ?? String(err);
       if (msg.includes("reject") || err?.code === 4001) {
@@ -251,40 +256,77 @@ export function SubmitModal({ isOpen, onClose, existingNodes }: Props) {
               placeholder="One sentence explaining what the project does and how it relates to GenLayer."
             />
           </div>
-          <div className="submit-field">
-            <label className="submit-label" htmlFor="submit-relationship-target">Relationship target</label>
-            <select
-              id="submit-relationship-target"
-              className="submit-input"
-              value={relationshipTarget}
-              onChange={(e) => setRelationshipTarget(e.target.value)}
-            >
-              {sortedNodes.map((node) => (
-                <option key={node.id} value={node.id}>{node.name}</option>
-              ))}
-            </select>
-          </div>
-          <div className="submit-field">
-            <label className="submit-label" htmlFor="submit-relationship-label">Relationship</label>
-            <select
-              id="submit-relationship-label"
-              className="submit-input"
-              value={relationshipLabel}
-              onChange={(e) => setRelationshipLabel(e.target.value)}
-            >
-              {RELATIONSHIP_OPTIONS.map((option) => <option key={option}>{option}</option>)}
-            </select>
-          </div>
           <div className="submit-field submit-field--full">
-            <label className="submit-label" htmlFor="submit-relationship-note">Relationship note</label>
-            <input
-              id="submit-relationship-note"
-              className="submit-input"
-              value={relationshipNote}
-              onChange={(e) => setRelationshipNote(e.target.value)}
-              placeholder="Optional evidence or explanation for this graph link."
-              onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-            />
+            <div className="submit-relationship-header">
+              <div>
+                <label className="submit-label">Relationships</label>
+                <p className="submit-helper">Add every graph link the creator is claiming. Each relationship is stored in the submitted metadata.</p>
+              </div>
+              <button
+                type="button"
+                className="submit-secondary-btn"
+                onClick={() => setRelationshipDrafts((drafts) => [...drafts, createRelationshipDraft()])}
+              >
+                + Add relationship
+              </button>
+            </div>
+            <div className="submit-relationship-list">
+              {relationshipDrafts.map((relationship, index) => (
+                <div className="submit-relationship-row" key={relationship.clientId}>
+                  <div className="submit-field">
+                    <label className="submit-label" htmlFor={`submit-relationship-target-${relationship.clientId}`}>Target {index + 1}</label>
+                    <select
+                      id={`submit-relationship-target-${relationship.clientId}`}
+                      className="submit-input"
+                      value={relationship.target_id}
+                      onChange={(e) => setRelationshipDrafts((drafts) => drafts.map((draft) => (
+                        draft.clientId === relationship.clientId ? { ...draft, target_id: e.target.value } : draft
+                      )))}
+                    >
+                      {sortedNodes.map((node) => (
+                        <option key={node.id} value={node.id}>{node.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="submit-field">
+                    <label className="submit-label" htmlFor={`submit-relationship-label-${relationship.clientId}`}>Relationship</label>
+                    <select
+                      id={`submit-relationship-label-${relationship.clientId}`}
+                      className="submit-input"
+                      value={relationship.label}
+                      onChange={(e) => setRelationshipDrafts((drafts) => drafts.map((draft) => (
+                        draft.clientId === relationship.clientId ? { ...draft, label: e.target.value } : draft
+                      )))}
+                    >
+                      {RELATIONSHIP_OPTIONS.map((option) => <option key={option}>{option}</option>)}
+                    </select>
+                  </div>
+                  <div className="submit-field submit-field--full">
+                    <label className="submit-label" htmlFor={`submit-relationship-note-${relationship.clientId}`}>Relationship note</label>
+                    <input
+                      id={`submit-relationship-note-${relationship.clientId}`}
+                      className="submit-input"
+                      value={relationship.note || ""}
+                      onChange={(e) => setRelationshipDrafts((drafts) => drafts.map((draft) => (
+                        draft.clientId === relationship.clientId ? { ...draft, note: e.target.value } : draft
+                      )))}
+                      placeholder="Optional evidence or explanation for this graph link."
+                      onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+                    />
+                  </div>
+                  {relationshipDrafts.length > 1 && (
+                    <button
+                      type="button"
+                      className="submit-remove-relationship"
+                      onClick={() => setRelationshipDrafts((drafts) => drafts.filter((draft) => draft.clientId !== relationship.clientId))}
+                      aria-label={`Remove relationship ${index + 1}`}
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 

@@ -808,6 +808,53 @@ img {
   resize: vertical;
 }
 
+.submit-helper {
+  margin: 0.2rem 0 0;
+  color: #6b7280;
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.submit-relationship-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.submit-relationship-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.submit-relationship-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  padding: 0.875rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #f9fafb;
+}
+
+.submit-secondary-btn,
+.submit-remove-relationship {
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  background: #fff;
+  color: #111827;
+  cursor: pointer;
+  font: 700 0.78rem/1 var(--font-body);
+  padding: 0.55rem 0.75rem;
+  white-space: nowrap;
+}
+
+.submit-remove-relationship {
+  justify-self: start;
+  color: #b45309;
+}
+
 .community-card {
   background:
     linear-gradient(180deg, rgba(255,255,255,0.82), rgba(255,255,255,0.68)),
