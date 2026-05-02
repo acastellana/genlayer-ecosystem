@@ -96,6 +96,27 @@ npm run dev
 npm run build
 ```
 
+## Testing
+```bash
+# static/unit checks for graph sync, Bradbury ledger generation, and frontend/source assertions
+pytest -q
+
+# in-memory GenLayer direct-mode tests for EcosystemRegistry behavior; no wallet, RPC, Docker, or GEN spend
+npm run test:direct
+
+# contract lint/schema validation
+node --check scripts/index-bradbury-v2.mjs
+node --check scripts/sync-bradbury-v2-graph.mjs
+node --check scripts/deploy-bradbury.mjs
+node --check scripts/bradbury-v2-write.mjs
+python3 -m py_compile contracts/EcosystemRegistry.py
+genvm-lint check contracts/EcosystemRegistry.py
+npx tsc --noEmit
+npm run build
+```
+
+`tests/direct/test_ecosystem_registry_direct.py` exercises constructor seeding/fees, paid `submit_project`, multiple creator relationship claims, metadata normalization, rejected payments/URLs/duplicates, project votes, update proposals/votes, view aggregation, and owner-only fee setters under `gltest`'s in-memory VM. Live Bradbury integration tests remain intentionally manual/opt-in because they require signer access and spend GEN.
+
 ## Data model
 All content lives in `ecosystem.json`.
 
