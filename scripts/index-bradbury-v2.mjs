@@ -5,7 +5,7 @@ import process from "node:process";
 
 const EXPLORER_API = "https://explorer-bradbury.genlayer.com/api/v1";
 const EXPLORER_TX = "https://explorer-bradbury.genlayer.com/tx";
-const CONTRACT_ADDRESS = (process.env.ECOSYSTEM_REGISTRY_ADDRESS || "0xCc8da31a8a4B283363C67086186a8Fe4Da8A973c").trim();
+const CONTRACT_ADDRESS = (process.env.ECOSYSTEM_REGISTRY_ADDRESS || "0x761D3C809A570EDC37d0f470A07aE2F74AE4a278").trim();
 const OUTPUT = process.env.BRADBURY_INDEX_OUTPUT || "public/bradbury-v2-index.json";
 
 const KNOWN_TXS = [
@@ -15,11 +15,23 @@ const KNOWN_TXS = [
     note: "Current live v2 registry deployment before the validator disagreement fix.",
   },
   {
+    hash: "0x4f283f4b105c07e88be068a066efa9207d486a76eeb79788fd2608375d2a8efb",
+    kind: "deploy",
+    note: "Validator-fixed v2 registry deployment; SDK receipt recipient is the active contract address.",
+  },
+  {
     hash: "0xe0ff553073d066d92a624403c9c53df007d69bea03d4faaac5f8080d234913e6",
     kind: "submit_project",
     projectId: "genlayer-docs-live-test-20260502b",
     projectUrl: "https://docs.genlayer.com",
     note: "Paid submit proof; project was usable afterward, but explorer reported NONDET_DISAGREE.",
+  },
+  {
+    hash: "0x9c5a913733dadf6b40a0242f022a26d887d0a1aa43b5a8de585af3816230e065",
+    kind: "submit_project",
+    projectId: "genlayer-docs-live-test-20260502c",
+    projectUrl: "https://docs.genlayer.com",
+    note: "Validator-fixed paid submit retest; finalized with a majority FINISHED_WITH_RETURN consensus round. Explorer execution_result is currently null, so the ledger classifies by consensus evidence.",
   },
   {
     hash: "0xad06a47f83294105329280735437485b7448ad1827cb93d86b0ee6724816d4e9",
@@ -67,11 +79,22 @@ async function fetchTx(hash) {
   return response.json();
 }
 
+function consensusLooksClean(tx) {
+  const rounds = tx.enrichment_data?.rounds || [];
+  return rounds.some((round) => {
+    const validators = round.validators || [];
+    const returnVotes = validators.filter((validator) => validator.vote === "finished_with_return").length;
+    return round.result === "majority_agree" && returnVotes >= 3;
+  });
+}
+
 function classifyOutcome(tx) {
   const result = tx.execution_result || "unknown";
   if (result === "FINISHED_WITH_RETURN") return "ok";
   if (result === "NONDET_DISAGREE") return "warning";
   if (result === "FINISHED_WITH_ERROR") return "error";
+  if (tx.status === "finalized" && consensusLooksClean(tx)) return "ok";
+  if (tx.status === "accepted" && consensusLooksClean(tx)) return "pending_ok";
   return "unknown";
 }
 
@@ -89,6 +112,7 @@ function normalizeTx(meta, apiTx) {
     status: tx.status || "unknown",
     executionResult: tx.execution_result || "unknown",
     outcome: classifyOutcome(tx),
+    consensusLooksClean: consensusLooksClean(tx),
     valueWei,
     fromAddress: tx.from_address,
     toAddress: tx.to_address,
@@ -105,13 +129,19 @@ function summarize(transactions) {
     return acc;
   }, {});
   const hasSubmitWarning = transactions.some((tx) => tx.kind === "submit_project" && tx.executionResult === "NONDET_DISAGREE");
+  const latestSubmit = [...transactions].reverse().find((tx) => tx.kind === "submit_project");
+  const latestSubmitClean = Boolean(latestSubmit && (latestSubmit.executionResult === "FINISHED_WITH_RETURN" || latestSubmit.outcome === "ok" || latestSubmit.outcome === "pending_ok"));
   return {
     totalTransactions: transactions.length,
     outcomes: counts,
-    submitConsensusClean: !hasSubmitWarning,
-    nextLiveStep: hasSubmitWarning
-      ? "Redeploy validator-fixed contract and submit a fresh 0.042 GEN project; expect FINISHED_WITH_RETURN before treating submit consensus as clean."
-      : "Submit evidence is clean for indexed transactions.",
+    submitConsensusClean: latestSubmitClean,
+    nextLiveStep: latestSubmit?.outcome === "pending_ok"
+      ? "Wait for Bradbury finalization of the validator-fixed submit; current consensus evidence is majority FINISHED_WITH_RETURN."
+      : latestSubmitClean
+        ? "Validator-fixed submit evidence is clean for the latest indexed submit. Next product step is full state readback/static graph sync."
+        : hasSubmitWarning
+          ? "Redeploy validator-fixed contract and submit a fresh 0.042 GEN project; expect FINISHED_WITH_RETURN before treating submit consensus as clean."
+          : "Submit evidence is clean for indexed transactions.",
   };
 }
 
@@ -140,7 +170,7 @@ async function main() {
     limitations: [
       "state_readback_not_implemented: this file indexes public transaction evidence from the Bradbury explorer API; it is not a decoded full contract-state sync.",
       "Static graph data still comes from public/ecosystem.json unless a future sync step promotes verified entries into that file.",
-      "The indexed submit_project proof predates the validator disagreement fix and still reports NONDET_DISAGREE.",
+      "The older indexed submit_project proof predates the validator disagreement fix and reports NONDET_DISAGREE; the validator-fixed submit is tracked separately.",
     ],
     summary: summarize(transactions),
     transactions,

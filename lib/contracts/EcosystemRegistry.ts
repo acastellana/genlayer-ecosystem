@@ -1,11 +1,11 @@
 import { createClient } from "genlayer-js";
 import { testnetBradbury } from "genlayer-js/chains";
 
-export const CONTRACT_ADDRESS = "0xCc8da31a8a4B283363C67086186a8Fe4Da8A973c" as `0x${string}`;
+export const CONTRACT_ADDRESS = "0x761D3C809A570EDC37d0f470A07aE2F74AE4a278" as `0x${string}`;
 export const SUBMISSION_FEE = BigInt("42000000000000000"); // 0.042 GEN in wei
 export const ACTION_FEE = BigInt("4200000000000000"); // 0.0042 GEN in wei
 export const RPC_URL = "https://zksync-os-testnet-genlayer.zksync.dev";
-// Bradbury v2 registry deployed and live-flow tested on 2026-05-02.
+// Validator-fixed Bradbury v2 registry deployed and submit-tested on 2026-05-02.
 export const REGISTRY_V2_DEPLOYED = true;
 
 export interface RelationshipClaim {

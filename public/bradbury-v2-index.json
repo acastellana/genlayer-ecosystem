@@ -1,23 +1,23 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-02T12:36:11.072Z",
+  "generatedAt": "2026-05-02T14:03:33.461Z",
   "network": "Bradbury",
-  "contractAddress": "0xCc8da31a8a4B283363C67086186a8Fe4Da8A973c",
+  "contractAddress": "0x761D3C809A570EDC37d0f470A07aE2F74AE4a278",
   "explorerBaseUrl": "https://explorer-bradbury.genlayer.com/tx",
   "source": "bradbury_explorer_tx_ledger",
   "limitations": [
     "state_readback_not_implemented: this file indexes public transaction evidence from the Bradbury explorer API; it is not a decoded full contract-state sync.",
     "Static graph data still comes from public/ecosystem.json unless a future sync step promotes verified entries into that file.",
-    "The indexed submit_project proof predates the validator disagreement fix and still reports NONDET_DISAGREE."
+    "The older indexed submit_project proof predates the validator disagreement fix and reports NONDET_DISAGREE; the validator-fixed submit is tracked separately."
   ],
   "summary": {
-    "totalTransactions": 5,
+    "totalTransactions": 7,
     "outcomes": {
-      "ok": 4,
+      "ok": 6,
       "warning": 1
     },
-    "submitConsensusClean": false,
-    "nextLiveStep": "Redeploy validator-fixed contract and submit a fresh 0.042 GEN project; expect FINISHED_WITH_RETURN before treating submit consensus as clean."
+    "submitConsensusClean": true,
+    "nextLiveStep": "Validator-fixed submit evidence is clean for the latest indexed submit. Next product step is full state readback/static graph sync."
   },
   "transactions": [
     {
@@ -28,10 +28,28 @@
       "status": "finalized",
       "executionResult": "FINISHED_WITH_RETURN",
       "outcome": "ok",
+      "consensusLooksClean": true,
       "valueWei": "0",
       "fromAddress": "0xbe54F979f8B9c97540a0693222b1660BED5c4d28",
       "toAddress": "0x0000000000000000000000000000000000000000",
       "rollupTransactionHash": "0x6e26004326ea4470e8463a8e364057c088b68dba4232634f817cf59e1fc2344c",
+      "transactionType": "CONTRACT_DEPLOYMENT",
+      "consensusRoundCount": 1,
+      "messageCount": 0
+    },
+    {
+      "hash": "0x4f283f4b105c07e88be068a066efa9207d486a76eeb79788fd2608375d2a8efb",
+      "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0x4f283f4b105c07e88be068a066efa9207d486a76eeb79788fd2608375d2a8efb",
+      "kind": "deploy",
+      "note": "Validator-fixed v2 registry deployment; SDK receipt recipient is the active contract address.",
+      "status": "finalized",
+      "executionResult": "FINISHED_WITH_RETURN",
+      "outcome": "ok",
+      "consensusLooksClean": true,
+      "valueWei": "0",
+      "fromAddress": "0xbe54F979f8B9c97540a0693222b1660BED5c4d28",
+      "toAddress": "0x0000000000000000000000000000000000000000",
+      "rollupTransactionHash": "0x5f2122cdc888727fcd639720cc3dc9203a5bca083e94727c955d2709bc0888ca",
       "transactionType": "CONTRACT_DEPLOYMENT",
       "consensusRoundCount": 1,
       "messageCount": 0
@@ -46,10 +64,30 @@
       "status": "finalized",
       "executionResult": "NONDET_DISAGREE",
       "outcome": "warning",
+      "consensusLooksClean": true,
       "valueWei": "42000000000000000",
       "fromAddress": "0xbe54F979f8B9c97540a0693222b1660BED5c4d28",
       "toAddress": "0xCc8da31a8a4B283363C67086186a8Fe4Da8A973c",
       "rollupTransactionHash": "0xa3f4d43b400a3f43769264ec137fa3f6454c8b51bdd1299e66251596fb43640d",
+      "transactionType": "CONTRACT_CALL",
+      "consensusRoundCount": 1,
+      "messageCount": 0
+    },
+    {
+      "hash": "0x9c5a913733dadf6b40a0242f022a26d887d0a1aa43b5a8de585af3816230e065",
+      "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0x9c5a913733dadf6b40a0242f022a26d887d0a1aa43b5a8de585af3816230e065",
+      "kind": "submit_project",
+      "projectId": "genlayer-docs-live-test-20260502c",
+      "projectUrl": "https://docs.genlayer.com",
+      "note": "Validator-fixed paid submit retest; finalized with a majority FINISHED_WITH_RETURN consensus round. Explorer execution_result is currently null, so the ledger classifies by consensus evidence.",
+      "status": "finalized",
+      "executionResult": "unknown",
+      "outcome": "ok",
+      "consensusLooksClean": true,
+      "valueWei": "42000000000000000",
+      "fromAddress": "0xbe54F979f8B9c97540a0693222b1660BED5c4d28",
+      "toAddress": "0x761D3C809A570EDC37d0f470A07aE2F74AE4a278",
+      "rollupTransactionHash": "0x705a1ec0b32d1703c9071a95da659ab5766681bb2cf052f72506ea79172b9b64",
       "transactionType": "CONTRACT_CALL",
       "consensusRoundCount": 1,
       "messageCount": 0
@@ -63,6 +101,7 @@
       "status": "finalized",
       "executionResult": "FINISHED_WITH_RETURN",
       "outcome": "ok",
+      "consensusLooksClean": true,
       "valueWei": "4200000000000000",
       "fromAddress": "0xbe54F979f8B9c97540a0693222b1660BED5c4d28",
       "toAddress": "0xCc8da31a8a4B283363C67086186a8Fe4Da8A973c",
@@ -80,6 +119,7 @@
       "status": "finalized",
       "executionResult": "FINISHED_WITH_RETURN",
       "outcome": "ok",
+      "consensusLooksClean": true,
       "valueWei": "4200000000000000",
       "fromAddress": "0xbe54F979f8B9c97540a0693222b1660BED5c4d28",
       "toAddress": "0xCc8da31a8a4B283363C67086186a8Fe4Da8A973c",
@@ -97,6 +137,7 @@
       "status": "finalized",
       "executionResult": "FINISHED_WITH_RETURN",
       "outcome": "ok",
+      "consensusLooksClean": true,
       "valueWei": "4200000000000000",
       "fromAddress": "0xbe54F979f8B9c97540a0693222b1660BED5c4d28",
       "toAddress": "0xCc8da31a8a4B283363C67086186a8Fe4Da8A973c",

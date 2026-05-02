@@ -17,10 +17,16 @@ def test_bradbury_index_script_is_syntax_valid():
 def test_bradbury_index_documents_tx_ledger_limitations():
     data = json.loads(PUBLIC_INDEX.read_text())
     assert data["source"] == "bradbury_explorer_tx_ledger"
-    assert data["contractAddress"] == "0xCc8da31a8a4B283363C67086186a8Fe4Da8A973c"
+    assert data["contractAddress"] == "0x761D3C809A570EDC37d0f470A07aE2F74AE4a278"
     assert any("state_readback_not_implemented" in item for item in data["limitations"])
-    assert data["summary"]["submitConsensusClean"] is False
+    assert data["summary"]["submitConsensusClean"] is True
     assert any(tx["executionResult"] == "NONDET_DISAGREE" for tx in data["transactions"])
+    assert any(
+        tx.get("projectId") == "genlayer-docs-live-test-20260502c"
+        and tx["outcome"] in {"pending_ok", "ok"}
+        and tx["consensusLooksClean"] is True
+        for tx in data["transactions"]
+    )
     assert all("REDACTED" not in json.dumps(tx) for tx in data["transactions"])
 
 
