@@ -48,7 +48,11 @@ export default function HomePage() {
           onClose={() => setSelectedNode(null)}
         />
       )}
-      <SubmitModal isOpen={showSubmit} onClose={() => setShowSubmit(false)} />
+      <SubmitModal
+        isOpen={showSubmit}
+        onClose={() => setShowSubmit(false)}
+        existingNodes={graph.nodes}
+      />
     </>
   );
 }

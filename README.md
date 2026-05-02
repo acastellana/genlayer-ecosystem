@@ -24,16 +24,17 @@ A JSON-driven landing page that maps GenLayer and the projects around it as an i
 - Agent Market Demo (mock GenLayer-evaluated entry)
 - Thin Submission (mock needs-review entry)
 
-## Bradbury paid-evaluation direction
+## Bradbury verification and community-update direction
 
-The ecosystem page is evolving from a static directory into a Bradbury-native evaluation surface:
+The ecosystem page is evolving from a static directory into a Bradbury-native registry surface:
 
-1. A project owner submits a URL.
+1. A project owner submits a URL plus creator-supplied metadata: name, description, category, and relationship claims.
 2. The wallet pays 0.042 GEN on Bradbury.
-3. The GenLayer AI jury evaluates the project.
-4. Accepted evaluations can appear on the graph with evaluation provenance.
+3. GenLayer consensus verifies the evidence-backed facts: the site is live, not spam, meaningfully related to GenLayer, and explainable from the page content.
+4. GenLayer records an evaluation summary, category, confidence, reason, and evidence. It does **not** invent canonical graph links.
+5. Relationship claims are creator/community metadata. They can be improved, challenged, upvoted, or downvoted by later small-fee Bradbury transactions.
 
-Payment buys evaluation, not guaranteed listing. Rejected, unsafe, unrelated, or thin submissions should remain hidden by default or marked as needs review. Local builds and UI work do not deploy contracts, submit transactions, or use a wallet.
+Payment buys verification, not guaranteed listing. Rejected, unsafe, unrelated, or thin submissions should remain hidden by default or marked as needs review. Local builds and UI work do not deploy contracts, submit transactions, or use a wallet.
 
 The first live proof transaction submitted this repository to the previous Bradbury `EcosystemRegistry.submit_player(url)` contract with 1 GEN and finalized with a GenLayer execution error. Future submissions should use the patched registry flow at 0.042 GEN:
 

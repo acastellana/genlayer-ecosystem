@@ -1,6 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import type { EcosystemGraph, EcosystemNode } from "@/lib/types/graph";
+import { useWallet } from "@/lib/genlayer/wallet";
+import { EXPLORER_TX, REGISTRY_V2_DEPLOYED, getEcosystemRegistry } from "@/lib/contracts/EcosystemRegistry";
 
 const BASE_PATH = "/genlayer-ecosystem";
 
@@ -11,6 +14,13 @@ interface Props {
 }
 
 export function DetailPanel({ node, graph, onClose }: Props) {
+  const { address, isConnected, connectWallet } = useWallet();
+  const [voteStatus, setVoteStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [updateStatus, setUpdateStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [actionHash, setActionHash] = useState("");
+  const [updateNote, setUpdateNote] = useState("");
+  const [actionError, setActionError] = useState("");
+
   if (!node) return null;
 
   const getNodeById = (id: string) => graph.nodes.find((n) => n.id === id);
@@ -38,6 +48,66 @@ export function DetailPanel({ node, graph, onClose }: Props) {
     note: "Seeded by the GenLayer ecosystem map maintainers.",
   };
   const evaluationClass = `evaluation-badge source-${evaluation.source.replace(/_/g, "-")}`;
+
+  const ensureConnected = async () => {
+    if (isConnected && address) return address;
+    return connectWallet();
+  };
+
+  const voteProject = async (support: boolean) => {
+    if (!REGISTRY_V2_DEPLOYED) {
+      setActionError("V2 community transactions are implemented locally, but no Bradbury v2 contract is deployed/configured yet.");
+      return;
+    }
+    try {
+      setActionError("");
+      setActionHash("");
+      setVoteStatus("submitting");
+      const signerAddress = await ensureConnected();
+      const registry = getEcosystemRegistry(signerAddress);
+      const hash = await registry.voteProject(node.id, support);
+      setActionHash(hash);
+      setVoteStatus("success");
+    } catch (err: any) {
+      const msg = err?.message ?? String(err);
+      if (msg.includes("reject") || err?.code === 4001) {
+        setVoteStatus("idle");
+        return;
+      }
+      setActionError(msg.slice(0, 180));
+      setVoteStatus("error");
+    }
+  };
+
+  const proposeUpdate = async () => {
+    if (!REGISTRY_V2_DEPLOYED) {
+      setActionError("V2 community transactions are implemented locally, but no Bradbury v2 contract is deployed/configured yet.");
+      return;
+    }
+    if (!updateNote.trim()) {
+      setActionError("Describe the proposed correction first.");
+      return;
+    }
+    try {
+      setActionError("");
+      setActionHash("");
+      setUpdateStatus("submitting");
+      const signerAddress = await ensureConnected();
+      const registry = getEcosystemRegistry(signerAddress);
+      const hash = await registry.proposeProjectUpdate(node.id, { note: updateNote.trim() });
+      setActionHash(hash);
+      setUpdateNote("");
+      setUpdateStatus("success");
+    } catch (err: any) {
+      const msg = err?.message ?? String(err);
+      if (msg.includes("reject") || err?.code === 4001) {
+        setUpdateStatus("idle");
+        return;
+      }
+      setActionError(msg.slice(0, 180));
+      setUpdateStatus("error");
+    }
+  };
 
   return (
     <div className="detail-panel is-open" role="dialog" aria-modal="true">
@@ -108,6 +178,57 @@ export function DetailPanel({ node, graph, onClose }: Props) {
                 <a href={evaluation.txUrl} target="_blank" rel="noreferrer noopener">
                   View Bradbury transaction ↗
                 </a>
+              )}
+            </div>
+          </section>
+
+          <section>
+            <h3>Community signals</h3>
+            <div className="evaluation-card community-card">
+              <p>
+                Small paid actions can upvote, downvote, or propose corrections. These are
+                separate accountability transactions; they do not ask consensus to invent graph links.
+                Live writes stay disabled here until the v2 Bradbury registry is deployed.
+              </p>
+              <div className="community-action-row">
+                <button
+                  type="button"
+                  className="signal-button signal-button--up"
+                  onClick={() => voteProject(true)}
+                  disabled={voteStatus === "submitting"}
+                >
+                  Upvote · 0.0042 GEN
+                </button>
+                <button
+                  type="button"
+                  className="signal-button signal-button--down"
+                  onClick={() => voteProject(false)}
+                  disabled={voteStatus === "submitting"}
+                >
+                  Downvote · 0.0042 GEN
+                </button>
+              </div>
+              <label className="submit-label" htmlFor="update-note">Propose a correction</label>
+              <textarea
+                id="update-note"
+                className="submit-input submit-textarea"
+                value={updateNote}
+                onChange={(e) => setUpdateNote(e.target.value)}
+                placeholder="Describe a better description, relationship, link, or category."
+              />
+              <button
+                type="button"
+                className="submit-confirm-btn submit-confirm-btn--compact"
+                onClick={proposeUpdate}
+                disabled={updateStatus === "submitting"}
+              >
+                {updateStatus === "submitting" ? "Submitting correction…" : "Propose correction · 0.0042 GEN"}
+              </button>
+              {actionError && <p className="submit-status submit-status--error">{actionError}</p>}
+              {(voteStatus === "success" || updateStatus === "success") && actionHash && (
+                <p className="submit-status submit-status--success">
+                  Recorded on Bradbury. <a href={EXPLORER_TX(actionHash)} target="_blank" rel="noopener noreferrer">View transaction ↗</a>
+                </p>
               )}
             </div>
           </section>

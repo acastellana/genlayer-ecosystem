@@ -70,7 +70,7 @@
       "name": "GenLayer Ecosystem Map",
       "kind": "Bradbury submission",
       "tagline": "This ecosystem app's own repository was submitted on Bradbury for a paid GenLayer evaluation.",
-      "description": "A live Bradbury submission proving the paid-evaluation flow end to end. The repository was submitted with 1 GEN to the previous EcosystemRegistry contract and finalized with a GenLayer execution error; future submissions use 0.042 GEN after redeploying a patched registry.",
+      "description": "A live Bradbury submission proving the paid verification flow end to end. The repository was submitted with 1 GEN to the previous EcosystemRegistry contract and finalized with a GenLayer execution error; future submissions use 0.042 GEN after redeploying a patched registry that verifies websites without inventing graph links.",
       "logo": "assets/logos/genlayer-mark.svg",
       "accent": "#16a34a",
       "position": {
@@ -155,7 +155,7 @@
       "size": 124,
       "tags": [
         "Debate market",
-        "AI jury",
+        "GenLayer consensus",
         "Subjective evaluation"
       ],
       "links": [
@@ -176,7 +176,7 @@
       "name": "InternetCourt",
       "kind": "protocol surface",
       "tagline": "Dispute resolution for the agent economy.",
-      "description": "InternetCourt is a case interface for AI-agent disputes. Parties submit evidence, an AI jury evaluates the record, and the resulting verdict can route back into escrow or application logic. It is the visible courtroom surface for GenLayer-powered adjudication.",
+      "description": "InternetCourt is a case interface for AI-agent disputes. Parties submit evidence, an GenLayer consensus evaluates the record, and the resulting verdict can route back into escrow or application logic. It is the visible courtroom surface for GenLayer-powered adjudication.",
       "logo": "assets/logos/internetcourt-logo.svg",
       "accent": "#991b1b",
       "position": {
@@ -273,7 +273,7 @@
       "name": "Agent Market Demo",
       "kind": "evaluated demo",
       "tagline": "Example project accepted after a paid Bradbury evaluation.",
-      "description": "A mock evaluated ecosystem entry showing how a project can pay 1 GEN for GenLayer to classify, summarize, and connect it to the graph. This is demo data, not a live endorsement.",
+      "description": "A mock evaluated ecosystem entry showing how a project can pay for GenLayer to verify that a website is live, real, and GenLayer-related while the creator supplies relationship claims. This is demo data, not a live endorsement.",
       "logo": "assets/logos/genlayer-mark.svg",
       "accent": "#2563eb",
       "position": {
@@ -295,7 +295,7 @@
         "status": "accepted",
         "score": 84,
         "confidence": 88,
-        "note": "Demo evaluation: relevance and information quality passed the display threshold. Paying requests evaluation; it does not guarantee placement."
+        "note": "Demo evaluation: relevance and information quality passed the display threshold. Paying requests verification; it does not guarantee placement or canonical graph links."
       },
       "links": [
         {
@@ -309,7 +309,7 @@
       "name": "Thin Submission",
       "kind": "pending evaluation",
       "tagline": "Example of a paid submission still awaiting enough signal.",
-      "description": "A mock needs-review entry illustrating that Bradbury payment starts an evaluation, but thin or ambiguous projects are not automatically listed as accepted ecosystem nodes.",
+      "description": "A mock needs-review entry illustrating that Bradbury payment starts verification, but thin or ambiguous projects are not automatically accepted and their relationship claims remain contestable.",
       "logo": "assets/logos/genlayer-mark.svg",
       "accent": "#92400e",
       "position": {
@@ -388,13 +388,13 @@
       "source": "genlayer",
       "target": "demo-agent-market",
       "label": "evaluates",
-      "note": "A paid Bradbury evaluation classified this demo project as graph-eligible."
+      "note": "A paid Bradbury verification classified this demo project as display-eligible; creator/community metadata supplies graph links."
     },
     {
       "source": "genlayer",
       "target": "demo-thin-submission",
       "label": "reviews",
-      "note": "A paid Bradbury evaluation can mark thin submissions as needs review instead of accepted."
+      "note": "A paid Bradbury verification can mark thin submissions as needs review instead of accepted."
     },
     {
       "source": "genlayer",
