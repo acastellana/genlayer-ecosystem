@@ -93,7 +93,7 @@ def _normalize_relationships(raw) -> list[dict]:
     return relationships
 
 
-def _normalize_creator_metadata(url: str, raw_metadata: str | dict) -> dict:
+def _normalize_creator_metadata(url: str, raw_metadata) -> dict:
     try:
         metadata = _parse_json(raw_metadata) if raw_metadata else {}
     except Exception:
@@ -114,7 +114,7 @@ def _normalize_creator_metadata(url: str, raw_metadata: str | dict) -> dict:
     }
 
 
-def _normal_evaluation(url: str, is_live: bool, is_genlayer_related: bool, display_eligible: bool, summary: str, category: str, confidence: int, reason: str, evidence: list[str]) -> dict:
+def _normal_evaluation(url: str, is_live: bool, is_genlayer_related: bool, display_eligible: bool, summary: str, category: str, confidence: int, reason: str, evidence) -> dict:
     if category not in VALID_LABELS:
         category = "OTHER"
     confidence = max(0, min(100, int(confidence)))
@@ -167,10 +167,10 @@ class EcosystemRegistry(gl.Contract):
     player_count: u256
     updates: TreeMap[u256, str]
     update_count: u256
-    project_votes_up: TreeMap[str, u256]
-    project_votes_down: TreeMap[str, u256]
-    update_votes_up: TreeMap[u256, u256]
-    update_votes_down: TreeMap[u256, u256]
+    project_vote_events: TreeMap[u256, str]
+    project_vote_count: u256
+    update_vote_events: TreeMap[u256, str]
+    update_vote_count: u256
 
     def __init__(self, submission_fee: int = DEFAULT_SUBMISSION_FEE, action_fee: int = DEFAULT_ACTION_FEE):
         self.owner = gl.message.sender_address
@@ -178,6 +178,8 @@ class EcosystemRegistry(gl.Contract):
         self.action_fee = u256(action_fee)
         self.player_count = u256(0)
         self.update_count = u256(0)
+        self.project_vote_count = u256(0)
+        self.update_vote_count = u256(0)
 
         owner_hex = _address_to_str(self.owner)
         for i, p in enumerate(SEED_PLAYERS):
@@ -353,10 +355,14 @@ Rules:
         self._require_action_fee()
         if not self._project_exists(project_id):
             raise gl.vm.UserError(f"{ERROR_EXPECTED} Project not found")
-        if support:
-            self.project_votes_up[project_id] = u256(int(self.project_votes_up[project_id]) + 1)
-        else:
-            self.project_votes_down[project_id] = u256(int(self.project_votes_down[project_id]) + 1)
+        vote_id = int(self.project_vote_count)
+        self.project_vote_events[u256(vote_id)] = json.dumps({
+            "id": vote_id,
+            "project_id": project_id,
+            "support": bool(support),
+            "voter": _address_to_str(gl.message.sender_address),
+        })
+        self.project_vote_count = u256(vote_id + 1)
 
     @gl.public.write.payable
     def propose_project_update(self, project_id: str, patch_json: str):
@@ -386,10 +392,14 @@ Rules:
         key = u256(update_id)
         if key not in self.updates:
             raise gl.vm.UserError(f"{ERROR_EXPECTED} Update not found")
-        if support:
-            self.update_votes_up[key] = u256(int(self.update_votes_up[key]) + 1)
-        else:
-            self.update_votes_down[key] = u256(int(self.update_votes_down[key]) + 1)
+        vote_id = int(self.update_vote_count)
+        self.update_vote_events[u256(vote_id)] = json.dumps({
+            "id": vote_id,
+            "update_id": update_id,
+            "support": bool(support),
+            "voter": _address_to_str(gl.message.sender_address),
+        })
+        self.update_vote_count = u256(vote_id + 1)
 
     @gl.public.view
     def get_players(self) -> str:
@@ -410,10 +420,22 @@ Rules:
 
     @gl.public.view
     def get_project_votes(self, project_id: str) -> str:
+        up = 0
+        down = 0
+        for i in range(int(self.project_vote_count)):
+            try:
+                event = json.loads(self.project_vote_events[u256(i)])
+                if event.get("project_id") == project_id:
+                    if event.get("support"):
+                        up += 1
+                    else:
+                        down += 1
+            except Exception:
+                pass
         return json.dumps({
             "project_id": project_id,
-            "up": int(self.project_votes_up[project_id]),
-            "down": int(self.project_votes_down[project_id]),
+            "up": up,
+            "down": down,
         })
 
     @gl.public.view
@@ -422,8 +444,17 @@ Rules:
         for i in range(int(self.update_count)):
             try:
                 update = json.loads(self.updates[u256(i)])
-                update["votes_up"] = int(self.update_votes_up[u256(i)])
-                update["votes_down"] = int(self.update_votes_down[u256(i)])
+                votes_up = 0
+                votes_down = 0
+                for j in range(int(self.update_vote_count)):
+                    event = json.loads(self.update_vote_events[u256(j)])
+                    if int(event.get("update_id", -1)) == i:
+                        if event.get("support"):
+                            votes_up += 1
+                        else:
+                            votes_down += 1
+                update["votes_up"] = votes_up
+                update["votes_down"] = votes_down
                 result.append(update)
             except Exception:
                 pass
