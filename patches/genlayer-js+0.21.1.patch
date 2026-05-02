@@ -1,0 +1,33 @@
+diff --git a/node_modules/genlayer-js/dist/index.js b/node_modules/genlayer-js/dist/index.js
+index a728df5..defa88a 100644
+--- a/node_modules/genlayer-js/dist/index.js
++++ b/node_modules/genlayer-js/dist/index.js
+@@ -833,8 +833,8 @@ var _sendTransaction = async ({
+         value
+       });
+     } catch (err) {
+-      console.error("Gas estimation failed, using default 200_000:", err);
+-      estimatedGas = 200000n;
++      console.error("Gas estimation failed, using default 5_000_000:", err);
++      estimatedGas = 5000000n;
+     }
+     if (validatedSenderAccount?.type === "local") {
+       if (!validatedSenderAccount?.signTransaction) {
+@@ -850,7 +850,7 @@ var _sendTransaction = async ({
+         type: "legacy",
+         nonce: Number(nonce),
+         value,
+-        gas: estimatedGas,
++        gas: estimatedGas * 3n,
+         gasPrice: BigInt(gasPriceHex2),
+         chainId: client.chain.id
+       };
+@@ -887,7 +887,7 @@ var _sendTransaction = async ({
+       to: client.chain.consensusMainContract?.address,
+       data: encodedDataForSend,
+       value: `0x${value.toString(16)}`,
+-      gas: `0x${estimatedGas.toString(16)}`,
++      gas: `0x${(estimatedGas * 3n).toString(16)}`,
+       nonce: `0x${nonceBigInt.toString(16)}`,
+       type: "0x0",
+       // legacy tx

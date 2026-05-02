@@ -1,5 +1,5 @@
-# v0.3.0
-# { "Depends": "py-genlayer:latest" }
+# v0.3.1
+# { "Depends": "py-genlayer:1jb45aa8ynh2a9c9xn3b7qqh8sm5q93hwfp7jqmwsfhh8jpz09h6" }
 from genlayer import *
 import json
 
@@ -77,7 +77,7 @@ def _slug_from_url(url: str) -> str:
     return slug or "submitted-project"
 
 
-def _normalize_relationships(raw) -> list[dict]:
+def _normalize_relationships(raw):
     if not isinstance(raw, list):
         return []
     relationships = []
@@ -93,7 +93,7 @@ def _normalize_relationships(raw) -> list[dict]:
     return relationships
 
 
-def _normalize_creator_metadata(url: str, raw_metadata) -> dict:
+def _normalize_creator_metadata(url: str, raw_metadata):
     try:
         metadata = _parse_json(raw_metadata) if raw_metadata else {}
     except Exception:
@@ -114,7 +114,7 @@ def _normalize_creator_metadata(url: str, raw_metadata) -> dict:
     }
 
 
-def _normal_evaluation(url: str, is_live: bool, is_genlayer_related: bool, display_eligible: bool, summary: str, category: str, confidence: int, reason: str, evidence) -> dict:
+def _normal_evaluation(url: str, is_live: bool, is_genlayer_related: bool, display_eligible: bool, summary: str, category: str, confidence: int, reason: str, evidence):
     if category not in VALID_LABELS:
         category = "OTHER"
     confidence = max(0, min(100, int(confidence)))
@@ -329,10 +329,7 @@ Rules:
                 and validator_result["category"] == leader_data["category"]
             )
 
-        result = gl.vm.run_nondet(leader_fn, validator_fn)
-        if not isinstance(result, gl.vm.Return):
-            raise gl.vm.UserError(f"{ERROR_LLM} Consensus did not return an evaluation")
-        evaluation = result.calldata
+        evaluation = gl.vm.run_nondet_unsafe(leader_fn, validator_fn)
 
         player_id = int(self.player_count)
         status = "accepted" if evaluation["display_eligible"] else "needs_review"

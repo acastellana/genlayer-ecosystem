@@ -41,6 +41,34 @@ The first live proof transaction submitted this repository to the previous Bradb
 - GenLayer tx: https://explorer-bradbury.genlayer.com/tx/0x9df8f43597c891d0fda7d8956aeeaa32df77c3639481f14830640fdad508b70b
 - ZKsync rollup tx: https://zksync-os-testnet-genlayer.explorer.zksync.dev/tx/0xfd0f2b4a1fa9aa99bb253c5ea5c138ac131f1b533e2ef3082226115ccfaf3809
 
+## Bradbury v2 live registry notes
+
+The local v2 frontend currently points at the live Bradbury registry deployment:
+
+- Contract: `0xCc8da31a8a4B283363C67086186a8Fe4Da8A973c`
+- Deploy tx: https://explorer-bradbury.genlayer.com/tx/0x5542cacbe0e98c988fb812a771746cad30b8e8915dec3f7d1244b92878f07c5a
+- Submission fee: `0.042 GEN`
+- Community action fee: `0.0042 GEN`
+
+The v2 paid flow has been exercised on Bradbury. Deploy, project vote, update proposal, and update vote returned successfully. The submit transaction reached the contract but currently reports `NONDET_DISAGREE`, so the consensus prompt/evaluation path still needs tightening before this should be treated as production-ready.
+
+The project uses `patch-package` to apply a small `genlayer-js` Bradbury gas workaround after install. This replaces the previous ad-hoc local `node_modules` edit with a tracked patch in `patches/genlayer-js+0.21.1.patch`. The patch only raises the SDK fallback gas and multiplies estimated gas for Bradbury consensus-main transactions; do not commit direct `node_modules` edits.
+
+Bradbury helper scripts:
+
+```bash
+# dry-run deploy preflight, no transaction
+node scripts/deploy-bradbury.mjs --contract=contracts/EcosystemRegistry.py
+
+# live deploy, requires an unlocked GenLayer CLI keychain account or DEPLOYER_PRIVATE_KEY
+GENLAYER_ACCOUNT_NAME=party-b node scripts/deploy-bradbury.mjs --send --contract=contracts/EcosystemRegistry.py
+
+# paid write helpers, require ECOSYSTEM_REGISTRY_ADDRESS and unlocked keychain account
+ECOSYSTEM_REGISTRY_ADDRESS=0xCc8da31a8a4B283363C67086186a8Fe4Da8A973c node scripts/bradbury-v2-write.mjs vote-project
+```
+
+Do not print or commit private keys, credential-bearing RPC URLs, or `.env` files. Public transaction hashes and public contract addresses are okay.
+
 ## Development
 ```bash
 npm install

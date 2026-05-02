@@ -37,7 +37,8 @@ def test_consensus_verifies_project_not_graph_edges():
 def test_contract_avoids_known_fragile_deployed_patterns():
     assert ".as_hex" not in CONTRACT
     assert "result = gl.vm.run_nondet(leader_fn, validator_fn)\n        evaluation = result.calldata" not in CONTRACT
-    assert "if not isinstance(result, gl.vm.Return)" in CONTRACT
+    assert "evaluation = gl.vm.run_nondet_unsafe(leader_fn, validator_fn)" in CONTRACT
+    assert "if not isinstance(leaders_res, gl.vm.Return)" in CONTRACT
 
 
 def test_contract_records_needs_review_instead_of_throwing_for_fetch_and_llm_parse_failures():
