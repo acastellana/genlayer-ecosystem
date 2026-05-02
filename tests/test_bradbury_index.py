@@ -8,6 +8,7 @@ PUBLIC_INDEX = ROOT / "public" / "bradbury-v2-index.json"
 PAGE = ROOT / "app" / "page.tsx"
 STAGE = ROOT / "components" / "EcosystemStage.tsx"
 DETAIL = ROOT / "components" / "DetailPanel.tsx"
+DOCS_PAGE = ROOT / "app" / "how-it-works" / "page.tsx"
 KNOWN_TXS = ROOT / "data" / "bradbury-v2-known-txs.json"
 
 
@@ -23,6 +24,12 @@ def test_bradbury_index_documents_tx_ledger_limitations():
     known = json.loads(KNOWN_TXS.read_text())
     assert any(tx["hash"] == "0x9c5a913733dadf6b40a0242f022a26d887d0a1aa43b5a8de585af3816230e065" for tx in known)
     assert data["summary"]["submitConsensusClean"] is True
+    assert data["schemaVersion"] >= 2
+    assert data["stateReadback"]["mode"] == "bradbury_explorer_address_probe"
+    assert data["stateReadback"]["status"] in {"available", "blocked", "unavailable"}
+    assert data["community"]["totals"]["upvotes"] >= 1
+    assert data["community"]["totals"]["updateProposals"] >= 1
+    assert any(project["projectId"] == "genlayer-docs-live-test-20260502b" for project in data["community"]["projects"])
     assert any(tx["executionResult"] == "NONDET_DISAGREE" for tx in data["transactions"])
     assert any(
         tx.get("projectId") == "genlayer-docs-live-test-20260502c"
@@ -45,6 +52,14 @@ def test_ui_surfaces_live_index_without_claiming_full_contract_state_readback():
     assert "not full decoded" in detail
     assert "Newly submitted actions become visible here" in detail
     assert "graph sync are refreshed" in detail
+    assert "community-ledger-summary" in detail
+    assert "Indexed votes" in detail
+    docs = DOCS_PAGE.read_text()
+    assert "How the GenLayer ecosystem map works" in docs
+    assert "submit_project(url, metadata_json)" in docs
+    assert "Bradbury explorer txs" in docs
+    assert "Contract state readback" in docs
+    assert "bradbury-v2-index.json" in docs
     submit = (ROOT / "components" / "SubmitModal.tsx").read_text()
     assert "submit live Bradbury transactions" in submit
     assert "Waiting for explorer finality" in submit

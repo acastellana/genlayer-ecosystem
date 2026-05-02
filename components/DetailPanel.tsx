@@ -85,6 +85,10 @@ export function DetailPanel({ node, graph, liveIndex, onClose }: Props) {
     (!!tx.projectUrl && nodeUrls.has(tx.projectUrl)) ||
     (!!node.evaluation?.txUrl && tx.explorerUrl === node.evaluation.txUrl)
   );
+  const communityState = liveIndex?.community?.projects.find((project) => project.projectId === node.id);
+  const indexedCommunityTxs = communityState?.transactions || liveTransactions.filter((tx) =>
+    ["vote_project", "propose_project_update", "vote_update"].includes(tx.kind)
+  );
   const evaluationClass = `evaluation-badge source-${evaluation.source.replace(/_/g, "-")}`;
 
   const ensureConnected = async () => {
@@ -259,6 +263,26 @@ export function DetailPanel({ node, graph, liveIndex, onClose }: Props) {
                 graph links. The UI polls explorer finality after each wallet write, while aggregate
                 vote/update state appears after the ledger sync is refreshed.
               </p>
+              <div className="community-ledger-summary">
+                <div>
+                  <span>Indexed votes</span>
+                  <strong>{communityState ? `${communityState.upvotes} up / ${communityState.downvotes} down` : "0 up / 0 down"}</strong>
+                </div>
+                <div>
+                  <span>Indexed updates</span>
+                  <strong>{communityState ? `${communityState.updateProposals} proposed · ${communityState.updateVotesUp + communityState.updateVotesDown} votes` : "0 proposed · 0 votes"}</strong>
+                </div>
+              </div>
+              {indexedCommunityTxs.length > 0 && (
+                <div className="community-ledger-list">
+                  {indexedCommunityTxs.map((tx) => (
+                    <a key={tx.hash} href={tx.explorerUrl} target="_blank" rel="noreferrer noopener">
+                      <span>{tx.kind.replace(/_/g, " ")}{typeof tx.support === "boolean" ? ` · ${tx.support ? "support" : "oppose"}` : ""}</span>
+                      <strong>{tx.outcome}</strong>
+                    </a>
+                  ))}
+                </div>
+              )}
               <div className="community-action-row">
                 <button
                   type="button"

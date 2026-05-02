@@ -50,6 +50,9 @@ export interface BradburyV2Transaction {
   tags?: string[];
   relationships?: { target_id?: string; target?: string; label?: string; note?: string }[];
   note?: string;
+  support?: boolean;
+  updateId?: number;
+  patch?: Record<string, unknown>;
   status: string;
   executionResult: string;
   outcome: "ok" | "warning" | "error" | "unknown" | "unverified" | string;
@@ -73,6 +76,43 @@ export interface BradburyV2Index {
     outcomes: Record<string, number>;
     submitConsensusClean: boolean;
     nextLiveStep: string;
+  };
+  stateReadback?: {
+    mode: string;
+    status: "available" | "blocked" | "unavailable" | string;
+    contractStateAvailable: boolean;
+    address?: string;
+    addressType?: string;
+    contractPresent?: boolean;
+    balanceWei?: string;
+    nonce?: string;
+    note: string;
+  };
+  community?: {
+    totals: {
+      upvotes: number;
+      downvotes: number;
+      updateProposals: number;
+      updateVotesUp: number;
+      updateVotesDown: number;
+    };
+    projects: Array<{
+      projectId: string;
+      upvotes: number;
+      downvotes: number;
+      updateProposals: number;
+      updateVotesUp: number;
+      updateVotesDown: number;
+      transactions: Array<{
+        hash: string;
+        explorerUrl: string;
+        kind: string;
+        outcome: string;
+        support?: boolean;
+        updateId?: number;
+        note?: string;
+      }>;
+    }>;
   };
   transactions: BradburyV2Transaction[];
   errors?: { hash: string; error: string }[];

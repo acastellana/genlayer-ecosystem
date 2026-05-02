@@ -504,6 +504,12 @@ export function EcosystemStage({ graph, liveIndex, onNodeClick, onAddProject }: 
 
       {/* Bottom toolbar */}
       <div className="bottom-actions">
+        <a
+          className="ghost-button"
+          href={`${BASE_PATH}/how-it-works/`}
+        >
+          How it works
+        </a>
         <button
           className="ghost-button"
           type="button"

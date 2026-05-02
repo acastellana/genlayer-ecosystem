@@ -41,18 +41,23 @@
     "hash": "0xad06a47f83294105329280735437485b7448ad1827cb93d86b0ee6724816d4e9",
     "kind": "vote_project",
     "projectId": "genlayer-docs-live-test-20260502b",
+    "support": true,
     "note": "Paid project upvote proof."
   },
   {
     "hash": "0x102b577aa70fe58647d33e27f547d935b26b3525275111b4fa7a3c6c1a53adfa",
     "kind": "propose_project_update",
     "projectId": "genlayer-docs-live-test-20260502b",
+    "updateId": 0,
+    "patch": { "note": "Live proof that update proposals can be paid and finalized on Bradbury." },
     "note": "Paid update proposal proof."
   },
   {
     "hash": "0x6b481a965033a2539f004b8b1a3826e7fe04c295ca1005bba79bebd62835259a",
     "kind": "vote_update",
     "projectId": "genlayer-docs-live-test-20260502b",
+    "updateId": 0,
+    "support": true,
     "note": "Paid update vote proof."
   }
 ]

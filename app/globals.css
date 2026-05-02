@@ -1039,3 +1039,206 @@ img {
     scroll-behavior: auto !important;
   }
 }
+
+.docs-page-shell {
+  min-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
+  padding: clamp(28px, 6vw, 80px) 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(17, 24, 39, 0.06), transparent 34%),
+    linear-gradient(180deg, #fbfaf7 0%, var(--bg) 100%);
+}
+
+.docs-card {
+  width: min(100%, 840px);
+  padding: clamp(28px, 5vw, 60px);
+  border: 1px solid rgba(17, 24, 39, 0.13);
+  border-radius: 34px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.docs-back-link {
+  display: inline-flex;
+  margin-bottom: 34px;
+  color: rgba(17, 24, 39, 0.64);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.docs-back-link:hover {
+  color: var(--text);
+}
+
+.docs-kicker {
+  margin: 0 0 12px;
+  color: rgba(17, 24, 39, 0.55);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.docs-card h1 {
+  margin: 0 0 24px;
+  max-width: 720px;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 6.4rem);
+  line-height: 0.92;
+  font-weight: 400;
+  letter-spacing: -0.055em;
+}
+
+.docs-card p {
+  margin: 0 0 24px;
+  color: rgba(17, 24, 39, 0.72);
+  font-size: clamp(1.08rem, 2vw, 1.32rem);
+  line-height: 1.58;
+  text-wrap: pretty;
+}
+
+.docs-card .docs-lead {
+  color: rgba(17, 24, 39, 0.82);
+  font-size: clamp(1.22rem, 2.3vw, 1.55rem);
+  line-height: 1.48;
+}
+
+.docs-card code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+
+.docs-card p code {
+  padding: 0.12em 0.36em;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  border-radius: 8px;
+  background: rgba(17, 24, 39, 0.045);
+  color: rgba(17, 24, 39, 0.86);
+  font-size: 0.9em;
+}
+
+.docs-code {
+  margin: 30px 0;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid rgba(17, 24, 39, 0.16);
+  border-radius: 24px;
+  background: #111827;
+  color: #f8fafc;
+  box-shadow: 0 18px 42px rgba(17, 24, 39, 0.16);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.docs-code code {
+  font-size: clamp(0.9rem, 1.6vw, 1.04rem);
+  line-height: 1.75;
+}
+
+.docs-status-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 32px 0 24px;
+}
+
+.docs-status-grid div {
+  padding: 18px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.docs-status-grid span {
+  display: block;
+  margin-bottom: 8px;
+  color: rgba(17, 24, 39, 0.55);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.docs-status-grid strong {
+  display: block;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.docs-footnote {
+  margin-top: 28px !important;
+  padding-top: 22px;
+  border-top: 1px solid rgba(17, 24, 39, 0.12);
+  color: rgba(17, 24, 39, 0.58) !important;
+  font-size: 1rem !important;
+}
+
+.community-ledger-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.community-ledger-summary div {
+  padding: 12px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.68);
+}
+
+.community-ledger-summary span,
+.community-ledger-list span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.community-ledger-summary strong,
+.community-ledger-list strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--text);
+  font-size: 0.92rem;
+}
+
+.community-ledger-list {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.community-ledger-list a {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+}
+
+@media (max-width: 720px) {
+  .docs-status-grid,
+  .community-ledger-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .bottom-actions {
+    left: 18px;
+    right: 18px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .docs-card {
+    border-radius: 24px;
+  }
+}

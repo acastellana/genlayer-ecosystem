@@ -45,12 +45,18 @@ async function loadKnownTxs(filePath) {
   return data;
 }
 
-async function fetchTx(hash) {
-  const response = await fetch(`${EXPLORER_API}/transactions/${hash}`);
-  if (!response.ok) {
-    throw new Error(`Explorer API returned ${response.status} for ${hash}`);
-  }
+async function fetchJson(url) {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`Explorer API returned ${response.status} for ${url}`);
   return response.json();
+}
+
+async function fetchTx(hash) {
+  return fetchJson(`${EXPLORER_API}/transactions/${hash}`);
+}
+
+async function fetchAddress(address) {
+  return fetchJson(`${EXPLORER_API}/address/${address}`);
 }
 
 function consensusLooksClean(tx) {
@@ -90,6 +96,9 @@ function normalizeTx(meta, apiTx) {
     tags: meta.tags,
     relationships: meta.relationships,
     position: meta.position,
+    support: typeof meta.support === "boolean" ? meta.support : undefined,
+    updateId: Number.isInteger(meta.updateId) ? meta.updateId : undefined,
+    patch: meta.patch,
     note: meta.note,
     status: tx.status || "unknown",
     executionResult: tx.execution_result || "unknown",
@@ -102,6 +111,80 @@ function normalizeTx(meta, apiTx) {
     transactionType: tx.transaction_type,
     consensusRoundCount: tx.enrichment_data?.rounds?.length,
     messageCount: tx.enrichment_data?.messages?.length,
+  };
+}
+
+function summarizeCommunity(transactions) {
+  const byProject = {};
+  for (const tx of transactions) {
+    if (!tx.projectId) continue;
+    const entry = byProject[tx.projectId] || {
+      projectId: tx.projectId,
+      upvotes: 0,
+      downvotes: 0,
+      updateProposals: 0,
+      updateVotesUp: 0,
+      updateVotesDown: 0,
+      transactions: [],
+    };
+    if (tx.kind === "vote_project") {
+      if (tx.support === false) entry.downvotes += 1;
+      else entry.upvotes += 1;
+    }
+    if (tx.kind === "propose_project_update") entry.updateProposals += 1;
+    if (tx.kind === "vote_update") {
+      if (tx.support === false) entry.updateVotesDown += 1;
+      else entry.updateVotesUp += 1;
+    }
+    if (["vote_project", "propose_project_update", "vote_update"].includes(tx.kind)) {
+      entry.transactions.push({
+        hash: tx.hash,
+        explorerUrl: tx.explorerUrl,
+        kind: tx.kind,
+        outcome: tx.outcome,
+        support: tx.support,
+        updateId: tx.updateId,
+        note: tx.note,
+      });
+    }
+    byProject[tx.projectId] = entry;
+  }
+  return {
+    projects: Object.values(byProject).filter((project) => project.transactions.length > 0),
+    totals: Object.values(byProject).reduce((acc, project) => {
+      acc.upvotes += project.upvotes;
+      acc.downvotes += project.downvotes;
+      acc.updateProposals += project.updateProposals;
+      acc.updateVotesUp += project.updateVotesUp;
+      acc.updateVotesDown += project.updateVotesDown;
+      return acc;
+    }, { upvotes: 0, downvotes: 0, updateProposals: 0, updateVotesUp: 0, updateVotesDown: 0 }),
+  };
+}
+
+function classifyStateReadback(addressData, error) {
+  if (error) {
+    return {
+      mode: "bradbury_explorer_address_probe",
+      status: "unavailable",
+      contractStateAvailable: false,
+      note: `Explorer address probe failed: ${error.message}`,
+    };
+  }
+  const hasContract = Boolean(addressData?.contract);
+  const addressType = addressData?.address_type || "unknown";
+  return {
+    mode: "bradbury_explorer_address_probe",
+    status: hasContract ? "available" : "blocked",
+    contractStateAvailable: hasContract,
+    address: CONTRACT_ADDRESS,
+    addressType,
+    contractPresent: hasContract,
+    balanceWei: addressData?.account?.balance,
+    nonce: addressData?.account?.nonce,
+    note: hasContract
+      ? "Explorer address metadata exposes a contract object; decoded state readback can be implemented from a supported contract/API path."
+      : `Explorer address metadata currently reports this target as ${addressType}, with no contract object. The app therefore uses public transaction-ledger evidence rather than claiming decoded live contract state.`,
   };
 }
 
@@ -142,8 +225,16 @@ async function main() {
     }
   }
 
+  let addressData = null;
+  let addressError = null;
+  try {
+    addressData = await fetchAddress(CONTRACT_ADDRESS);
+  } catch (error) {
+    addressError = error;
+  }
+
   const index = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     generatedAt: new Date().toISOString(),
     network: "Bradbury",
     contractAddress: CONTRACT_ADDRESS,
@@ -155,7 +246,9 @@ async function main() {
       "Static graph data still comes from public/ecosystem.json unless a future sync step promotes verified entries into that file.",
       "The older indexed submit_project proof predates the validator disagreement fix and reports NONDET_DISAGREE; the validator-fixed submit is tracked separately.",
     ],
+    stateReadback: classifyStateReadback(addressData, addressError),
     summary: summarize(transactions),
+    community: summarizeCommunity(transactions),
     transactions,
     errors,
   };
@@ -164,7 +257,7 @@ async function main() {
   if (!args.dryRun) {
     await writeFile(path.resolve(args.output), body);
   }
-  console.log(JSON.stringify({ output: args.dryRun ? null : args.output, summary: index.summary, errors: errors.length }, null, 2));
+  console.log(JSON.stringify({ output: args.dryRun ? null : args.output, summary: index.summary, stateReadback: index.stateReadback.status, community: index.community.totals, errors: errors.length }, null, 2));
 }
 
 main().catch((error) => {

@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "generatedAt": "2026-05-02T14:59:42.599Z",
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-02T17:39:57.074Z",
   "network": "Bradbury",
   "contractAddress": "0x761D3C809A570EDC37d0f470A07aE2F74AE4a278",
   "explorerBaseUrl": "https://explorer-bradbury.genlayer.com/tx",
@@ -11,6 +11,17 @@
     "Static graph data still comes from public/ecosystem.json unless a future sync step promotes verified entries into that file.",
     "The older indexed submit_project proof predates the validator disagreement fix and reports NONDET_DISAGREE; the validator-fixed submit is tracked separately."
   ],
+  "stateReadback": {
+    "mode": "bradbury_explorer_address_probe",
+    "status": "blocked",
+    "contractStateAvailable": false,
+    "address": "0x761D3C809A570EDC37d0f470A07aE2F74AE4a278",
+    "addressType": "ACCOUNT",
+    "contractPresent": false,
+    "balanceWei": "42000000000000000",
+    "nonce": "1",
+    "note": "Explorer address metadata currently reports this target as ACCOUNT, with no contract object. The app therefore uses public transaction-ledger evidence rather than claiming decoded live contract state."
+  },
   "summary": {
     "totalTransactions": 7,
     "outcomes": {
@@ -19,6 +30,52 @@
     },
     "submitConsensusClean": true,
     "nextLiveStep": "Validator-fixed submit evidence is clean for the latest indexed submit. Next product step is full state readback/static graph sync."
+  },
+  "community": {
+    "projects": [
+      {
+        "projectId": "genlayer-docs-live-test-20260502b",
+        "upvotes": 1,
+        "downvotes": 0,
+        "updateProposals": 1,
+        "updateVotesUp": 1,
+        "updateVotesDown": 0,
+        "transactions": [
+          {
+            "hash": "0xad06a47f83294105329280735437485b7448ad1827cb93d86b0ee6724816d4e9",
+            "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0xad06a47f83294105329280735437485b7448ad1827cb93d86b0ee6724816d4e9",
+            "kind": "vote_project",
+            "outcome": "ok",
+            "support": true,
+            "note": "Paid project upvote proof."
+          },
+          {
+            "hash": "0x102b577aa70fe58647d33e27f547d935b26b3525275111b4fa7a3c6c1a53adfa",
+            "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0x102b577aa70fe58647d33e27f547d935b26b3525275111b4fa7a3c6c1a53adfa",
+            "kind": "propose_project_update",
+            "outcome": "ok",
+            "updateId": 0,
+            "note": "Paid update proposal proof."
+          },
+          {
+            "hash": "0x6b481a965033a2539f004b8b1a3826e7fe04c295ca1005bba79bebd62835259a",
+            "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0x6b481a965033a2539f004b8b1a3826e7fe04c295ca1005bba79bebd62835259a",
+            "kind": "vote_update",
+            "outcome": "ok",
+            "support": true,
+            "updateId": 0,
+            "note": "Paid update vote proof."
+          }
+        ]
+      }
+    ],
+    "totals": {
+      "upvotes": 1,
+      "downvotes": 0,
+      "updateProposals": 1,
+      "updateVotesUp": 1,
+      "updateVotesDown": 0
+    }
   },
   "transactions": [
     {
@@ -119,6 +176,7 @@
       "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0xad06a47f83294105329280735437485b7448ad1827cb93d86b0ee6724816d4e9",
       "kind": "vote_project",
       "projectId": "genlayer-docs-live-test-20260502b",
+      "support": true,
       "note": "Paid project upvote proof.",
       "status": "finalized",
       "executionResult": "FINISHED_WITH_RETURN",
@@ -137,6 +195,10 @@
       "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0x102b577aa70fe58647d33e27f547d935b26b3525275111b4fa7a3c6c1a53adfa",
       "kind": "propose_project_update",
       "projectId": "genlayer-docs-live-test-20260502b",
+      "updateId": 0,
+      "patch": {
+        "note": "Live proof that update proposals can be paid and finalized on Bradbury."
+      },
       "note": "Paid update proposal proof.",
       "status": "finalized",
       "executionResult": "FINISHED_WITH_RETURN",
@@ -155,6 +217,8 @@
       "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0x6b481a965033a2539f004b8b1a3826e7fe04c295ca1005bba79bebd62835259a",
       "kind": "vote_update",
       "projectId": "genlayer-docs-live-test-20260502b",
+      "support": true,
+      "updateId": 0,
       "note": "Paid update vote proof.",
       "status": "finalized",
       "executionResult": "FINISHED_WITH_RETURN",
