@@ -60,12 +60,17 @@ Bradbury helper scripts:
 # dry-run deploy preflight, no transaction
 node scripts/deploy-bradbury.mjs --contract=contracts/EcosystemRegistry.py
 
+# refresh the public explorer transaction ledger used by the local static UI
+node scripts/index-bradbury-v2.mjs
+
 # live deploy, requires DEPLOYER_PRIVATE_KEY or an unlocked GenLayer CLI keychain account via repo-local keytar
 GENLAYER_ACCOUNT_NAME=party-b node scripts/deploy-bradbury.mjs --send --contract=contracts/EcosystemRegistry.py
 
 # paid write helpers, require ECOSYSTEM_REGISTRY_ADDRESS and DEPLOYER_PRIVATE_KEY or unlocked keychain account
 ECOSYSTEM_REGISTRY_ADDRESS=0xCc8da31a8a4B283363C67086186a8Fe4Da8A973c node scripts/bradbury-v2-write.mjs vote-project
 ```
+
+`public/bradbury-v2-index.json` is a transaction-ledger fallback generated from the public Bradbury explorer API. It lets the UI show public deploy/submit/vote/update evidence and keep `NONDET_DISAGREE` visible, but it is **not decoded full contract-state readback** and does not automatically promote submitted projects into `public/ecosystem.json`. Full live state sync still needs either a supported GenLayer read path or an explorer/API-backed indexer that decodes contract state/events.
 
 Do not print or commit private keys, credential-bearing RPC URLs, or `.env` files. Public transaction hashes and public contract addresses are okay.
 

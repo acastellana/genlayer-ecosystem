@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { EcosystemGraph, EcosystemNode } from "@/lib/types/graph";
+import type { EcosystemGraph, EcosystemNode, BradburyV2Index } from "@/lib/types/graph";
 import { useWallet } from "@/lib/genlayer/wallet";
 import { EXPLORER_TX, REGISTRY_V2_DEPLOYED, getEcosystemRegistry } from "@/lib/contracts/EcosystemRegistry";
 
@@ -10,10 +10,11 @@ const BASE_PATH = "/genlayer-ecosystem";
 interface Props {
   node: EcosystemNode | null;
   graph: EcosystemGraph;
+  liveIndex?: BradburyV2Index | null;
   onClose: () => void;
 }
 
-export function DetailPanel({ node, graph, onClose }: Props) {
+export function DetailPanel({ node, graph, liveIndex, onClose }: Props) {
   const { address, isConnected, connectWallet } = useWallet();
   const [voteStatus, setVoteStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [updateStatus, setUpdateStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -47,6 +48,12 @@ export function DetailPanel({ node, graph, onClose }: Props) {
     status: "accepted",
     note: "Seeded by the GenLayer ecosystem map maintainers.",
   };
+  const nodeUrls = new Set((node.links || []).map((link) => link.url));
+  const liveTransactions = (liveIndex?.transactions || []).filter((tx) =>
+    tx.projectId === node.id ||
+    (!!tx.projectUrl && nodeUrls.has(tx.projectUrl)) ||
+    (!!node.evaluation?.txUrl && tx.explorerUrl === node.evaluation.txUrl)
+  );
   const evaluationClass = `evaluation-badge source-${evaluation.source.replace(/_/g, "-")}`;
 
   const ensureConnected = async () => {
@@ -180,6 +187,31 @@ export function DetailPanel({ node, graph, onClose }: Props) {
                 </a>
               )}
             </div>
+            {liveIndex && (
+              <div className="evaluation-card live-evidence-card">
+                <div>
+                  <span className="evaluation-card-label">Live Bradbury evidence</span>
+                  <strong>{liveTransactions.length ? `${liveTransactions.length} indexed tx${liveTransactions.length === 1 ? "" : "s"}` : "No matching live tx in local ledger"}</strong>
+                </div>
+                <p>
+                  This is a public explorer transaction ledger, not decoded contract-state sync.
+                  Static graph entries still come from ecosystem.json.
+                </p>
+                {liveTransactions.length > 0 && (
+                  <div className="live-tx-list">
+                    {liveTransactions.map((tx) => (
+                      <a key={tx.hash} href={tx.explorerUrl} target="_blank" rel="noreferrer noopener" className={`live-tx-pill outcome-${tx.outcome}`}>
+                        <span>{tx.kind}</span>
+                        <strong>{tx.executionResult}</strong>
+                      </a>
+                    ))}
+                  </div>
+                )}
+                {liveIndex.summary && !liveIndex.summary.submitConsensusClean && (
+                  <p className="live-warning">Submit consensus still needs a redeploy/retest: {liveIndex.summary.nextLiveStep}</p>
+                )}
+              </div>
+            )}
           </section>
 
           <section>

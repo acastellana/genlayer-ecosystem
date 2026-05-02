@@ -41,6 +41,9 @@ def test_contract_avoids_known_fragile_deployed_patterns():
     assert "if not isinstance(leaders_res, gl.vm.Return)" in CONTRACT
     assert "validator_result = leader_fn()" not in CONTRACT
     assert "well-formed leader evaluations" in CONTRACT
+    assert 'for field in ["is_live", "is_genlayer_related", "display_eligible"]' in CONTRACT
+    assert 'if not isinstance(confidence, int):' in CONTRACT
+    assert '_safe_str(leader_data.get("category"), "OTHER", 40).upper() not in valid_labels' in CONTRACT
 
 
 def test_contract_records_needs_review_instead_of_throwing_for_fetch_and_llm_parse_failures():

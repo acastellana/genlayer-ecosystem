@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-05-02T12:36:11.072Z",
+  "network": "Bradbury",
+  "contractAddress": "0xCc8da31a8a4B283363C67086186a8Fe4Da8A973c",
+  "explorerBaseUrl": "https://explorer-bradbury.genlayer.com/tx",
+  "source": "bradbury_explorer_tx_ledger",
+  "limitations": [
+    "state_readback_not_implemented: this file indexes public transaction evidence from the Bradbury explorer API; it is not a decoded full contract-state sync.",
+    "Static graph data still comes from public/ecosystem.json unless a future sync step promotes verified entries into that file.",
+    "The indexed submit_project proof predates the validator disagreement fix and still reports NONDET_DISAGREE."
+  ],
+  "summary": {
+    "totalTransactions": 5,
+    "outcomes": {
+      "ok": 4,
+      "warning": 1
+    },
+    "submitConsensusClean": false,
+    "nextLiveStep": "Redeploy validator-fixed contract and submit a fresh 0.042 GEN project; expect FINISHED_WITH_RETURN before treating submit consensus as clean."
+  },
+  "transactions": [
+    {
+      "hash": "0x5542cacbe0e98c988fb812a771746cad30b8e8915dec3f7d1244b92878f07c5a",
+      "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0x5542cacbe0e98c988fb812a771746cad30b8e8915dec3f7d1244b92878f07c5a",
+      "kind": "deploy",
+      "note": "Current live v2 registry deployment before the validator disagreement fix.",
+      "status": "finalized",
+      "executionResult": "FINISHED_WITH_RETURN",
+      "outcome": "ok",
+      "valueWei": "0",
+      "fromAddress": "0xbe54F979f8B9c97540a0693222b1660BED5c4d28",
+      "toAddress": "0x0000000000000000000000000000000000000000",
+      "rollupTransactionHash": "0x6e26004326ea4470e8463a8e364057c088b68dba4232634f817cf59e1fc2344c",
+      "transactionType": "CONTRACT_DEPLOYMENT",
+      "consensusRoundCount": 1,
+      "messageCount": 0
+    },
+    {
+      "hash": "0xe0ff553073d066d92a624403c9c53df007d69bea03d4faaac5f8080d234913e6",
+      "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0xe0ff553073d066d92a624403c9c53df007d69bea03d4faaac5f8080d234913e6",
+      "kind": "submit_project",
+      "projectId": "genlayer-docs-live-test-20260502b",
+      "projectUrl": "https://docs.genlayer.com",
+      "note": "Paid submit proof; project was usable afterward, but explorer reported NONDET_DISAGREE.",
+      "status": "finalized",
+      "executionResult": "NONDET_DISAGREE",
+      "outcome": "warning",
+      "valueWei": "42000000000000000",
+      "fromAddress": "0xbe54F979f8B9c97540a0693222b1660BED5c4d28",
+      "toAddress": "0xCc8da31a8a4B283363C67086186a8Fe4Da8A973c",
+      "rollupTransactionHash": "0xa3f4d43b400a3f43769264ec137fa3f6454c8b51bdd1299e66251596fb43640d",
+      "transactionType": "CONTRACT_CALL",
+      "consensusRoundCount": 1,
+      "messageCount": 0
+    },
+    {
+      "hash": "0xad06a47f83294105329280735437485b7448ad1827cb93d86b0ee6724816d4e9",
+      "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0xad06a47f83294105329280735437485b7448ad1827cb93d86b0ee6724816d4e9",
+      "kind": "vote_project",
+      "projectId": "genlayer-docs-live-test-20260502b",
+      "note": "Paid project upvote proof.",
+      "status": "finalized",
+      "executionResult": "FINISHED_WITH_RETURN",
+      "outcome": "ok",
+      "valueWei": "4200000000000000",
+      "fromAddress": "0xbe54F979f8B9c97540a0693222b1660BED5c4d28",
+      "toAddress": "0xCc8da31a8a4B283363C67086186a8Fe4Da8A973c",
+      "rollupTransactionHash": "0xb12e58e6fed033534808ef9449b969577075bfe9112db045c1d2b4a3f3e7777c",
+      "transactionType": "CONTRACT_CALL",
+      "consensusRoundCount": 1,
+      "messageCount": 0
+    },
+    {
+      "hash": "0x102b577aa70fe58647d33e27f547d935b26b3525275111b4fa7a3c6c1a53adfa",
+      "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0x102b577aa70fe58647d33e27f547d935b26b3525275111b4fa7a3c6c1a53adfa",
+      "kind": "propose_project_update",
+      "projectId": "genlayer-docs-live-test-20260502b",
+      "note": "Paid update proposal proof.",
+      "status": "finalized",
+      "executionResult": "FINISHED_WITH_RETURN",
+      "outcome": "ok",
+      "valueWei": "4200000000000000",
+      "fromAddress": "0xbe54F979f8B9c97540a0693222b1660BED5c4d28",
+      "toAddress": "0xCc8da31a8a4B283363C67086186a8Fe4Da8A973c",
+      "rollupTransactionHash": "0xe4b04594442deaf282ac0a3307379fd956c24da0078f25772de8acd38d79f864",
+      "transactionType": "CONTRACT_CALL",
+      "consensusRoundCount": 3,
+      "messageCount": 0
+    },
+    {
+      "hash": "0x6b481a965033a2539f004b8b1a3826e7fe04c295ca1005bba79bebd62835259a",
+      "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0x6b481a965033a2539f004b8b1a3826e7fe04c295ca1005bba79bebd62835259a",
+      "kind": "vote_update",
+      "projectId": "genlayer-docs-live-test-20260502b",
+      "note": "Paid update vote proof.",
+      "status": "finalized",
+      "executionResult": "FINISHED_WITH_RETURN",
+      "outcome": "ok",
+      "valueWei": "4200000000000000",
+      "fromAddress": "0xbe54F979f8B9c97540a0693222b1660BED5c4d28",
+      "toAddress": "0xCc8da31a8a4B283363C67086186a8Fe4Da8A973c",
+      "rollupTransactionHash": "0x2d773a1cfa2f21ba9f09ef47f98483541713597971db180223ef40bcfa619351",
+      "transactionType": "CONTRACT_CALL",
+      "consensusRoundCount": 1,
+      "messageCount": 0
+    }
+  ],
+  "errors": []
+}

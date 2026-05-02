@@ -87,6 +87,31 @@ img {
   letter-spacing: -0.03em;
 }
 
+.live-index-banner {
+  max-width: 360px;
+  display: grid;
+  gap: 3px;
+  padding: 10px 12px;
+  border: 1px solid rgba(146, 64, 14, 0.24);
+  border-radius: 16px;
+  background: rgba(255, 247, 237, 0.84);
+  color: #7c2d12;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(16px);
+  pointer-events: auto;
+}
+
+.live-index-banner strong {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.live-index-banner span {
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
 .canvas-toolbar {
   display: none;
 }
@@ -595,6 +620,42 @@ img {
   color: rgba(17, 24, 39, 0.78);
   font-size: 0.8rem;
   font-weight: 800;
+}
+
+.live-evidence-card {
+  margin-top: 12px;
+  border-color: rgba(146, 64, 14, 0.22);
+  background: rgba(255, 247, 237, 0.64);
+}
+
+.live-tx-list {
+  display: grid;
+  gap: 8px;
+}
+
+.live-tx-pill {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 11px;
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--text) !important;
+  font-size: 0.78rem;
+}
+
+.live-tx-pill span {
+  color: var(--muted);
+}
+
+.live-tx-pill.outcome-warning strong,
+.live-warning {
+  color: #b45309 !important;
+}
+
+.live-tx-pill.outcome-ok strong {
+  color: #047857;
 }
 
 .link-card,

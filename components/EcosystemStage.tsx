@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useCallback } from "react";
-import type { EcosystemGraph, EcosystemNode } from "@/lib/types/graph";
+import type { EcosystemGraph, EcosystemNode, BradburyV2Index } from "@/lib/types/graph";
 
 const BASE_PATH = "/genlayer-ecosystem";
 
 interface Props {
   graph: EcosystemGraph;
+  liveIndex?: BradburyV2Index | null;
   onNodeClick: (node: EcosystemNode) => void;
   onAddProject: () => void;
 }
@@ -33,7 +34,7 @@ function segmentHitsCircle(
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-export function EcosystemStage({ graph, onNodeClick, onAddProject }: Props) {
+export function EcosystemStage({ graph, liveIndex, onNodeClick, onAddProject }: Props) {
   const stageRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -482,6 +483,12 @@ export function EcosystemStage({ graph, onNodeClick, onAddProject }: Props) {
               </>
             )}
         </h1>
+        {liveIndex && (
+          <div className="live-index-banner">
+            <strong>Live Bradbury prototype</strong>
+            <span>Tx-ledger evidence only — contract state is not yet synced into the static graph.</span>
+          </div>
+        )}
       </header>
 
       {/* Viewport: pan/zoom root */}
