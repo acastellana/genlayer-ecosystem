@@ -1,0 +1,64 @@
+name: Refresh GitHub Pages JSON
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Refresh the Bradbury explorer-backed JSON and redeploy Pages hourly.
+    # GitHub scheduled workflows can be delayed; this is best-effort freshness.
+    - cron: "17 * * * *"
+
+concurrency:
+  group: refresh-pages-json
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Refresh Bradbury JSON and graph
+        run: npm run bradbury:sync-graph
+
+      - name: Validate generated JSON
+        run: |
+          python3 -m json.tool public/bradbury-v2-index.json >/dev/null
+          python3 -m json.tool public/ecosystem.json >/dev/null
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Preserve GitHub Pages marker
+        run: touch out/.nojekyll
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./out
+          force_orphan: true
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          commit_message: "chore: refresh Bradbury JSON and Pages"
