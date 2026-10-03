@@ -1,0 +1,19 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,54178,e=>{"use strict";var a=e.i(43476),s=e.i(71645);let t="/genlayer-ecosystem";function r(){let[e,r]=(0,s.useState)(null);(0,s.useEffect)(()=>{fetch(`${t}/bradbury-v2-index.json`).then(e=>e.ok?e.json():null).then(r).catch(()=>r(null))},[]);let c=e?.stateReadback?.status,l=e?.community?.totals;return(0,a.jsx)("main",{className:"docs-page-shell",children:(0,a.jsxs)("div",{className:"docs-card",children:[(0,a.jsx)("a",{className:"docs-back-link",href:`${t}/`,children:"← Back to map"}),(0,a.jsx)("p",{className:"docs-kicker",children:"Bradbury prototype"}),(0,a.jsx)("h1",{children:"How the GenLayer ecosystem map works"}),(0,a.jsxs)("p",{className:"docs-lead",children:["The map is a static public graph with a small live layer on top. A creator pays ",(0,a.jsx)("strong",{children:"0.042 GEN"})," to ask a GenLayer contract to evaluate a project URL. If the indexed evidence is clean, a local sync can promote that project into the public graph. Community actions cost ",(0,a.jsx)("strong",{children:"0.0042 GEN"})," and are tracked as public accountability transactions."]}),(0,a.jsx)("pre",{className:"docs-code",children:(0,a.jsx)("code",{children:`submit_project(url, metadata_json)
+  value: 0.042 GEN
+
+GenLayer validators check:
+  - is the URL reachable?
+  - is it actually GenLayer-related?
+  - should it be displayed?
+  - what short explanation/evidence supports that?`})}),(0,a.jsx)("p",{children:"Relationship edges are creator claims, not hallucinated by consensus. The submit form can include multiple relationship claims, and the graph sync turns each clean claim into an edge."}),(0,a.jsx)("pre",{className:"docs-code",children:(0,a.jsx)("code",{children:`metadata_json = {
+  "name": "Example Project",
+  "relationships": [
+    { "target_id": "genlayer", "label": "built on" },
+    { "target_id": "rally", "label": "integrates with" }
+  ]
+}`})}),(0,a.jsxs)("p",{children:["Under the hood, the public site does not yet decode full live contract state. It reads ",(0,a.jsx)("code",{children:"bradbury-v2-index.json"}),", a transaction ledger generated from public Bradbury explorer transactions, then reads ",(0,a.jsx)("code",{children:"ecosystem.json"}),", the static graph users see."]}),(0,a.jsx)("pre",{className:"docs-code",children:(0,a.jsx)("code",{children:`Bradbury explorer txs
+  → scripts/index-bradbury-v2.mjs
+  → public/bradbury-v2-index.json
+  → scripts/sync-bradbury-v2-graph.mjs
+  → public/ecosystem.json
+  → GitHub Pages map`})}),(0,a.jsx)("p",{children:"Community votes and update proposals are indexed the same way: the wallet write is real, the explorer transaction is public, and the UI shows indexed counts after the ledger is refreshed."}),(0,a.jsxs)("div",{className:"docs-status-grid",children:[(0,a.jsxs)("div",{children:[(0,a.jsx)("span",{children:"Contract state readback"}),(0,a.jsx)("strong",{children:"available"===c?"decoded state available":"blocked"===c?"ledger evidence only":"unavailable"===c?"address probe unavailable":"checking public ledger"})]}),(0,a.jsxs)("div",{children:[(0,a.jsx)("span",{children:"Indexed community actions"}),(0,a.jsx)("strong",{children:l?`${l.upvotes+l.downvotes} vote${l.upvotes+l.downvotes===1?"":"s"} \xb7 ${l.updateProposals} update${1===l.updateProposals?"":"s"}`:"loading ledger"})]})]}),(0,a.jsx)("p",{className:"docs-footnote",children:"Honest limitation: until Bradbury exposes a reliable decoded state read path for this contract, the app treats explorer transactions as evidence and avoids claiming automatic live state sync."})]})})}e.s(["default",()=>r])}]);
