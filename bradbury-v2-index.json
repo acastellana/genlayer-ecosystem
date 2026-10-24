@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-24T23:11:11.612Z",
+  "network": "Bradbury",
+  "contractAddress": "0x761D3C809A570EDC37d0f470A07aE2F74AE4a278",
+  "explorerBaseUrl": "https://explorer-bradbury.genlayer.com/tx",
+  "source": "bradbury_explorer_tx_ledger",
+  "limitations": [
+    "state_readback_not_implemented: this file indexes public transaction evidence from the Bradbury explorer API; it is not a decoded full contract-state sync.",
+    "Known transaction metadata is loaded from data/bradbury-v2-known-txs.json or --tx-file; future arbitrary submissions still need event discovery or a supported read path.",
+    "Static graph data still comes from public/ecosystem.json unless a future sync step promotes verified entries into that file.",
+    "The older indexed submit_project proof predates the validator disagreement fix and reports NONDET_DISAGREE; the validator-fixed submit is tracked separately."
+  ],
+  "stateReadback": {
+    "mode": "bradbury_explorer_address_probe",
+    "status": "blocked",
+    "contractStateAvailable": false,
+    "address": "0x761D3C809A570EDC37d0f470A07aE2F74AE4a278",
+    "addressType": "ACCOUNT",
+    "contractPresent": false,
+    "balanceWei": "0",
+    "nonce": "0",
+    "note": "Explorer address metadata currently reports this target as ACCOUNT, with no contract object. The app therefore uses public transaction-ledger evidence rather than claiming decoded live contract state."
+  },
+  "summary": {
+    "totalTransactions": 7,
+    "outcomes": {
+      "unverified": 7
+    },
+    "submitConsensusClean": false,
+    "nextLiveStep": "Submit evidence is clean for indexed transactions."
+  },
+  "community": {
+    "projects": [
+      {
+        "projectId": "genlayer-docs-live-test-20260502b",
+        "upvotes": 1,
+        "downvotes": 0,
+        "updateProposals": 1,
+        "updateVotesUp": 1,
+        "updateVotesDown": 0,
+        "transactions": [
+          {
+            "hash": "0xad06a47f83294105329280735437485b7448ad1827cb93d86b0ee6724816d4e9",
+            "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0xad06a47f83294105329280735437485b7448ad1827cb93d86b0ee6724816d4e9",
+            "kind": "vote_project",
+            "outcome": "unverified",
+            "support": true,
+            "note": "Paid project upvote proof."
+          },
+          {
+            "hash": "0x102b577aa70fe58647d33e27f547d935b26b3525275111b4fa7a3c6c1a53adfa",
+            "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0x102b577aa70fe58647d33e27f547d935b26b3525275111b4fa7a3c6c1a53adfa",
+            "kind": "propose_project_update",
+            "outcome": "unverified",
+            "updateId": 0,
+            "note": "Paid update proposal proof."
+          },
+          {
+            "hash": "0x6b481a965033a2539f004b8b1a3826e7fe04c295ca1005bba79bebd62835259a",
+            "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0x6b481a965033a2539f004b8b1a3826e7fe04c295ca1005bba79bebd62835259a",
+            "kind": "vote_update",
+            "outcome": "unverified",
+            "support": true,
+            "updateId": 0,
+            "note": "Paid update vote proof."
+          }
+        ]
+      }
+    ],
+    "totals": {
+      "upvotes": 1,
+      "downvotes": 0,
+      "updateProposals": 1,
+      "updateVotesUp": 1,
+      "updateVotesDown": 0
+    }
+  },
+  "transactions": [
+    {
+      "hash": "0x5542cacbe0e98c988fb812a771746cad30b8e8915dec3f7d1244b92878f07c5a",
+      "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0x5542cacbe0e98c988fb812a771746cad30b8e8915dec3f7d1244b92878f07c5a",
+      "kind": "deploy",
+      "note": "Current live v2 registry deployment before the validator disagreement fix.",
+      "status": "unknown",
+      "executionResult": "unknown",
+      "outcome": "unverified",
+      "consensusLooksClean": false,
+      "verificationError": "Explorer API returned 404 for https://explorer-bradbury.genlayer.com/api/v1/transactions/0x5542cacbe0e98c988fb812a771746cad30b8e8915dec3f7d1244b92878f07c5a"
+    },
+    {
+      "hash": "0x4f283f4b105c07e88be068a066efa9207d486a76eeb79788fd2608375d2a8efb",
+      "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0x4f283f4b105c07e88be068a066efa9207d486a76eeb79788fd2608375d2a8efb",
+      "kind": "deploy",
+      "note": "Validator-fixed v2 registry deployment; SDK receipt recipient is the active contract address.",
+      "status": "unknown",
+      "executionResult": "unknown",
+      "outcome": "unverified",
+      "consensusLooksClean": false,
+      "verificationError": "Explorer API returned 404 for https://explorer-bradbury.genlayer.com/api/v1/transactions/0x4f283f4b105c07e88be068a066efa9207d486a76eeb79788fd2608375d2a8efb"
+    },
+    {
+      "hash": "0xe0ff553073d066d92a624403c9c53df007d69bea03d4faaac5f8080d234913e6",
+      "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0xe0ff553073d066d92a624403c9c53df007d69bea03d4faaac5f8080d234913e6",
+      "kind": "submit_project",
+      "projectId": "genlayer-docs-live-test-20260502b",
+      "projectUrl": "https://docs.genlayer.com",
+      "note": "Paid submit proof; project was usable afterward, but explorer reported NONDET_DISAGREE.",
+      "status": "unknown",
+      "executionResult": "unknown",
+      "outcome": "unverified",
+      "consensusLooksClean": false,
+      "verificationError": "Explorer API returned 404 for https://explorer-bradbury.genlayer.com/api/v1/transactions/0xe0ff553073d066d92a624403c9c53df007d69bea03d4faaac5f8080d234913e6"
+    },
+    {
+      "hash": "0x9c5a913733dadf6b40a0242f022a26d887d0a1aa43b5a8de585af3816230e065",
+      "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0x9c5a913733dadf6b40a0242f022a26d887d0a1aa43b5a8de585af3816230e065",
+      "kind": "submit_project",
+      "projectId": "genlayer-docs-live-test-20260502c",
+      "projectUrl": "https://docs.genlayer.com",
+      "projectName": "GenLayer Docs",
+      "projectKind": "developer resource",
+      "description": "Official GenLayer documentation for protocol concepts, Intelligent Contracts, tooling, and developer workflow. This entry was promoted from a validator-fixed 0.042 GEN Bradbury v2 submit_project transaction.",
+      "tagline": "Official documentation promoted from a clean validator-fixed Bradbury v2 submit.",
+      "category": "DEVELOPER TOOLING",
+      "tags": [
+        "Docs",
+        "Developer tooling",
+        "Bradbury v2"
+      ],
+      "relationships": [
+        {
+          "target_id": "genlayer",
+          "label": "documents",
+          "note": "The documentation explains GenLayer concepts, contracts, and developer workflow."
+        }
+      ],
+      "position": {
+        "x": 68,
+        "y": 88
+      },
+      "note": "Validator-fixed paid submit retest; finalized with a majority FINISHED_WITH_RETURN consensus round. Explorer execution_result is currently null, so the ledger classifies by consensus evidence.",
+      "status": "unknown",
+      "executionResult": "unknown",
+      "outcome": "unverified",
+      "consensusLooksClean": false,
+      "verificationError": "Explorer API returned 404 for https://explorer-bradbury.genlayer.com/api/v1/transactions/0x9c5a913733dadf6b40a0242f022a26d887d0a1aa43b5a8de585af3816230e065"
+    },
+    {
+      "hash": "0xad06a47f83294105329280735437485b7448ad1827cb93d86b0ee6724816d4e9",
+      "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0xad06a47f83294105329280735437485b7448ad1827cb93d86b0ee6724816d4e9",
+      "kind": "vote_project",
+      "projectId": "genlayer-docs-live-test-20260502b",
+      "support": true,
+      "note": "Paid project upvote proof.",
+      "status": "unknown",
+      "executionResult": "unknown",
+      "outcome": "unverified",
+      "consensusLooksClean": false,
+      "verificationError": "Explorer API returned 404 for https://explorer-bradbury.genlayer.com/api/v1/transactions/0xad06a47f83294105329280735437485b7448ad1827cb93d86b0ee6724816d4e9"
+    },
+    {
+      "hash": "0x102b577aa70fe58647d33e27f547d935b26b3525275111b4fa7a3c6c1a53adfa",
+      "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0x102b577aa70fe58647d33e27f547d935b26b3525275111b4fa7a3c6c1a53adfa",
+      "kind": "propose_project_update",
+      "projectId": "genlayer-docs-live-test-20260502b",
+      "updateId": 0,
+      "patch": {
+        "note": "Live proof that update proposals can be paid and finalized on Bradbury."
+      },
+      "note": "Paid update proposal proof.",
+      "status": "unknown",
+      "executionResult": "unknown",
+      "outcome": "unverified",
+      "consensusLooksClean": false,
+      "verificationError": "Explorer API returned 404 for https://explorer-bradbury.genlayer.com/api/v1/transactions/0x102b577aa70fe58647d33e27f547d935b26b3525275111b4fa7a3c6c1a53adfa"
+    },
+    {
+      "hash": "0x6b481a965033a2539f004b8b1a3826e7fe04c295ca1005bba79bebd62835259a",
+      "explorerUrl": "https://explorer-bradbury.genlayer.com/tx/0x6b481a965033a2539f004b8b1a3826e7fe04c295ca1005bba79bebd62835259a",
+      "kind": "vote_update",
+      "projectId": "genlayer-docs-live-test-20260502b",
+      "support": true,
+      "updateId": 0,
+      "note": "Paid update vote proof.",
+      "status": "unknown",
+      "executionResult": "unknown",
+      "outcome": "unverified",
+      "consensusLooksClean": false,
+      "verificationError": "Explorer API returned 404 for https://explorer-bradbury.genlayer.com/api/v1/transactions/0x6b481a965033a2539f004b8b1a3826e7fe04c295ca1005bba79bebd62835259a"
+    }
+  ],
+  "errors": [
+    {
+      "hash": "0x5542cacbe0e98c988fb812a771746cad30b8e8915dec3f7d1244b92878f07c5a",
+      "error": "Explorer API returned 404 for https://explorer-bradbury.genlayer.com/api/v1/transactions/0x5542cacbe0e98c988fb812a771746cad30b8e8915dec3f7d1244b92878f07c5a"
+    },
+    {
+      "hash": "0x4f283f4b105c07e88be068a066efa9207d486a76eeb79788fd2608375d2a8efb",
+      "error": "Explorer API returned 404 for https://explorer-bradbury.genlayer.com/api/v1/transactions/0x4f283f4b105c07e88be068a066efa9207d486a76eeb79788fd2608375d2a8efb"
+    },
+    {
+      "hash": "0xe0ff553073d066d92a624403c9c53df007d69bea03d4faaac5f8080d234913e6",
+      "error": "Explorer API returned 404 for https://explorer-bradbury.genlayer.com/api/v1/transactions/0xe0ff553073d066d92a624403c9c53df007d69bea03d4faaac5f8080d234913e6"
+    },
+    {
+      "hash": "0x9c5a913733dadf6b40a0242f022a26d887d0a1aa43b5a8de585af3816230e065",
+      "error": "Explorer API returned 404 for https://explorer-bradbury.genlayer.com/api/v1/transactions/0x9c5a913733dadf6b40a0242f022a26d887d0a1aa43b5a8de585af3816230e065"
+    },
+    {
+      "hash": "0xad06a47f83294105329280735437485b7448ad1827cb93d86b0ee6724816d4e9",
+      "error": "Explorer API returned 404 for https://explorer-bradbury.genlayer.com/api/v1/transactions/0xad06a47f83294105329280735437485b7448ad1827cb93d86b0ee6724816d4e9"
+    },
+    {
+      "hash": "0x102b577aa70fe58647d33e27f547d935b26b3525275111b4fa7a3c6c1a53adfa",
+      "error": "Explorer API returned 404 for https://explorer-bradbury.genlayer.com/api/v1/transactions/0x102b577aa70fe58647d33e27f547d935b26b3525275111b4fa7a3c6c1a53adfa"
+    },
+    {
+      "hash": "0x6b481a965033a2539f004b8b1a3826e7fe04c295ca1005bba79bebd62835259a",
+      "error": "Explorer API returned 404 for https://explorer-bradbury.genlayer.com/api/v1/transactions/0x6b481a965033a2539f004b8b1a3826e7fe04c295ca1005bba79bebd62835259a"
+    }
+  ]
+}
